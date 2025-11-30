@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Knowledge Quiz Hub - C++ Attendance System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6, #50fa7b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.3rem;
+        }
+
+        .info-banner {
+            background: rgba(0, 217, 255, 0.1);
+            border-left: 4px solid #00d9ff;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .quiz-card {
+            background: rgba(26, 31, 58, 0.6);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+
+        .quiz-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-title {
+            font-size: 1.5rem;
+            color: #00d9ff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-desc {
+            color: #a8b3cf;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .quiz-questions {
+            background: rgba(0, 217, 255, 0.2);
+            color: #00d9ff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .quiz-difficulty {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .diff-beginner {
+            background: rgba(80, 250, 123, 0.2);
+            color: #50fa7b;
+        }
+
+        .diff-intermediate {
+            background: rgba(241, 250, 140, 0.2);
+            color: #f1fa8c;
+        }
+
+        .diff-advanced {
+            background: rgba(255, 121, 198, 0.2);
+            color: #ff79c6;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🎯 Knowledge Quiz Hub</h1>
+            <p class="subtitle">Test your mastery of the C++ Attendance System</p>
+        </div>
+
+        <div class="info-banner">
+            <strong style="color: #00d9ff;">📊 Total: 126 Questions across 8 categories</strong><br>
+            Select a category below to start your quiz journey. Each quiz is self-contained with instant feedback and
+            detailed explanations.
+        </div>
+
+        <div class="quiz-grid">
+            <!-- Foundations Quiz -->
+            <a href="quiz-foundations.html" class="quiz-card">
+                <div class="quiz-icon">🏗️</div>
+                <div class="quiz-title">System Foundations</div>
+                <div class="quiz-desc">
+                    Headers, ANSI codes, data structures, buffer management, string parsing, and Zeller's algorithm
+                </div>
+                <div class="quiz-meta">
+                    <span class="quiz-questions">20 Questions</span>
+                    <span class="quiz-difficulty diff-beginner">Beginner</span>
+                </div>
+            </a>
+
+            <!-- File I/O Quiz -->
+            <a href="quiz-file-io.html" class="quiz-card">
+                <div class="quiz-icon">💾</div>
+                <div class="quiz-title">File I/O & Windows APIs</div>
+                <div class="quiz-desc">
+                    Windows file system APIs, CSV structure, directory operations, and data persistence
+                </div>
+                <div class="quiz-meta">
+                    <span class="quiz-questions">15 Questions</span>
+                    <span class="quiz-difficulty diff-advanced">Advanced</span>
+                </div>
+            </a>
+
+            <!-- Major Features Quiz -->
+            <a href="quiz-major-features.html" class="quiz-card">
+                <div class="quiz-icon">🚀</div>
+                <div class="quiz-title">Major Features</div>
+                <div class="quiz-desc">
+                    Six core functions, menu navigation, attendance marking, and status viewing
+                </div>
+                <div class="quiz-meta">
+                    <span class="quiz-questions">15 Questions</span>
+                    <span class="quiz-difficulty diff-intermediate">Intermediate</span>
+                </div>
+            </a>
+
+            <!-- Constructor & Main Quiz -->
+            <a href="quiz-constructor-main.html" class="quiz-card">
+                <div class="quiz-icon">🎯</div>
+                <div class="quiz-title">Constructor & main()</div>
+                <div class="quiz-desc">
+                    Windows console setup, UTF-8 encoding, ANSI enabling, and program initialization
+                </div>
+                <div class="quiz-meta">
+                    <span class="quiz-questions">12 Questions</span>
+                    <span class="quiz-difficulty diff-intermediate">Intermediate</span>
+                </div>
+            </a>
+
+            <!-- Error & Validation Quiz -->
+            <a href="quiz-error-validation.html" class="quiz-card">
+                <div class="quiz-icon">⚠️</div>
+                <div class="quiz-title">Error & Validation</div>
+                <div class="quiz-desc">
+                    23 error messages, 8 validations, buffer scenarios, and input validation logic
+                </div>
+                <div class="quiz-meta">
+                    <span class="quiz-questions">15 Questions</span>
+                    <span class="quiz-difficulty diff-advanced">Advanced</span>
+                </div>
+            </a>
+
+            <!-- Helper Functions Quiz -->
+            <a href="quiz-helper-functions.html" class="quiz-card">
+                <div class="quiz-icon">⚙️</div>
+                <div class="quiz-title">Helper Functions</div>
+                <div class="quiz-desc">
+                    All 24 utility functions covering file ops, data queries, date/time, and attendance logic
+                </div>
+                <div class="quiz-meta">
+                    <span class="quiz-questions">15 Questions</span>
+                    <span class="quiz-difficulty diff-intermediate">Intermediate</span>
+                </div>
+            </a>
+
+            <!-- Complete System Reference Quiz -->
+            <a href="quiz-complete-reference.html" class="quiz-card">
+                <div class="quiz-icon">📚</div>
+                <div class="quiz-title">Complete System Reference</div>
+                <div class="quiz-desc">
+                    Constants, design decisions, complete data (45 students, 8 courses, 23 periods) and system
+                    architecture
+                </div>
+                <div class="quiz-meta">
+                    <span class="quiz-questions">18 Questions</span>
+                    <span class="quiz-difficulty diff-intermediate">Intermediate</span>
+                </div>
+            </a>
+
+            <!-- Build Roadmap Quiz -->
+            <a href="quiz-build-roadmap.html" class="quiz-card">
+                <div class="quiz-icon">🛠️</div>
+                <div class="quiz-title">Build From Scratch Roadmap</div>
+                <div class="quiz-desc">
+                    20 progressive steps, 8 milestones, design insights, and implementation strategy
+                </div>
+                <div class="quiz-meta">
+                    <span class="quiz-questions">16 Questions</span>
+                    <span class="quiz-difficulty diff-advanced">Advanced</span>
+                </div>
+            </a>
+        </div>
+
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+    </div>
+</body>
+
+</html>

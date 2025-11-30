@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error & Validation Quiz - C++ Attendance System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.2rem;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.1), rgba(0, 217, 255, 0.1));
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            color: #50fa7b;
+            font-weight: bold;
+        }
+
+        .score-label {
+            color: #a8b3cf;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #ff79c6;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .question-number {
+            color: #ff79c6;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            color: #e6e8f0;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+
+        .option.correct {
+            background: rgba(80, 250, 123, 0.3);
+            border-color: #50fa7b;
+        }
+
+        .option.incorrect {
+            background: rgba(255, 85, 85, 0.3);
+            border-color: #ff5555;
+        }
+
+        .feedback {
+            background: rgba(241, 250, 140, 0.1);
+            border-left: 4px solid #f1fa8c;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-title {
+            color: #f1fa8c;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-text {
+            color: #a8b3cf;
+            line-height: 1.8;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #50fa7b, #00cc66);
+            display: none;
+        }
+
+        .next-btn.show {
+            display: block;
+        }
+
+        .completion-card {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.2), rgba(0, 217, 255, 0.2));
+            border: 2px solid #50fa7b;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            display: none;
+        }
+
+        .completion-card.show {
+            display: block;
+        }
+
+        .completion-title {
+            font-size: 2.5rem;
+            color: #50fa7b;
+            margin-bottom: 1rem;
+        }
+
+        .completion-score {
+            font-size: 4rem;
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">⚠️ Error & Validation Quiz</h1>
+            <p class="subtitle">23 Error Messages, Validation Rules & Buffer Management</p>
+        </div>
+        <div class="score-board">
+            <div class="score-number" id="score">0 / 15</div>
+            <div class="score-label">Score</div>
+        </div>
+        <div id="quiz-container"></div>
+        <div class="completion-card" id="completion">
+            <div class="completion-title">🎉 Quiz Complete!</div>
+            <div class="completion-score" id="final-score"></div>
+            <p style="color: #a8b3cf; font-size: 1.2rem; margin-top: 1rem;">Excellent work on Error & Validation!</p>
+            <button class="submit-btn" onclick="restartQuiz()" style="max-width: 300px; margin: 2rem auto 0;">Restart
+                Quiz</button>
+            <a href="quiz.html" class="nav-button" style="display: inline-block; margin-top: 1rem;">← Back to Quiz
+                Categories</a>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            { question: "How many total error/success messages are defined in the system?", options: ["15 messages", "20 messages", "23 messages", "30 messages"], correct: 2, explanation: "The system has exactly 23 error/success messages covering all scenarios: invalid input, date mismatches, future dates, duplicate records, empty inputs, invalid choices, file errors, and success confirmations." },
+            { question: "What error message is shown when a user enters a future date?", options: ["'Invalid date'", "'❌ Cannot take attendance for future dates!'", "'Date error'", "'Wrong date format'"], correct: 1, explanation: "The error '❌ Cannot take attendance for future dates!' is shown when isDateInFuture() returns true. This prevents logically impossible attendance records." },
+            { question: "How is the date format DD-MM-YYYY validated?", options: ["Regex", "Check: dateStr.length() == 10 && dateStr[2] == '-' && dateStr[5] == '-'", "Try-catch", "strcmp()"], correct: 1, explanation: "Validation checks: (1) length must be 10, (2) character at index 2 must be '-', (3) character at index 5 must be '-'. Example: '27-11-2025' passes, '2-11-2025' fails (length 9)." },
+            { question: "What validation prevents marking attendance for Thursday?", options: ["dayClasses.empty() check", "Hard-coded day check", "Calendar validation", "No such validation"], correct: 0, explanation: "After getClassesForDay('Thursday'), check: if (dayClasses.empty()) { cout << '❌ No classes on Thursday!'; }. Thursday returns empty vector because no periods are scheduled." },
+            { question: "How are duplicate attendance records prevented?", options: ["Using map", "hasAttendanceRecord() checks composite key: studentId+courseCode+date+timeSlot", "Database constraint", "Set data structure"], correct: 1, explanation: "hasAttendanceRecord() loops through attendanceRecords checking if a record with the same studentId, courseCode, date, and timeSlot already exists. If found, shows error and prevents duplicate marking." },
+            { question: "What validates that multi-period selection is for the same course?", options: ["Course title comparison", "Compares all selected periods' courseCode to first period's courseCode", "User confirmation", "No validation"], correct: 1, explanation: "Code: string firstCourseCode = selectedPeriods[0].courseCode; for (auto &p : selectedPeriods) { if (p.courseCode != firstCourseCode) { error: '❌ All periods must be for the same course!'; } }" },
+            { question: "Why is validateDayDateMatch() critical?", options: ["For performance", "Prevents user error: ensures date actually falls on selected day (e.g., 27-11-2025 is actually Wednesday)", "For formatting", "For file naming"], correct: 1, explanation: "validateDayDateMatch() uses Zeller's Congruence to calculate the actual day of week for the entered date, then compares to the user-selected day. Prevents marking attendance for 'Monday' when the date is actually a Thursday!" },
+            { question: "What happens if range format '6-2' is entered (start > end)?", options: ["Auto-corrects", "Error: '❌ Invalid range: start must be <= end'", "Swaps values", "Uses only start"], correct: 1, explanation: "After parsing '6-2' into start=6, end=2, validation: if (start > end) { cout << '❌ Invalid range: start period must be less than or equal to end period'; } prevents nonsensical ranges." },
+            { question: "How many buffer clearing scenarios are documented?", options: ["2 scenarios", "3 scenarios", "4 scenarios", "5 scenarios"], correct: 2, explanation: "Four buffer clearing scenarios: (1) After cin >> before getline(), (2) After getline() (no clearing needed), (3) Conditional clearing based on isMultiPeriodMode flag, (4) Clear before date input in multi-period mode." },
+            { question: "When is cin.ignore() conditionally applied based on isMultiPeriodMode?", options: ["Never conditional", "Only clear if !isMultiPeriodMode (single period used cin >>)", "Always clear", "Based on user input"], correct: 1, explanation: "Pattern: if (!isMultiPeriodMode) { cin.ignore(...); } because multi-period uses getline() first (which clears buffer), but single period uses cin >> (which leaves '\\n' needing ignore)." },
+            { question: "What error is shown for invalid menu choice like '99'?", options: ["'Error'", "'❌ Invalid choice. Please try again.'", "'Wrong input'", "Program crashes"], correct: 1, explanation: "Invalid menu choices (not in valid range) show '❌ Invalid choice. Please try again.' with RED color and loop back for re-input. Prevents undefined behavior from out-of-range choices." },
+            { question: "What success message appears after attendance is saved?", options: ["'Done'", "'✅ Attendance saved successfully to [filename]'", "'Saved'", "'Complete'"], correct: 1, explanation: "After saveAttendanceData(), displays: '✅ Attendance saved successfully to [folder]/[date]/[filename].csv' with GREEN color, confirming the exact file location." },
+            { question: "How is student ID validation performed in 'View Individual Student Status'?", options: ["Regex", "Search students vector for matching id, show error if not found", "Database query", "Hash lookup"], correct: 1, explanation: "Code: bool found = false; for (const auto &s : students) { if (s.id == studentId) { found = true; /* display */ } } if (!found) { cout << '❌ Student ID not found!'; }" },
+            { question: "What prevents attendance marking with all students absent?", options: ["Hard-coded check", "No prevention, it's allowed", "User confirmation required", "Error if none present"], correct: 1, explanation: "There's NO prevention - marking all students absent is a valid scenario (e.g., class cancelled, all skipped). The system allows this and saves the records normally." },
+            { question: "What is the warning message shown at <60% attendance?", options: ["'Low attendance'", "'⚠️ At Risk - Below 60% (Dis-collegiate)'", "'Warning'", "'Failed'"], correct: 1, explanation: "When attendance % < DISCOLLEGIATE_THRESHOLD (60.0), displays '⚠️ At Risk - Below 60% (Dis-collegiate)' in YELLOW/RED, warning the student of potential consequences." }
+        ];
+        let currentQuestion = 0, score = 0, answered = {};
+        function loadQuestion(index) {
+            const q = questions[index], container = document.getElementById('quiz-container');
+            let html = `<div class="question-card"><div class="question-number">Question ${index + 1} of ${questions.length}</div><div class="question-text">${q.question}</div><div class="options">`;
+            q.options.forEach((option, i) => { html += `<div class="option" onclick="selectOption(${index}, ${i})" id="option-${index}-${i}">${String.fromCharCode(65 + i)}. ${option}</div>`; });
+            html += `</div><div class="feedback" id="feedback-${index}"><div class="feedback-title" id="feedback-title-${index}"></div><div class="feedback-text">${q.explanation}</div></div><button class="submit-btn" onclick="checkAnswer(${index})" id="submit-${index}">Check Answer</button><button class="submit-btn next-btn" onclick="nextQuestion()" id="next-${index}">Next Question →</button></div>`;
+            container.innerHTML = html;
+        }
+        function selectOption(questionIndex, optionIndex) {
+            if (answered[questionIndex] !== undefined) return;
+            for (let i = 0; i < questions[questionIndex].options.length; i++) document.getElementById(`option-${questionIndex}-${i}`).classList.remove('selected');
+            document.getElementById(`option-${questionIndex}-${optionIndex}`).classList.add('selected');
+            answered[questionIndex] = optionIndex;
+        }
+        function checkAnswer(questionIndex) {
+            const userAnswer = answered[questionIndex];
+            if (userAnswer === undefined) { alert('Please select an answer first!'); return; }
+            const correctAnswer = questions[questionIndex].correct, isCorrect = userAnswer === correctAnswer;
+            const feedback = document.getElementById(`feedback-${questionIndex}`), feedbackTitle = document.getElementById(`feedback-title-${questionIndex}`);
+            if (isCorrect) { feedbackTitle.textContent = '✅ Correct!'; feedbackTitle.style.color = '#50fa7b'; score++; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('correct'); }
+            else { feedbackTitle.textContent = '❌ Incorrect'; feedbackTitle.style.color = '#ff5555'; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('incorrect'); document.getElementById(`option-${questionIndex}-${correctAnswer}`).classList.add('correct'); }
+            feedback.classList.add('show'); document.getElementById('score').textContent = `${score} / ${questions.length}`; document.getElementById(`submit-${questionIndex}`).style.display = 'none';
+            if (questionIndex < questions.length - 1) document.getElementById(`next-${questionIndex}`).classList.add('show'); else showCompletion();
+        }
+        function nextQuestion() { currentQuestion++; loadQuestion(currentQuestion); }
+        function showCompletion() { document.getElementById('quiz-container').style.display = 'none'; const completion = document.getElementById('completion'), finalScore = document.getElementById('final-score'); const percentage = (score / questions.length * 100).toFixed(0); finalScore.textContent = `${score}/${questions.length} (${percentage}%)`; completion.classList.add('show'); }
+        function restartQuiz() { currentQuestion = 0; score = 0; answered = {}; document.getElementById('score').textContent = `0 / ${questions.length}`; document.getElementById('quiz-container').style.display = 'block'; document.getElementById('completion').classList.remove('show'); loadQuestion(0); }
+        loadQuestion(0);
+    </script>
+</body>
+
+</html>

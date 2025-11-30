@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete System Reference - C++ Attendance System</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00d9ff;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .subsection-title {
+            font-size: 1.5rem;
+            color: #ff79c6;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .func-block {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #00d9ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+        }
+
+        .func-title {
+            color: #f1fa8c;
+            font-size: 1.4rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .func-purpose {
+            color: #50fa7b;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .example-box {
+            background: rgba(0, 217, 255, 0.1);
+            border-left-color: #00d9ff;
+        }
+
+        .why-box {
+            background: rgba(80, 250, 123, 0.1);
+            border-left-color: #50fa7b;
+        }
+
+        .warning-box {
+            background: rgba(241, 250, 140, 0.1);
+            border-left-color: #f1fa8c;
+        }
+
+        .error-box {
+            background: rgba(255, 85, 85, 0.1);
+            border-left-color: #ff5555;
+        }
+
+        .code-block {
+            background: #1e1e3f;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #f1fa8c;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        ul,
+        ol {
+            margin-left: 2rem;
+            color: #a8b3cf;
+        }
+
+        li {
+            margin: 0.4rem 0;
+        }
+
+        strong {
+            color: #00d9ff;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            margin: 3rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th,
+        td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        th {
+            background: rgba(0, 217, 255, 0.2);
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        td {
+            color: #a8b3cf;
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.3rem;
+            font-size: 0.9rem;
+            color: #a8b3cf;
+        }
+
+        /* --- NEW NAVIGATION & REFERENCE STYLES --- */
+
+        /* Solid Cyan Buttons */
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Resource Links */
+        .resource-link {
+            display: block;
+            color: #00d9ff;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .resource-link:hover {
+            color: #ff79c6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">📚 Complete System Reference</h1>
+            <p style="color: #8be9fd; font-size: 1.2rem;">Comprehensive Guide - Data Structures, Constants, Design
+                Decisions & Complete Reference</p>
+        </div>
+
+        <h2 class="section-title">Overview</h2>
+        <div class="info-box example-box">
+            <strong>This Complete Reference Includes:</strong>
+            <ul>
+                <li><strong>Data Structures</strong> - Students, Courses, Routine with complete implementations</li>
+                <li><strong>Design Decisions</strong> - Map vs Vector rationale, performance analysis</li>
+                <li><strong>Constants Explained</strong> - All magic numbers (74, 22, 48, 32, 60.0) with context</li>
+                <li><strong>Navigation Patterns</strong> - [0], [9], [R] return value conventions</li>
+                <li><strong>Error & Success Messages</strong> - Complete catalog of all messages</li>
+                <li><strong>Advanced C++ Features</strong> - Lambdas, STL algorithms, range-based loops</li>
+            </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- DATA STRUCTURES -->
+        <h2 class="section-title">1. Core Data Structures</h2>
+
+        <h3 class="subsection-title">1.1 - Student Structure</h3>
+        <div class="func-block">
+            <div class="func-title">struct Student</div>
+            <div class="func-purpose">Stores individual student information</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">struct Student {
+    int sl;         // Serial number (1-45)
+    string id;      // Student ID (e.g., "C253027")
+    string name;    // Full name
+
+    // Constructor
+    Student(int serial, const string &studentId, const string &studentName)
+        : sl(serial), id(studentId), name(studentName) {}
+};</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why These Fields?</strong><br>
+                • <code>sl</code> - Maintains roster order for display (1-45)<br>
+                • <code>id</code> - Unique identifier for attendance tracking<br>
+                • <code>name</code> - Display in UI and CSV files<br><br>
+
+                <strong>Size Estimate:</strong> ~80 bytes per Student<br>
+                • <code>int sl</code> = 4 bytes<br>
+                • <code>string id</code> = ~24 bytes (object) + 8 bytes (data)<br>
+                • <code>string name</code> = ~24 bytes (object) + 20-40 bytes (data)
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Storage Container:</strong> <code>vector&lt;Student&gt; students;</code><br><br>
+                <strong>Why vector instead of map?</strong><br>
+                ✅ Preserve roster order (SL 1-45 sequence)<br>
+                ✅ Sequential iteration common (display all students)<br>
+                ✅ No frequent lookups by ID needed<br>
+                ✅ Linear search acceptable for 45 students (O(45) ≈ constant)<br>
+                ❌ Map would be overkill for this size
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.2 - Course Structure</h3>
+        <div class="func-block">
+            <div class="func-title">struct Course</div>
+            <div class="func-purpose">Stores course metadata and semester schedule</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">struct Course {
+    string code;           // Course code (e.g., "EEE-1121")
+    string title;          // Full title
+    int weeklyClasses;     // Classes per week
+    int totalSemesterClasses;  // Total classes in 16-week semester
+
+    // Constructor
+    Course(const string &courseCode, const string &courseTitle,
+           int weekly, int total)
+        : code(courseCode), title(courseTitle),
+          weeklyClasses(weekly), totalSemesterClasses(total) {}
+};</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Storage Container:</strong> <code>map&lt;string, Course&gt; courses;</code><br><br>
+                <strong>Why map instead of vector?</strong><br>
+                ✅ Fast O(log n) lookup by course code<br>
+                ✅ Automatic alphabetical sorting<br>
+                ✅ Key-value association clearer (code → Course)<br>
+                ✅ No duplicates needed<br>
+                ❌ Vector would require O(n) linear search
+            </div>
+
+            <div class="info-box warning-box">
+                <strong>Special Case - GEEM-1101:</strong><br>
+                <code>courses["GEEM-1101"] = Course("GEEM-1101", "Ethics and Morality", 2, 32);</code><br><br>
+
+                All other courses: <code>totalSemesterClasses = 48</code><br>
+                GEEM-1101: <code>totalSemesterClasses = 32</code><br><br>
+
+                <strong>Why?</strong> 16 weeks × 2 classes/week = 32 (shorter course)<br>
+                Other courses: 16 weeks × 3 classes/week = 48
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.3 - ClassPeriod Structure</h3>
+        <div class="func-block">
+            <div class="func-title">struct ClassPeriod</div>
+            <div class="func-purpose">Represents a single scheduled class period</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">struct ClassPeriod {
+    string day;        // Day of week (e.g., "Monday")
+    string time;       // Start time (e.g., "10:40 AM")
+    string endTime;    // End time (e.g., "11:30 AM")
+    string courseCode; // Which course (e.g., "EEE-1121")
+
+    // Constructor
+    ClassPeriod(const string &dayName, const string &startTime,
+                const string &endTime, const string &code)
+        : day(dayName), time(startTime), endTime(endTime), courseCode(code) {}
+};</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Storage Container:</strong> <code>vector&lt;ClassPeriod&gt; routine;</code><br><br>
+                <strong>Why vector?</strong><br>
+                ✅ Chronological order important (sequential schedule)<br>
+                ✅ Filtered by day using <code>getClassesForDay()</code><br>
+                ✅ No lookups needed, only filtering<br>
+                ✅ 23 total periods (small enough for linear iteration)
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.4 - AttendanceRecord Structure</h3>
+        <div class="func-block">
+            <div class="func-title">struct AttendanceRecord</div>
+            <div class="func-purpose">Records a single attendance event for one student</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">struct AttendanceRecord {
+    string studentId;  // Which student (e.g., "C253027")
+    string courseCode; // Which course (e.g., "EEE-1121")
+    string date;       // Date (DD-MM-YYYY format)
+    string day;        // Day of week
+    string timeSlot;   // Start time
+    bool present;      // true = Present, false = Absent
+
+    // Constructor
+    AttendanceRecord(const string &id, const string &course,
+                     const string &dateStr, const string &dayStr,
+                     const string &time, bool isPresent)
+        : studentId(id), courseCode(course), date(dateStr),
+          day(dayStr), timeSlot(time), present(isPresent) {}
+};</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Storage Container:</strong>
+                <code>vector&lt;AttendanceRecord&gt; attendanceRecords;</code><br><br>
+                <strong>Why vector?</strong><br>
+                ✅ Append-only pattern (new attendance added to end)<br>
+                ✅ Filtering by student/course using STL algorithms<br>
+                ✅ Size varies (can grow to 1000s of records)<br>
+                ✅ CSV export iterates sequentially
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Size Estimate:</strong> ~150 bytes per AttendanceRecord<br>
+                • 5 strings @ ~30 bytes each = 150 bytes<br>
+                • 1 bool = 1 byte<br>
+                • Total: ~151 bytes<br><br>
+                <strong>1000 records = ~150 KB of memory</strong>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- INITIALIZATION FUNCTIONS -->
+        <h2 class="section-title">2. Initialization Functions</h2>
+
+        <h3 class="subsection-title">2.1 - initializeStudents()</h3>
+        <div class="func-block">
+            <div class="func-title">void initializeStudents()</div>
+            <div class="func-purpose">Load all 45 students into vector at startup</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">void initializeStudents() {
+    students.push_back(Student(1, "C251027", "Mohammad Sifat Ullah"));
+    students.push_back(Student(2, "C253002", "Sultan Mahmud"));
+    students.push_back(Student(3, "C253003", "Md. Zunaed Rahman Afif"));
+    // ... 42 more students ...
+    students.push_back(Student(45, "C253169", "Mohammad Ariful Islam"));
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Complete Student Roster (All 45):</strong>
+                <div class="student-grid">
+                    <div>1. C251027 - Mohammad Sifat Ullah</div>
+                    <div>2. C253002 - Sultan Mahmud</div>
+                    <div>3. C253003 - Md. Zunaed Rahman Afif</div>
+                    <div>4. C253005 - Mohammad Fahim Hasan</div>
+                    <div>5. C253010 - Sakif Anam</div>
+                    <div>6. C253011 - Md. Imam Samir Ali</div>
+                    <div>7. C253012 - Shoman Nath Ayon</div>
+                    <div>8. C253019 - Iftekhar Uddin Bhuiyan</div>
+                    <div>9. C253020 - Md. Muntasir Mahmud</div>
+                    <div>10. C253021 - Daniel Bin Ashraf</div>
+                    <div>11. C253022 - Mohammad Shadman Abedin</div>
+                    <div>12. C253026 - Ahmad Nayeem Uddin Khan</div>
+                    <div>13. C253031 - Saroar Alam</div>
+                    <div>14. C253037 - Hassan Zahin</div>
+                    <div>15. C253041 - Hossain Mahmud</div>
+                    <div>16. C253042 - Rafsan-Ul-Islam</div>
+                    <div>17. C253046 - Shahriar Ibne Alam Mahee</div>
+                    <div>18. C253048 - Saniyat Hossain</div>
+                    <div>19. C253053 - Abdullah-Al-Sifat</div>
+                    <div>20. C253058 - Miskat Bin Kamal</div>
+                    <div>21. C253062 - Md. Salsabil</div>
+                    <div>22. C253064 - Mohammad Akib Akbar</div>
+                    <div>23. C253068 - Tahasanur Karim</div>
+                    <div>24. C253071 - Ashraful Kader Jitu</div>
+                    <div>25. C253072 - Mohammad Hasnat Monowar Kaify</div>
+                    <div>26. C253075 - Sakir Adnan Nabil</div>
+                    <div>27. C253076 - Ahmad Bin Tarique</div>
+                    <div>28. C253077 - Md. Foisal Hossen Chowdhury</div>
+                    <div>29. C253078 - Fakharuddin Bin Walid</div>
+                    <div>30. C253085 - Md. Maruf Siddique</div>
+                    <div>31. C253087 - Ayatul Hakim</div>
+                    <div>32. C253088 - S.M.Mahidul Alam</div>
+                    <div>33. C253089 - Mohammad Naza Mobashirul Islam</div>
+                    <div>34. C253091 - Iftekhar Ahmed Ifaz</div>
+                    <div>35. C253094 - Towhidul Islam</div>
+                    <div>36. C253099 - Azizul Hoque Samin</div>
+                    <div>37. C253104 - Mohammad Rashed Anwar Ovi</div>
+                    <div>38. C253109 - Hafiz Al Azad Al Naheean</div>
+                    <div>39. C253111 - Md. Usha Araf</div>
+                    <div>40. C253122 - Anaf Chowdhury</div>
+                    <div>41. C253135 - Md Ifthikhar Uddin Chowdhury Rahat</div>
+                    <div>42. C253118 - Akil Alam Ansary</div>
+                    <div>43. C251106 - Md. Azizur Rahman</div>
+                    <div>44. C251114 - Mustofa Mahamud Rafi</div>
+                    <div>45. C253169 - Mohammad Ariful Islam</div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">2.2 - initializeCourses()</h3>
+        <div class="func-block">
+            <div class="func-title">void initializeCourses()</div>
+            <div class="func-purpose">Load all 8 courses into map at startup</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">void initializeCourses() {
+    courses["EEE-1121"] = Course("EEE-1121", "Electrical Engineering Fundamentals", 6, 48);
+    courses["EEE-1122"] = Course("EEE-1122", "Electrical Engineering Lab", 6, 48);
+    courses["CSE-1121"] = Course("CSE-1121", "Computer Programming", 6, 48);
+    courses["CSE-1122"] = Course("CSE-1122", "Computer Programming Lab", 6, 48);
+    courses["MATH-1107"] = Course("MATH-1107", "Mathematics", 3, 48);
+    courses["PHY-1101"] = Course("PHY-1101", "Physics", 3, 48);
+    courses["GEEL-1106"] = Course("GEEL-1106", "Advance English", 3, 48);
+    courses["GEEM-1101"] = Course("GEEM-1101", "Ethics and Morality", 2, 32);
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Course Breakdown:</strong>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Title</th>
+                            <th>Weekly</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EEE-1121</td>
+                            <td>Electrical Engineering Fundamentals</td>
+                            <td>6</td>
+                            <td>48</td>
+                        </tr>
+                        <tr>
+                            <td>EEE-1122</td>
+                            <td>Electrical Engineering Lab</td>
+                            <td>6</td>
+                            <td>48</td>
+                        </tr>
+                        <tr>
+                            <td>CSE-1121</td>
+                            <td>Computer Programming</td>
+                            <td>6</td>
+                            <td>48</td>
+                        </tr>
+                        <tr>
+                            <td>CSE-1122</td>
+                            <td>Computer Programming Lab</td>
+                            <td>6</td>
+                            <td>48</td>
+                        </tr>
+                        <tr>
+                            <td>MATH-1107</td>
+                            <td>Mathematics</td>
+                            <td>3</td>
+                            <td>48</td>
+                        </tr>
+                        <tr>
+                            <td>PHY-1101</td>
+                            <td>Physics</td>
+                            <td>3</td>
+                            <td>48</td>
+                        </tr>
+                        <tr>
+                            <td>GEEL-1106</td>
+                            <td>Advance English</td>
+                            <td>3</td>
+                            <td>48</td>
+                        </tr>
+                        <tr style="background: rgba(255, 121, 198, 0.1);">
+                            <td>GEEM-1101</td>
+                            <td>Ethics and Morality</td>
+                            <td>2</td>
+                            <td><strong>32</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">2.3 - initializeRoutine()</h3>
+        <div class="func-block">
+            <div class="func-title">void initializeRoutine()</div>
+            <div class="func-purpose">Load all 23 class periods into vector at startup</div>
+
+            <div class="info-box example-box">
+                <strong>Weekly Schedule:</strong>
+                <ul>
+                    <li><strong>Saturday (3 periods)</strong></li>
+                    <ul>
+                        <li>11:30 AM - 12:20 PM → EEE-1121</li>
+                        <li>12:20 PM - 01:10 PM → GEEL-1106</li>
+                        <li>01:50 PM - 02:40 PM → CSE-1121</li>
+                    </ul>
+                    <li><strong>Sunday (3 periods)</strong></li>
+                    <ul>
+                        <li>10:40 AM - 11:30 AM → PHY-1101</li>
+                        <li>11:30 AM - 12:20 PM → GEEL-1106</li>
+                        <li>12:20 PM - 01:10 PM → GEEL-1106</li>
+                    </ul>
+                    <li><strong>Monday (6 periods)</strong></li>
+                    <ul>
+                        <li>10:40 AM - 11:30 AM → CSE-1122</li>
+                        <li>11:30 AM - 12:20 PM → CSE-1122</li>
+                        <li>12:20 PM - 01:10 PM → CSE-1122</li>
+                        <li>01:50 PM - 02:40 PM → PHY-1101</li>
+                        <li>02:40 PM - 03:30 PM → PHY-1101</li>
+                        <li>03:30 PM - 04:20 PM → GEEM-1101</li>
+                    </ul>
+                    <li><strong>Tuesday (6 periods)</strong></li>
+                    <ul>
+                        <li>10:40 AM - 11:30 AM → MATH-1107</li>
+                        <li>11:30 AM - 12:20 PM → EEE-1121</li>
+                        <li>12:20 PM - 01:10 PM → EEE-1121</li>
+                        <li>01:50 PM - 02:40 PM → EEE-1122</li>
+                        <li>02:40 PM - 03:30 PM → EEE-1122</li>
+                        <li>03:30 PM - 04:20 PM → EEE-1122</li>
+                    </ul>
+                    <li><strong>Wednesday (5 periods)</strong></li>
+                    <ul>
+                        <li>10:40 AM - 11:30 AM → CSE-1121</li>
+                        <li>11:30 AM - 12:20 PM → CSE-1121</li>
+                        <li>12:20 PM - 01:10 PM → GEEM-1101</li>
+                        <li>01:50 PM - 02:40 PM → MATH-1107</li>
+                        <li>02:40 PM - 03:30 PM → MATH-1107</li>
+                    </ul>
+                </ul>
+                <strong>Total: 23 periods across 5 days</strong>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- CONSTANTS & MAGIC NUMBERS -->
+        <h2 class="section-title">3. Constants & Magic Numbers Explained</h2>
+
+        <div class="func-block">
+            <div class="func-title">All Constants Decoded</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Constant</th>
+                        <th>Value</th>
+                        <th>Usage</th>
+                        <th>Explanation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>74</strong></td>
+                        <td>74 chars</td>
+                        <td>Menu box width</td>
+                        <td>Chosen for terminal aesthetics (fits 80-char terminals with margins)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>22</strong></td>
+                        <td>22 chars</td>
+                        <td>Header text offset</td>
+                        <td>Length of "╔═══ " prefix (4) + emoji + space + "═══╗" suffix (4) = varies, 22 is padding
+                            calc</td>
+                    </tr>
+                    <tr>
+                        <td><strong>48</strong></td>
+                        <td>48 classes</td>
+                        <td>Total semester classes</td>
+                        <td>16 weeks × 3 classes/week = 48 classes per semester (standard)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>32</strong></td>
+                        <td>32 classes</td>
+                        <td>GEEM-1101 total</td>
+                        <td>16 weeks × 2 classes/week = 32 classes (shorter course)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>60.0</strong></td>
+                        <td>60%</td>
+                        <td>Dis-collegiate threshold</td>
+                        <td>University policy: <60% attendance=dis-collegiate status</td>
+                    </tr>
+                    <tr>
+                        <td><strong>85.0</strong></td>
+                        <td>85%</td>
+                        <td>"Excellent" threshold</td>
+                        <td>Status icon: 🌟 for ≥85% attendance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>70.0</strong></td>
+                        <td>70%</td>
+                        <td>"Good" threshold</td>
+                        <td>Status icon: ✅ for 70-84% attendance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>10000</strong></td>
+                        <td>10000 chars</td>
+                        <td>cin.ignore() count</td>
+                        <td>Practical max for buffer clear (could use numeric_limits but this works)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>100.0</strong></td>
+                        <td>100.0 double</td>
+                        <td>Percentage calculation</td>
+                        <td>Use 100.0 not 100 to force double arithmetic (avoid integer division)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box why-box">
+                <strong>Why floating-point for percentages?</strong><br>
+                <code>(attended / total) * 100</code> with integers = 0 for small values!<br>
+                Example: <code>(2 / 48) * 100 = 0 * 100 = 0</code> (integer division)<br>
+                <code>(2.0 / 48.0) * 100.0 = 0.0417 * 100.0 = 4.17</code> (correct)<br><br>
+
+                <strong>static_cast&lt;double&gt;():</strong><br>
+                Explicitly converts integer to double before division<br>
+                <code>static_cast&lt;double&gt;(attended) / total * 100.0</code>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- NAVIGATION PATTERNS -->
+        <h2 class="section-title">4. Navigation Patterns</h2>
+
+        <div class="func-block">
+            <div class="func-title">Standard Navigation Convention</div>
+
+            <div class="info-box example-box">
+                <strong>Input Options Across All Menus:</strong>
+                <ul>
+                    <li><code>[0]</code> = Back to previous menu</li>
+                    <li><code>[9]</code> = Jump directly to main menu</li>
+                    <li><code>[R]</code> = Reset/Clear current operation</li>
+                    <li><code>1-N</code> = Menu option numbers</li>
+                </ul>
+            </div>
+
+            <div class="info-box warning-box">
+                <strong>Return Value Pattern:</strong>
+                <div class="code-block">
+                    <pre><code class="language-cpp">bool selectPeriodAndMark(...) {
+    if (periodInput == "0") return false;  // [0] = Back (stay in loop)
+    if (periodInput == "9") return true;   // [9] = Main menu (exit completely)
+    // ... rest of function
+    return false;  // Default: stay in menu
+}
+
+// In calling function:
+bool exitToMain = selectPeriodAndMark(...);
+if (exitToMain) return;  // Propagate [9] to exit all nested menus</code></pre>
+                </div>
+
+                <strong>Why boolean?</strong><br>
+                • <code>true</code> = Exit to main menu (bubble up through all levels)<br>
+                • <code>false</code> = Return to previous menu (one level up)<br>
+                • Allows [9] to exit nested menus in single press
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STATUS ICONS -->
+        <h2 class="section-title">5. Status Icons & Color Coding</h2>
+
+        <div class="func-block">
+            <div class="func-title">Complete Attendance Status System</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// Attendance thresholds with status icons
+if (percentage >= 85.0) {
+    icon = "🌟";
+    status = "Excellent ";
+    color = GREEN;
+} else if (percentage >= 70.0) {
+    icon = "✅";
+    status = "Good      ";
+    color = GREEN;
+} else if (percentage >= DISCOLLEGIATE_THRESHOLD) {  // 60.0%
+    icon = "⚠️";
+    status = "Warning   ";
+    color = YELLOW;
+} else {
+    icon = "❌";
+    status = "At Risk   ";
+    color = RED;
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Status Breakdown:</strong>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Range</th>
+                            <th>Icon</th>
+                            <th>Status</th>
+                            <th>Color</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>≥ 85%</td>
+                            <td>🌟</td>
+                            <td>Excellent</td>
+                            <td><span style="color: #50fa7b;">GREEN</span></td>
+                            <td>Outstanding attendance</td>
+                        </tr>
+                        <tr>
+                            <td>70-84%</td>
+                            <td>✅</td>
+                            <td>Good</td>
+                            <td><span style="color: #50fa7b;">GREEN</span></td>
+                            <td>Satisfactory attendance</td>
+                        </tr>
+                        <tr>
+                            <td>60-69%</td>
+                            <td>⚠️</td>
+                            <td>Warning</td>
+                            <td><span style="color: #f1fa8c;">YELLOW</span></td>
+                            <td>At risk of dis-collegiate</td>
+                        </tr>
+                        <tr>
+                            <td>&lt; 60%</td>
+                            <td>❌</td>
+                            <td>At Risk</td>
+                            <td><span style="color: #ff5555;">RED</span></td>
+                            <td>Dis-collegiate status</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why these thresholds?</strong><br>
+                • <strong>60%</strong> - University policy (minimum for examination eligibility)<br>
+                • <strong>70%</strong> - Safety margin above minimum<br>
+                • <strong>85%</strong> - Excellence recognition
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ERROR & SUCCESS MESSAGES -->
+        <h2 class="section-title">6. Complete Message Catalog</h2>
+
+        <h3 class="subsection-title">6.1 - Error Messages</h3>
+        <div class="func-block">
+            <div class="func-title">All Error Messages Used</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Message</th>
+                        <th>Context</th>
+                        <th>When Shown</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"❌ Invalid range!"</td>
+                        <td>Multi-period selection</td>
+                        <td>Range start > end (e.g., "6-2")</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Invalid range format!"</td>
+                        <td>Multi-period selection</td>
+                        <td>Dash with wrong format (e.g., "2-")</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Invalid period number: X"</td>
+                        <td>Period selection</td>
+                        <td>Number outside 1-N range</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Invalid input!"</td>
+                        <td>Various contexts</td>
+                        <td>Generic invalid input</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ All selected periods must be for the same course!"</td>
+                        <td>Multi-period selection</td>
+                        <td>Periods from different courses selected</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Invalid date format! Use DD-MM-YYYY"</td>
+                        <td>Date input</td>
+                        <td>Wrong format or length</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Cannot take attendance for future dates!"</td>
+                        <td>Date validation</td>
+                        <td>Date is after today</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Date mismatch!"</td>
+                        <td>Date validation</td>
+                        <td>Day of week doesn't match date</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Attendance already recorded for this date and period(s)!"</td>
+                        <td>Duplicate prevention</td>
+                        <td>Already marked for this date/period</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Invalid choice!"</td>
+                        <td>Menu navigation</td>
+                        <td>Choice not in menu options</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Error: Could not create folder for date X!"</td>
+                        <td>File I/O</td>
+                        <td>Directory creation failed</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Error: Could not save file X!"</td>
+                        <td>File I/O</td>
+                        <td>File open/write failed</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ Student not found!"</td>
+                        <td>Student search</td>
+                        <td>ID doesn't exist in roster</td>
+                    </tr>
+                    <tr>
+                        <td>"❌ No classes on X!"</td>
+                        <td>Day selection</td>
+                        <td>Selected day has no scheduled classes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="subsection-title">6.2 - Success & Info Messages</h3>
+        <div class="func-block">
+            <div class="func-title">All Success Messages Used</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Message</th>
+                        <th>Context</th>
+                        <th>When Shown</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"✅ SUCCESS! All marked present"</td>
+                        <td>Mode 1 marking</td>
+                        <td>All students marked present (single period)</td>
+                    </tr>
+                    <tr>
+                        <td>"✅ SUCCESS! All marked present for N periods!"</td>
+                        <td>Mode 1 multi-period</td>
+                        <td>All students marked present (multiple periods)</td>
+                    </tr>
+                    <tr>
+                        <td>"⚠️ RECORDED! All marked absent"</td>
+                        <td>Mode 2 marking</td>
+                        <td>All students marked absent</td>
+                    </tr>
+                    <tr>
+                        <td>"✅ SUCCESS! Attendance recorded"</td>
+                        <td>Mode 3 marking</td>
+                        <td>Individual marking completed</td>
+                    </tr>
+                    <tr>
+                        <td>"💾 Saved to file!"</td>
+                        <td>File I/O</td>
+                        <td>CSV file written successfully</td>
+                    </tr>
+                    <tr>
+                        <td>"✅ Reset complete! Attendance cleared for N periods."</td>
+                        <td>Reset operation</td>
+                        <td>Period attendance cleared</td>
+                    </tr>
+                    <tr>
+                        <td>"🔄 Syncing with spreadsheet files..."</td>
+                        <td>Data loading</td>
+                        <td>Loading CSV files (viewStudentStatus)</td>
+                    </tr>
+                    <tr>
+                        <td>"✅ All attendance data has been reset!"</td>
+                        <td>Global reset</td>
+                        <td>All attendance records cleared</td>
+                    </tr>
+                    <tr>
+                        <td>"✅ Attendance data for student X has been reset!"</td>
+                        <td>Student reset</td>
+                        <td>Single student records cleared</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ADVANCED C++ FEATURES -->
+        <h2 class="section-title">7. Advanced C++ Features</h2>
+
+        <h3 class="subsection-title">7.1 - Lambda Functions</h3>
+        <div class="func-block">
+            <div class="func-title">Lambda Usage in Reset Operations</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// RESET FUNCTIONALITY - Remove specific records
+attendanceRecords.erase(
+    remove_if(attendanceRecords.begin(), attendanceRecords.end(),
+             [&](const AttendanceRecord &r) {
+                 for (const auto &period : selectedPeriods) {
+                     if (r.courseCode == period.courseCode &&
+                         r.date == dateInput &&
+                         r.timeSlot == period.time) {
+                         return true;  // Remove this record
+                     }
+                 }
+                 return false;  // Keep this record
+             }),
+    attendanceRecords.end());</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Lambda Breakdown:</strong><br><br>
+
+                <strong>1. Capture List [&]:</strong><br>
+                Captures all local variables by reference<br>
+                Allows lambda to access <code>selectedPeriods</code> and <code>dateInput</code><br><br>
+
+                <strong>2. Parameter (const AttendanceRecord &r):</strong><br>
+                Each record passed to lambda for testing<br><br>
+
+                <strong>3. Return Value (bool):</strong><br>
+                <code>true</code> = Remove this record<br>
+                <code>false</code> = Keep this record<br><br>
+
+                <strong>Why lambda instead of separate function?</strong><br>
+                • Inline logic (no function declaration needed)<br>
+                • Access to local variables (selectedPeriods, dateInput)<br>
+                • Clear, concise syntax
+            </div>
+        </div>
+
+        <h3 class="subsection-title">7.2 - STL Algorithms</h3>
+        <div class="func-block">
+            <div class="func-title">Standard Library Algorithms Used</div>
+
+            <div class="info-box example-box">
+                <strong>1. remove_if() - Erase-Remove Idiom:</strong>
+                <div class="code-block">
+                    <pre><code class="language-cpp">// PATTERN:
+vector.erase(
+    remove_if(vector.begin(), vector.end(), predicate),
+    vector.end());
+
+// WHY?
+// remove_if() moves matching elements to end, returns new end
+// erase() removes elements from new end to old end
+// Two-step process for efficiency</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>2. transform() - Uppercase Conversion:</strong>
+                <div class="code-block">
+                    <pre><code class="language-cpp">transform(choice.begin(), choice.end(), choice.begin(), ::toupper);
+// Converts "yes" → "YES", "r" → "R", etc.
+// In-place transformation (same begin/end iterators)</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>3. find() - Vector/Map Searching:</strong>
+                <div class="code-block">
+                    <pre><code class="language-cpp">// Find in vector:
+auto it = find(duplicatePeriods.begin(), duplicatePeriods.end(), periodTime);
+if (it == duplicatePeriods.end()) {
+    // Not found
+}
+
+// Find in map:
+if (courses.find(courseCode) != courses.end()) {
+    // Course exists
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">7.3 - Range-Based For Loops</h3>
+        <div class="func-block">
+            <div class="func-title">const auto & Pattern</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// PATTERN:
+for (const auto &student : students) {
+    // Process student
+}
+
+// BREAKDOWN:
+// 'for' - Range-based loop
+// 'const' - Cannot modify student (read-only)
+// 'auto' - Type deduced automatically (Student)
+// '&' - Reference (no copy, efficient)
+// Alternative: 'auto' alone copies each element (slower!)</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Performance Comparison:</strong><br><br>
+
+                <code>for (const auto &student : students)</code><br>
+                ✅ No copying (reference)<br>
+                ✅ Read-only guarantee (const)<br>
+                ✅ Type-safe<br>
+                ✅ Fast (0 overhead)<br><br>
+
+                <code>for (auto student : students)</code><br>
+                ❌ Copies each Student object (~80 bytes × 45 = 3.6KB copied!)<br>
+                ❌ Slower<br>
+                ❌ Modifiable (may not want this)
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SUMMARY -->
+        <div style="text-align: center; padding: 2rem; background: rgba(0, 217, 255, 0.05); border-radius: 16px;">
+            <h3 style="color: #00d9ff; font-size: 1.8rem;">✅ Complete System Reference!</h3>
+            <p style="color: #a8b3cf;">
+                <strong>Coverage:</strong> Data structures, design decisions, constants, navigation patterns,<br>
+                status system, complete message catalog, and advanced C++ features<br><br>
+                <strong>Total:</strong> 45 Students • 8 Courses • 23 Periods • 14 Error Messages • 9 Success Messages
+            </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="quiz.html" class="nav-button">Take Knowledge Quiz 🎯</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+
+        <!-- Quick Reference Box -->
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1rem;">🔗 Quick Reference Links</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Foundations</h4>
+                    <a href="guide-foundations.html" class="resource-link">Data Structures & ANSI Codes</a>
+                    <a href="COMPLETE-GUIDE-FINAL.html" class="resource-link">Complete System Reference</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Implementation</h4>
+                    <a href="complete-guide-FULL.html" class="resource-link">24 Helper Functions</a>
+                    <a href="guide-major-features.html" class="resource-link">6 Major Functions</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Advanced</h4>
+                    <a href="guide-file-io.html" class="resource-link">File I/O & Windows APIs</a>
+                    <a href="error-validation-reference.html" class="resource-link">Error & Validation Reference</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

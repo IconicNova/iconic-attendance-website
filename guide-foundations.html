@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Foundations - C++ Attendance System</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00d9ff;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .subsection-title {
+            font-size: 1.5rem;
+            color: #ff79c6;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .func-block {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #00d9ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+        }
+
+        .func-title {
+            color: #f1fa8c;
+            font-size: 1.4rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .func-purpose {
+            color: #50fa7b;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .example-box {
+            background: rgba(0, 217, 255, 0.1);
+            border-left-color: #00d9ff;
+        }
+
+        .why-box {
+            background: rgba(80, 250, 123, 0.1);
+            border-left-color: #50fa7b;
+        }
+
+        .warning-box {
+            background: rgba(241, 250, 140, 0.1);
+            border-left-color: #f1fa8c;
+        }
+
+        .error-box {
+            background: rgba(255, 85, 85, 0.1);
+            border-left-color: #ff5555;
+        }
+
+        .code-block {
+            background: #1e1e3f;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #f1fa8c;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        ul,
+        ol {
+            margin-left: 2rem;
+            color: #a8b3cf;
+        }
+
+        li {
+            margin: 0.4rem 0;
+        }
+
+        strong {
+            color: #00d9ff;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            margin: 3rem 0;
+        }
+
+        .color-demo {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.3rem;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .header-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .header-item {
+            background: rgba(0, 217, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #00d9ff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th,
+        td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        th {
+            background: rgba(0, 217, 255, 0.2);
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        td {
+            color: #a8b3cf;
+        }
+
+        /* --- NAVIGATION & REFERENCE STYLES --- */
+
+        /* Solid Cyan Buttons */
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Resource Links */
+        .resource-link {
+            display: block;
+            color: #00d9ff;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .resource-link:hover {
+            color: #ff79c6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🏗️ System Foundations</h1>
+            <p style="color: #8be9fd; font-size: 1.2rem;">Complete Foundational Guide - Headers, ANSI Codes, Data
+                Structures, Buffer Management & String Parsing</p>
+        </div>
+
+        <h2 class="section-title">Overview</h2>
+        <div class="info-box example-box">
+            <strong>This Comprehensive Foundations Guide Covers:</strong>
+            <ul>
+                <li><strong>14 Header Files</strong> - All #include statements with detailed explanations</li>
+                <li><strong>10 ANSI Color Codes</strong> - Complete color/formatting system</li>
+                <li><strong>4 Data Structures</strong> - Student, Course, ClassPeriod, AttendanceRecord</li>
+                <li><strong>Class Architecture</strong> - Private/public members explained</li>
+                <li><strong>Buffer Management</strong> - cin.ignore(), stream handling, whitespace trimming</li>
+                <li><strong>String Parsing</strong> - Date parsing, time parsing, multi-period range parsing</li>
+                <li><strong>UI Formatting</strong> - Box-drawing characters, printHeader() internals</li>
+                <li><strong>Zeller's Congruence</strong> - Complete day-of-week algorithm</li>
+            </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- HEADERS -->
+        <h2 class="section-title">1. Header Files - All 14 Includes</h2>
+        <div class="func-block">
+            <div class="func-title">#include Statements</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">#include &lt;algorithm&gt;   // For transform(), remove_if(), sort()
+#include &lt;ctime&gt;        // For time(), localtime()
+#include &lt;direct.h&gt;     // For _mkdir() on Windows
+#include &lt;errno.h&gt;      // For errno constant (EEXIST)
+#include &lt;fstream&gt;      // For ifstream, ofstream (file I/O)
+#include &lt;iomanip&gt;      // For setw(), setfill(), setprecision()
+#include &lt;iostream&gt;     // For cout, cin, cerr
+#include &lt;limits&gt;       // For numeric_limits (buffer clearing)
+#include &lt;map&gt;          // For map&lt;string, Course&gt;
+#include &lt;set&gt;          // For set&lt;string&gt; (unique timeslots)
+#include &lt;sstream&gt;      // For stringstream (string parsing)
+#include &lt;string&gt;       // For string class
+#include &lt;sys/stat.h&gt;   // For stat() (check directory exists)
+#include &lt;vector&gt;       // For vector containers
+#ifdef _WIN32
+#include &lt;windows.h&gt;    // For Windows APIs (console, file system)
+#endif</code></pre>
+            </div>
+
+            <div class="header-grid">
+                <div class="header-item">
+                    <strong>STL Containers (4)</strong><br>
+                    <code>&lt;vector&gt;</code> - Dynamic arrays<br>
+                    <code>&lt;map&gt;</code> - Sorted key-value pairs<br>
+                    <code>&lt;set&gt;</code> - Unique sorted elements<br>
+                    <code>&lt;string&gt;</code> - Text handling
+                </div>
+                <div class="header-item">
+                    <strong>STL Algorithms (1)</strong><br>
+                    <code>&lt;algorithm&gt;</code> - sort, remove_if, transform, find
+                </div>
+                <div class="header-item">
+                    <strong>File I/O (3)</strong><br>
+                    <code>&lt;fstream&gt;</code> - Read/write files<br>
+                    <code>&lt;direct.h&gt;</code> - Create directories<br>
+                    <code>&lt;sys/stat.h&gt;</code> - Check file status
+                </div>
+                <div class="header-item">
+                    <strong>Date/Time (1)</strong><br>
+                    <code>&lt;ctime&gt;</code> - System clock, date operations
+                </div>
+                <div class="header-item">
+                    <strong>String Processing (2)</strong><br>
+                    <code>&lt;sstream&gt;</code> - Parse strings<br>
+                    <code>&lt;iomanip&gt;</code> - Format output
+                </div>
+                <div class="header-item">
+                    <strong>I/O Streams (2)</strong><br>
+                    <code>&lt;iostream&gt;</code> - Console I/O<br>
+                    <code>&lt;limits&gt;</code> - Type limits
+                </div>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Windows-Specific Headers:</strong><br>
+                • <code>&lt;direct.h&gt;</code> - _mkdir() for Windows, mkdir() for Linux<br>
+                • <code>&lt;windows.h&gt;</code> - Console APIs, FindFirstFileA(), GetStdHandle()<br>
+                • <code>&lt;errno.h&gt;</code> - Error codes (EEXIST = directory exists)
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ANSI CODES -->
+        <h2 class="section-title">2. ANSI Color Codes - All 10 Defines</h2>
+        <div class="func-block">
+            <div class="func-title">#define Macros</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// ANSI Color Codes
+#define RESET   "\033[0m"
+#define RED     "\033[91m"
+#define GREEN   "\033[92m"
+#define YELLOW  "\033[93m"
+#define BLUE    "\033[94m"
+#define MAGENTA "\033[95m"
+#define CYAN    "\033[96m"
+#define WHITE   "\033[97m"
+#define BOLD    "\033[1m"
+#define DIM     "\033[2m"</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <h3 style="color: #00d9ff; margin-top: 0;">ANSI Escape Sequence Structure:</h3>
+                <div class="code-block">
+                    <pre><code>ESC [ <code> m
+ ↑   ↑   ↑    ↑
+ |   |   |    'm' = color/formatting command
+ |   |   Code number (91=red, 92=green, etc.)
+ |   Opening bracket
+ ESC character (ASCII 27 = \033 in octal)</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Complete Code Reference:</strong>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Macro</th>
+                            <th>ANSI Code</th>
+                            <th>Effect</th>
+                            <th>Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>RESET</td>
+                            <td>\033[0m</td>
+                            <td>Reset all formatting</td>
+                            <td>End of colored section</td>
+                        </tr>
+                        <tr>
+                            <td>RED</td>
+                            <td>\033[91m</td>
+                            <td><span style="color: #ff5555;">Bright red text</span></td>
+                            <td>Errors, warnings, at-risk</td>
+                        </tr>
+                        <tr>
+                            <td>GREEN</td>
+                            <td>\033[92m</td>
+                            <td><span style="color: #50fa7b;">Bright green text</span></td>
+                            <td>Success, present, good status</td>
+                        </tr>
+                        <tr>
+                            <td>YELLOW</td>
+                            <td>\033[93m</td>
+                            <td><span style="color: #f1fa8c;">Bright yellow text</span></td>
+                            <td>Warnings, duplicates, info</td>
+                        </tr>
+                        <tr>
+                            <td>CYAN</td>
+                            <td>\033[96m</td>
+                            <td><span style="color: #8be9fd;">Bright cyan text</span></td>
+                            <td>Headers, borders, info</td>
+                        </tr>
+                        <tr>
+                            <td>MAGENTA</td>
+                            <td>\033[95m</td>
+                            <td><span style="color: #ff79c6;">Bright magenta text</span></td>
+                            <td>Section titles, day names</td>
+                        </tr>
+                        <tr>
+                            <td>BOLD</td>
+                            <td>\033[1m</td>
+                            <td><strong>Bold text</strong></td>
+                            <td>Emphasis, titles</td>
+                        </tr>
+                        <tr>
+                            <td>DIM</td>
+                            <td>\033[2m</td>
+                            <td><span style="opacity: 0.5;">Dimmed text</span></td>
+                            <td>Hints, secondary info</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box warning-box">
+                <strong>⚠️ Windows Requirement:</strong><br>
+                Must enable ANSI processing in main() before any colored output:<br>
+                <code>SetConsoleMode(hOut, dwMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);</code>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- DATA STRUCTURES -->
+        <h2 class="section-title">3. Data Structures - All 4 Structs</h2>
+
+        <div class="func-block">
+            <div class="func-title">struct Student</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">struct Student {
+    int sl;          // Serial number (1-45)
+    string id;       // Student ID (e.g., "C253027")
+    string name;     // Full name
+    
+    Student(int s, string i, string n) : sl(s), id(i), name(n) {}
+};</code></pre>
+            </div>
+            <div class="info-box why-box">
+                <strong>Constructor Initialization List:</strong><br>
+                <code>: sl(s), id(i), name(n)</code> directly initializes members<br>
+                More efficient than assignment in constructor body<br>
+                Required for const/reference members
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">struct Course</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">struct Course {
+    string code;
+    string title;
+    int weeklyClasses;
+    int totalSemesterClasses;
+    
+    Course(string c = "", string t = "", int w = 0, int total = 48)
+        : code(c), title(t), weeklyClasses(w), totalSemesterClasses(total) {}
+};</code></pre>
+            </div>
+            <div class="info-box warning-box">
+                <strong>Default Parameters:</strong><br>
+                <code>int total = 48</code> means most courses have 48 total classes<br>
+                <strong>Exception:</strong> GEEM-1101 has only 32 (16 weeks × 2 classes/week)
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">struct ClassPeriod</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">struct ClassPeriod {
+    string day;        // "Monday", "Tuesday", etc.
+    string time;       // "10:40 AM"
+    string endTime;    // "11:30 AM"
+    string courseCode; // "EEE-1121"
+    
+    ClassPeriod(string d, string t, string et, string c)
+        : day(d), time(t), endTime(et), courseCode(c) {}
+};</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">struct AttendanceRecord</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">struct AttendanceRecord {
+    string studentId;
+    string courseCode;
+    string date;
+    string day;
+    string timeSlot;
+    bool present;
+    
+    AttendanceRecord(string sid, string cc, string dt, string dy, string ts, bool p)
+        : studentId(sid), courseCode(cc), date(dt), day(dy), timeSlot(ts), present(p) {}
+};</code></pre>
+            </div>
+            <div class="info-box why-box">
+                <strong>Composite Key:</strong><br>
+                <code>studentId + courseCode + date + timeSlot</code> = unique record<br>
+                Prevents duplicate attendance entries
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- BUFFER MANAGEMENT -->
+        <h2 class="section-title">4. Buffer Management & Stream Handling</h2>
+
+        <h3 class="subsection-title">4.1 - cin >> vs getline()</h3>
+        <div class="func-block">
+            <div class="func-title">Critical Difference</div>
+
+            <div class="info-box error-box">
+                <strong>🔥 The Problem:</strong><br>
+                <code>cin >></code> leaves the newline character (\n) in the input buffer!
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// PROBLEM SCENARIO:
+int choice;
+cin >> choice;        // User types "3<ENTER>"
+                     // cin reads "3", leaves "\n" in buffer
+
+string name;
+getline(cin, name);  // Immediately reads "\n" (empty line!)
+                     // name becomes empty string ""</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Solution:</strong> Use <code>cin.ignore()</code> to clear the buffer
+                <div class="code-block">
+                    <pre><code class="language-cpp">int choice;
+cin >> choice;
+cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Clear buffer
+
+string name;
+getline(cin, name);  // Now reads actual input correctly</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">4.2 - cin.ignore() Explained</h3>
+        <div class="func-block">
+            <div class="func-title">Complete Syntax</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">cin.ignore(count, delimiter);
+
+// PARAMETERS:
+// count = Maximum characters to ignore
+// delimiter = Stop when this character is found (and discard it)
+
+// FULL FORM:
+cin.ignore((std::numeric_limits<streamsize>::max)(), '\n');
+//          └─────────────────────┬────────────────────┘  └┬┘
+//                          Maximum possible stream size   Newline</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why numeric_limits&lt;streamsize&gt;::max()?</strong><br>
+                Returns the largest possible value for stream size (usually 2³¹-1)<br>
+                Guarantees we ignore everything up to the newline<br><br>
+
+                <strong>Alternative (simpler but less robust):</strong><br>
+                <code>cin.ignore(10000, '\n');</code> - assumes buffer &lt; 10000 chars
+            </div>
+        </div>
+
+        <h3 class="subsection-title">4.3 - Conditional Buffer Clearing</h3>
+        <div class="func-block">
+            <div class="func-title">Multi-Period Mode Pattern</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// PATTERN 1: getline() first (no ignore needed)
+string multiPeriodInput;
+getline(cin, multiPeriodInput);  // Already clears buffer
+
+// PATTERN 2: cin >> then getline (must ignore)
+int periodInput;
+cin >> periodInput;
+cin.ignore(numeric_limits<streamsize>::max(), '\n');  // REQUIRED!
+string dateInput;
+getline(cin, dateInput);
+
+// PATTERN 3: Conditional ignoring
+bool isMultiPeriodMode = (multiPeriodInput.find(' ') != string::npos ||
+                         multiPeriodInput.find('-') != string::npos);
+
+if (!isMultiPeriodMode) {
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    // Only ignore if we used cin >>, not if we used getline
+}</code></pre>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">4.4 - Whitespace Trimming</h3>
+        <div class="func-block">
+            <div class="func-title">Trim Leading & Trailing Spaces</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// TRIM LEFT (leading whitespace)
+dateInput.erase(0, dateInput.find_first_not_of(" \t\n\r"));
+//              ↑  └────────────────┬──────────────────┘
+//              |        Find first non-whitespace position
+//              Start erasing from position 0
+
+// TRIM RIGHT (trailing whitespace)
+dateInput.erase(dateInput.find_last_not_of(" \t\n\r") + 1);
+//              └───────────────┬─────────────────┘
+//                   Find last non-whitespace position, erase after it</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Example:</strong>
+                <div class="code-block">
+                    <pre><code>Input: "   27-11-2025   \n"
+After left trim:  "27-11-2025   \n"
+After right trim: "27-11-2025"</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STRING PARSING -->
+        <h2 class="section-title">5. String Processing & Parsing</h2>
+
+        <h3 class="subsection-title">5.1 - Date Parsing Pattern</h3>
+        <div class="func-block">
+            <div class="func-title">DD-MM-YYYY Format</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// INPUT: "27-11-2025"
+int day, month, year;
+char sep1, sep2;
+
+stringstream ss(dateStr);
+ss >> day >> sep1 >> month >> sep2 >> year;
+//    27      -       11       -      2025
+
+// VALIDATION:
+if (sep1 != '-' || sep2 != '-') {
+    // Invalid format (not using dashes)
+    return false;
+}
+
+// POSITION VALIDATION:
+if (dateStr.length() != 10 || dateStr[2] != '-' || dateStr[5] != '-') {
+    // Not exactly 10 characters, or dashes in wrong positions
+    return false;
+}</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>How >> Operator Works:</strong><br>
+                Extracts tokens separated by whitespace OR until reaching non-matching type<br>
+                <code>ss >> day</code> reads digits until '-'<br>
+                <code>ss >> sep1</code> reads the '-' character<br>
+                <code>ss >> month</code> reads next digits<br>
+                And so on...
+            </div>
+        </div>
+
+        <h3 class="subsection-title">5.2 - Time Parsing Pattern</h3>
+        <div class="func-block">
+            <div class="func-title">HH:MM AM/PM Format</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// INPUT: "10:40 AM"
+int hour, minute;
+char colon;
+string period;
+
+stringstream ss(timeSlot);
+ss >> hour >> colon >> minute >> period;
+//    10       :       40       AM
+
+// Now can reformat with zero padding:
+stringstream result;
+result << setfill('0') << setw(2) << hour << ":"
+       << setfill('0') << setw(2) << minute << " " << period;
+// "10:40 AM" (already padded) or "09:05 AM" (with padding)</code></pre>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">5.3 - Multi-Period Range Parsing</h3>
+        <div class="func-block">
+            <div class="func-title">Two Input Formats</div>
+
+            <div class="info-box example-box">
+                <strong>Format 1: Space-Separated</strong> ("2 3 4")
+                <div class="code-block">
+                    <pre><code class="language-cpp">// INPUT: "2 3 4"
+stringstream ss(multiPeriodInput);
+string periodStr;
+
+while (ss >> periodStr)) {
+    int periodNum = stoi(periodStr);
+    // periodNum = 2, then 3, then 4
+    selectedPeriods.push_back(dayClasses[periodNum - 1]);
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Format 2: Range with Dash</strong> ("2-6")
+                <div class="code-block">
+                    <pre><code class="language-cpp">// INPUT: "2-6"
+size_t dashPos = multiPeriodInput.find('-');
+
+if (dashPos != string::npos) {
+    int start = stoi(multiPeriodInput.substr(0, dashPos));
+    int end = stoi(multiPeriodInput.substr(dashPos + 1));
+    
+    // VALIDATION:
+    if (start > end) {
+        cout << RED << "❌ Invalid range!" << RESET;
+        return;
+    }
+    
+    // Add periods 2, 3, 4, 5, 6
+    for (int i = start; i <= end; i++) {
+        selectedPeriods.push_back(dayClasses[i - 1]);
+    }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- UI FORMATTING -->
+        <h2 class="section-title">6. UI Formatting Functions</h2>
+
+        <h3 class="subsection-title">6.1 - Box-Drawing Characters</h3>
+        <div class="func-block">
+            <div class="func-title">Complete Character Set</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Character</th>
+                        <th>Unicode</th>
+                        <th>Usage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>╔</td>
+                        <td>U+2554</td>
+                        <td>Top-left corner (double)</td>
+                    </tr>
+                    <tr>
+                        <td>═</td>
+                        <td>U+2550</td>
+                        <td>Horizontal line (double)</td>
+                    </tr>
+                    <tr>
+                        <td>╗</td>
+                        <td>U+2557</td>
+                        <td>Top-right corner (double)</td>
+                    </tr>
+                    <tr>
+                        <td>║</td>
+                        <td>U+2551</td>
+                        <td>Vertical line (double)</td>
+                    </tr>
+                    <tr>
+                        <td>╚</td>
+                        <td>U+255A</td>
+                        <td>Bottom-left corner (double)</td>
+                    </tr>
+                    <tr>
+                        <td>╝</td>
+                        <td>U+255D</td>
+                        <td>Bottom-right corner (double)</td>
+                    </tr>
+                    <tr>
+                        <td>┌</td>
+                        <td>U+250C</td>
+                        <td>Top-left corner (single)</td>
+                    </tr>
+                    <tr>
+                        <td>─</td>
+                        <td>U+2500</td>
+                        <td>Horizontal line (single)</td>
+                    </tr>
+                    <tr>
+                        <td>┐</td>
+                        <td>U+2510</td>
+                        <td>Top-right corner (single)</td>
+                    </tr>
+                    <tr>
+                        <td>│</td>
+                        <td>U+2502</td>
+                        <td>Vertical line (single)</td>
+                    </tr>
+                    <tr>
+                        <td>└</td>
+                        <td>U+2514</td>
+                        <td>Bottom-left corner (single)</td>
+                    </tr>
+                    <tr>
+                        <td>┘</td>
+                        <td>U+2518</td>
+                        <td>Bottom-right corner (single)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box example-box">
+                <strong>Example Box:</strong>
+                <div class="code-block">
+                    <pre><code>╔════════════════════════════════════════════════╗
+║        ATTENDANCE TRACKING SYSTEM              ║
+╚════════════════════════════════════════════════╝
+
+┌────────────────────────────────────────────────┐
+│  Thank you for using the system!               │
+└────────────────────────────────────────────────┘</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">6.2 - printHeader() Internals</h3>
+        <div class="func-block">
+            <div class="func-title">Complete Implementation</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">void printHeader(const string &title) {
+    // CONSTANTS:
+    const int TOTAL_WIDTH = 74;   // Fixed menu width
+    const int EMOJI_SPACE = 22;   // Space for "╔═══ 📝 ═══╗"
+    
+    // CALCULATION:
+    int spaces = TOTAL_WIDTH - EMOJI_SPACE - title.length();
+    
+    // TOP BORDER:
+    cout << CYAN << "╔═══ 📝 " << BOLD << title << RESET << CYAN;
+    cout << string(spaces, ' ') << "═══╗\n";
+    
+    // SIDE BORDERS (for content):
+    // "║" on left and right
+    
+    // BOTTOM BORDER:
+    cout << "╚" << string(TOTAL_WIDTH, '═') << "╝\n" << RESET;
+}</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Magic Numbers Explained:</strong><br>
+                • <strong>74</strong> - Total width fits in 80-char terminals (with margins)<br>
+                • <strong>22</strong> - Length of decorative elements ("╔═══ 📝 " + "═══╗")<br>
+                • <strong>spaces</strong> - Dynamically calculated to pad title to width
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ZELLER'S CONGRUENCE -->
+        <h2 class="section-title">7. Zeller's Congruence - Day of Week Algorithm</h2>
+
+        <div class="func-block">
+            <div class="func-title">Complete Algorithm</div>
+            <div class="func-purpose">Calculate day of week from any date (Gregorian calendar)</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">int getDayOfWeek(int day, int month, int year) {
+    // STEP 1: Adjust for January/February
+    if (month < 3) {
+        month += 12;  // January = 13, February = 14
+        year--;       // Treat as previous year
+    }
+    
+    // STEP 2: Calculate components
+    int k = year % 100;        // Year within century (0-99)
+    int j = year / 100;        // Century number
+    
+    // STEP 3: Zeller's formula
+    int h = (day + (13 * (month + 1)) / 5 + k + k/4 + j/4 - 2*j) % 7;
+    
+    // STEP 4: Convert to 0=Sunday, 1=Monday, etc.
+    int dayOfWeek = (h + 5) % 7 + 1;  // Adjust to 1=Sunday, 2=Monday, ...
+    
+    return dayOfWeek;
+}</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why January/February Special?</strong><br>
+                Gregorian calendar has leap days at end of February<br>
+                Treating Jan/Feb as months 13/14 of previous year makes leap year math easier<br><br>
+
+                <strong>Example:</strong><br>
+                January 15, 2025 → Becomes month 13, year 2024
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Step-by-Step Example: November 27, 2025</strong>
+                <div class="code-block">
+                    <pre><code>Given: day=27, month=11, year=2025
+
+// month >= 3, no adjustment needed
+
+k = 2025 % 100 = 25                    (year in century)
+j = 2025 / 100 = 20                    (century)
+
+h = (27 + (13 * 12) / 5 + 25 + 25/4 + 20/4 - 2*20) % 7
+h = (27 + 156/5 + 25 + 6 + 5 - 40) % 7
+h = (27 + 31 + 25 + 6 + 5 - 40) % 7
+h = 54 % 7
+h = 5
+
+dayOfWeek = (5 + 5) % 7 + 1 = 10 % 7 + 1 = 3 + 1 = 4
+// 4 = Wednesday ✓</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box warning-box">
+                <strong>Historical Context:</strong><br>
+                Formula developed by Christian Zeller (1822-1899)<br>
+                Accounts for Gregorian calendar reform (1582)<br>
+                <code>-2*j</code> term adjusts for century leap year rule
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- CLASS ARCHITECTURE -->
+        <h2 class="section-title">8. Class Architecture</h2>
+
+        <div class="func-block">
+            <div class="func-title">class AttendanceSystem</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">class AttendanceSystem {
+private:
+    // DATA STORAGE
+    vector&lt;Student&gt; students;                    // 45 students
+    map&lt;string, Course&gt; courses;                 // 8 courses
+    vector&lt;ClassPeriod&gt; routine;                 // 23 periods
+    vector&lt;AttendanceRecord&gt; attendanceRecords;  // Variable
+    
+    // CONSTANTS
+    const string ATTENDANCE_FOLDER = "Attendance Sheet";
+    const double DISCOLLEGIATE_THRESHOLD = 60.0;
+    
+    // INITIALIZATION (3 functions)
+    void initializeStudents();
+    void initializeCourses();
+    void initializeRoutine();
+    
+    // FILE I/O (2 functions)
+    void loadAttendanceData();
+    void saveAttendanceData();
+    
+    // HELPER FUNCTIONS (~24 functions)
+    // See complete-guide-FULL.html for all helpers
+    
+    // UI UTILITIES (3 functions)
+    void printHeader(const string &title);
+    void printLine();
+    void clearScreen();
+
+public:
+    // CONSTRUCTOR
+    AttendanceSystem();
+    
+    // MAIN FEATURES (4 functions)
+    void displayMainMenu();
+    void run();
+    void takeAttendance();
+    bool selectPeriodAndMark(const string &selectedDay,
+                            const vector&lt;ClassPeriod&gt; &dayClasses);
+    void viewStudentStatus();
+    void viewWeeklyRoutine();
+};</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Container Sizes:</strong><br>
+                • <code>students.size()</code> = 45 (constant)<br>
+                • <code>courses.size()</code> = 8 (constant)<br>
+                • <code>routine.size()</code> = 23 (constant)<br>
+                • <code>attendanceRecords.size()</code> = 0 initially, grows dynamically
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Design Decisions:</strong><br>
+                • <code>vector&lt;Student&gt;</code> - Preserve roster order (SL 1-45)<br>
+                • <code>map&lt;string, Course&gt;</code> - Fast O(log n) lookup by code<br>
+                • <code>vector&lt;ClassPeriod&gt;</code> - Chronological order<br>
+                • <code>vector&lt;AttendanceRecord&gt;</code> - Append-only pattern
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SUMMARY -->
+        <div style="text-align: center; padding: 2rem; background: rgba(0, 217, 255, 0.05); border-radius: 16px;">
+            <h3 style="color: #00d9ff; font-size: 1.8rem;">✅ Complete Foundations!</h3>
+            <p style="color: #a8b3cf;">
+                <strong>Covered:</strong> 14 headers, 10 ANSI codes, 4 data structures,<br>
+                buffer management, string parsing, UI formatting, and Zeller's algorithm<br><br>
+                <strong>Next:</strong> Explore Helper Functions, Major Features, and File I/O guides
+            </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="quiz.html" class="nav-button">Take Knowledge Quiz 🎯</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+
+        <!-- Quick Reference Box -->
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1rem;">🔗 Quick Reference Links</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Foundations</h4>
+                    <a href="guide-foundations.html" class="resource-link">Data Structures & ANSI Codes</a>
+                    <a href="COMPLETE-GUIDE-FINAL.html" class="resource-link">Complete System Reference</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Implementation</h4>
+                    <a href="complete-guide-FULL.html" class="resource-link">24 Helper Functions</a>
+                    <a href="guide-major-features.html" class="resource-link">6 Major Functions</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Advanced</h4>
+                    <a href="guide-file-io.html" class="resource-link">File I/O & Windows APIs</a>
+                    <a href="error-validation-reference.html" class="resource-link">Error & Validation Reference</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

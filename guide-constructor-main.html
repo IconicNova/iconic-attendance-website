@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructor & main() - C++ Attendance System</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00d9ff;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .subsection-title {
+            font-size: 1.5rem;
+            color: #ff79c6;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .func-block {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #00d9ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+        }
+
+        .func-title {
+            color: #f1fa8c;
+            font-size: 1.4rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .func-purpose {
+            color: #50fa7b;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .example-box {
+            background: rgba(0, 217, 255, 0.1);
+            border-left-color: #00d9ff;
+        }
+
+        .why-box {
+            background: rgba(80, 250, 123, 0.1);
+            border-left-color: #50fa7b;
+        }
+
+        .warning-box {
+            background: rgba(241, 250, 140, 0.1);
+            border-left-color: #f1fa8c;
+        }
+
+        .error-box {
+            background: rgba(255, 85, 85, 0.1);
+            border-left-color: #ff5555;
+        }
+
+        .code-block {
+            background: #1e1e3f;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #f1fa8c;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        ul,
+        ol {
+            margin-left: 2rem;
+            color: #a8b3cf;
+        }
+
+        li {
+            margin: 0.4rem 0;
+        }
+
+        strong {
+            color: #00d9ff;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            margin: 3rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th,
+        td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        th {
+            background: rgba(0, 217, 255, 0.2);
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        td {
+            color: #a8b3cf;
+        }
+
+        /* --- NEW NAVIGATION & REFERENCE STYLES --- */
+
+        /* Solid Cyan Buttons */
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Resource Links */
+        .resource-link {
+            display: block;
+            color: #00d9ff;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .resource-link:hover {
+            color: #ff79c6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🎯 Constructor & main()</h1>
+            <p style="color: #8be9fd; font-size: 1.1rem;">Program Entry Points & Complete Windows Console Setup</p>
+        </div>
+
+        <h2 class="section-title">Overview</h2>
+        <div class="info-box example-box">
+            <strong>Program Initialization Sequence:</strong>
+            <ol>
+                <li><strong>main()</strong> - Set up Windows console for UTF-8 and ANSI codes</li>
+                <li><strong>Constructor</strong> - Load all data (students, courses, routine, CSV files)</li>
+                <li><strong>run()</strong> - Enter main application loop</li>
+            </ol>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- MAIN FUNCTION -->
+        <h2 class="section-title">1. main() Function - Complete Implementation</h2>
+        <div class="func-block">
+            <div class="func-title">int main()</div>
+            <div class="func-purpose">Configure Windows console environment and run system</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">int main() {
+    // ========== WINDOWS CONSOLE SETUP ==========
+#ifdef _WIN32
+    // STEP 1: Enable UTF-8 for OUTPUT
+    SetConsoleOutputCP(CP_UTF8);
+    
+    // STEP 2: Enable UTF-8 for INPUT (allows user to type UTF-8)
+    SetConsoleCP(CP_UTF8);
+    
+    // STEP 3: Enable ANSI Color Codes
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dwMode = 0;
+    GetConsoleMode(hOut, &dwMode);
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(hOut, dwMode);
+#endif
+
+    // ========== CREATE & RUN SYSTEM ==========
+    try {
+        AttendanceSystem system;  // Constructor initializes data
+        system.run();             // Start main event loop
+    } catch (const exception &e) {
+        cerr << "Fatal Error: " << e.what() << endl;
+        return 1;  // Exit with error code
+    }
+
+    return 0;  // Success
+}</code></pre>
+            </div>
+
+            <div class="info-box error-box">
+                <strong>🔥 Critical: SetConsoleCP() is MISSING from many guides!</strong><br>
+                Without <code>SetConsoleCP(CP_UTF8)</code>, users cannot TYPE UTF-8 characters.<br>
+                Both <code>SetConsoleOutputCP()</code> (output) AND <code>SetConsoleCP()</code> (input) are required!
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.1 - Windows Console Setup (Line-by-Line)</h3>
+        <div class="func-block">
+            <div class="func-purpose">Detailed explanation of each Windows API call</div>
+
+            <div class="info-box warning-box">
+                <strong>⚠️ Why Is This Needed?</strong><br>
+                Windows Command Prompt by default does NOT support:<br>
+                • ❌ ANSI color codes (<code>\033[91m</code>)<br>
+                • ❌ UTF-8 characters (emojis like 📝, special chars like ║)<br>
+                • ❌ UTF-8 input from keyboard<br><br>
+                Must enable manually in <code>main()</code> before any output!
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// LINE 1: Platform Check
+#ifdef _WIN32
+// Only compile this code on Windows
+// Linux/Mac terminals already support ANSI codes by default</code></pre>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// LINE 2: Enable UTF-8 OUTPUT Encoding
+SetConsoleOutputCP(CP_UTF8);
+
+// SetConsoleOutputCP = Set Console Output Code Page
+// CP_UTF8 = Constant for UTF-8 encoding (65001)
+// Result: cout can display emojis, box-drawing chars, etc.
+
+// Example:
+// Without: cout << "📝" → displays garbage "?"
+// With:    cout << "📝" → displays "📝" correctly</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Code Page Values:</strong><br>
+                • <code>CP_UTF8</code> = 65001 (Unicode UTF-8)<br>
+                • <code>437</code> = Default US code page (ASCII-like)<br>
+                • <code>1252</code> = Windows Latin 1
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// LINE 3: Enable UTF-8 INPUT Encoding
+SetConsoleCP(CP_UTF8);
+
+// SetConsoleCP = Set Console (Input) Code Page
+// Allows users to TYPE UTF-8 characters
+// Without this, cin cannot read UTF-8 input correctly
+
+// Example:
+// User types student name with accent: "José"
+// Without SetConsoleCP: reads as garbage
+// With SetConsoleCP: reads "José" correctly</code></pre>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// LINE 4: Get Console Output Handle
+HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+// GetStdHandle() = Get handle to standard output
+// STD_OUTPUT_HANDLE = Constant (-11) for console output
+// HANDLE = Windows type for object handles (like a pointer)
+// Returns: Handle to the console screen buffer</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why HANDLE?</strong><br>
+                Windows uses "handles" to reference system objects (files, console, processes).<br>
+                Similar to file descriptors in Unix, but more opaque.
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// LINE 5: Declare Mode Variable
+DWORD dwMode = 0;
+
+// DWORD = Double Word = 32-bit unsigned integer
+// dwMode will hold console mode flags (bitmask)
+// Initialize to 0 before GetConsoleMode() call</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Why DWORD Instead of unsigned int?</strong><br>
+                <code>DWORD</code> is defined as <code>unsigned long</code> in Windows SDK.<br>
+                Always 32 bits on both 32-bit and 64-bit Windows.<br>
+                Using <code>unsigned int</code> might be 16 or 32 bits (platform-dependent).<br>
+                Windows APIs require exact types for compatibility.
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// LINE 6: Read Current Console Mode
+GetConsoleMode(hOut, &dwMode);
+
+// GetConsoleMode(handle, &mode)
+// Reads current mode settings into dwMode
+// &dwMode = pass address so function can write to variable
+// Mode is a bitmask of flags (multiple flags OR'd together)</code></pre>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// LINE 7: Add ANSI Processing Flag (Bitwise OR)
+dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+
+// |= Bitwise OR assignment operator
+// Adds ENABLE_VIRTUAL_TERMINAL_PROCESSING flag to existing mode
+// Does NOT remove other flags, just adds this one
+
+// ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004
+// Tells Windows to interpret ANSI escape sequences</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Bitwise OR Explanation:</strong>
+                <div class="code-block">
+                    <pre><code class="language-cpp">// Suppose dwMode currently = 0x0003 (binary: 0011)
+// ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004 (binary: 0100)
+
+// dwMode |= 0x0004
+// Bitwise OR:
+//   0011  (original dwMode)
+// | 0100  (flag to add)
+// -------
+//   0111  (result)
+
+// Result: dwMode = 0x0007 = 0011 | 0100 = 0111
+// Flag is now set, but other flags remain unchanged</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box warning-box">
+                <strong>⚠️ Common Mistakes:</strong><br>
+                • Using <code>=</code> instead of <code>|=</code> → WRONG! Removes other flags<br>
+                • Forgetting to call <code>SetConsoleMode()</code> → Mode not applied<br>
+                • Calling AFTER console output → Too late, output already rendered
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// LINE 8: Apply Modified Mode
+SetConsoleMode(hOut, dwMode);
+
+// Writes modified mode back to console
+// After this, ANSI escape codes are interpreted
+// Console now supports colors and formatting!</code></pre>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.2 - ANSI Escape Codes Explained</h3>
+        <div class="func-block">
+            <div class="func-purpose">How ANSI codes work and why Windows needs special setup</div>
+
+            <div class="info-box example-box">
+                <strong>ANSI Escape Sequence Structure:</strong>
+                <div class="code-block">
+                    <pre><code>ESC [ <parameters> <command>
+ ↑   ↑      ↑          ↑
+ |   |      |          |
+ |   |      |          Letter (m=color, H=position, etc.)
+ |   |      Numeric parameters (e.g., 91 for red)
+ |   Opening bracket
+ Escape character (ASCII 27, or \033 in octal)</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Common ANSI Color Codes Used in System:</strong>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Constant</th>
+                            <th>Actual Code</th>
+                            <th>Escape Sequence</th>
+                            <th>Effect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>RED</code></td>
+                            <td><code>"\033[91m"</code></td>
+                            <td>ESC [91m</td>
+                            <td><span style="color: #ff5555;">Bright Red Text</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>GREEN</code></td>
+                            <td><code>"\033[92m"</code></td>
+                            <td>ESC [92m</td>
+                            <td><span style="color: #50fa7b;">Bright Green Text</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>YELLOW</code></td>
+                            <td><code>"\033[93m"</code></td>
+                            <td>ESC [93m</td>
+                            <td><span style="color: #f1fa8c;">Bright Yellow Text</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>CYAN</code></td>
+                            <td><code>"\033[96m"</code></td>
+                            <td>ESC [96m</td>
+                            <td><span style="color: #8be9fd;">Bright Cyan Text</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>MAGENTA</code></td>
+                            <td><code>"\033[95m"</code></td>
+                            <td>ESC [95m</td>
+                            <td><span style="color: #ff79c6;">Bright Magenta Text</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>BOLD</code></td>
+                            <td><code>"\033[1m"</code></td>
+                            <td>ESC [1m</td>
+                            <td><strong>Bold Text</strong></td>
+                        </tr>
+                        <tr>
+                            <td><code>DIM</code></td>
+                            <td><code>"\033[2m"</code></td>
+                            <td>ESC [2m</td>
+                            <td><span style="opacity: 0.5;">Dimmed Text</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>RESET</code></td>
+                            <td><code>"\033[0m"</code></td>
+                            <td>ESC [0m</td>
+                            <td>Reset All Formatting</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box warning-box">
+                <strong>Without ENABLE_VIRTUAL_TERMINAL_PROCESSING:</strong>
+                <div class="code-block">
+                    <pre><code>cout << "\033[91mError\033[0m";
+// Output on Windows: ←[91mError←[0m
+// (Displays escape sequences as literal characters)</code></pre>
+                </div>
+
+                <strong>With ENABLE_VIRTUAL_TERMINAL_PROCESSING:</strong>
+                <div class="code-block">
+                    <pre><code>cout << "\033[91mError\033[0m";
+// Output on Windows: Error (in bright red color)
+// (Interprets escape sequences correctly)</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Escape Character Representations:</strong><br>
+                • <code>\033</code> = Octal representation (ESC = ASCII 27 = 033₈)<br>
+                • <code>\x1B</code> = Hexadecimal representation (27₁₀ = 1B₁₆)<br>
+                • <code>\e</code> = GCC extension (not portable)<br>
+                • All represent the same ESC character (ASCII 27)
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.3 - Platform Differences</h3>
+        <div class="func-block">
+            <div class="func-purpose">Windows vs Linux/Mac console behavior</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Windows (cmd.exe)</th>
+                        <th>Linux/Mac (bash/zsh)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ANSI Codes</strong></td>
+                        <td>❌ Disabled by default<br>✅ Enable with ENABLE_VIRTUAL_TERMINAL_PROCESSING</td>
+                        <td>✅ Enabled by default<br>No setup needed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UTF-8 Output</strong></td>
+                        <td>❌ Code page 437 default<br>✅ Switch with SetConsoleOutputCP()</td>
+                        <td>✅ UTF-8 default<br>No setup needed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UTF-8 Input</strong></td>
+                        <td>❌ Code page 437 default<br>✅ Switch with SetConsoleCP()</td>
+                        <td>✅ UTF-8 default<br>No setup needed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Required Headers</strong></td>
+                        <td><code>&lt;windows.h&gt;</code></td>
+                        <td>None (ANSI support built-in)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box why-box">
+                <strong>Why the difference?</strong><br>
+                Windows Command Prompt was designed in the 1980s for backward compatibility with DOS.<br>
+                Linux/Mac terminals were designed with modern standards (UTF-8, ANSI codes) from the start.
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.4 - Try-Catch Error Handling</h3>
+        <div class="func-block">
+            <div class="func-purpose">Catch and handle fatal errors during initialization or runtime</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">try {
+    AttendanceSystem system;  // Constructor might throw
+    system.run();             // Main loop might throw
+} catch (const exception &e) {
+    cerr << "Fatal Error: " << e.what() << endl;
+    return 1;  // Non-zero = error exit code
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Potential Exceptions:</strong>
+                <ul>
+                    <li><strong>bad_alloc:</strong> Out of memory (unlikely with this dataset)</li>
+                    <li><strong>runtime_error:</strong> File I/O failures (corrupted CSV, permissions)</li>
+                    <li><strong>invalid_argument:</strong> Invalid data in CSV files</li>
+                    <li><strong>system_error:</strong> Windows API failures (very rare)</li>
+                </ul>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why catch by const reference?</strong><br>
+                <code>catch (const exception &e)</code> instead of <code>catch (exception e)</code><br>
+                • Avoids copying exception object (more efficient)<br>
+                • <code>const</code> ensures we don't modify the exception<br>
+                • <code>&</code> reference allows polymorphism (catches derived types)
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Exit Codes:</strong><br>
+                • <code>return 0;</code> = Success<br>
+                • <code>return 1;</code> = General error<br>
+                • Used by shell scripts to check if program succeeded
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- CONSTRUCTOR -->
+        <h2 class="section-title">2. AttendanceSystem Constructor</h2>
+        <div class="func-block">
+            <div class="func-title">AttendanceSystem()</div>
+            <div class="func-purpose">Initialize all data structures when system object is created</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">AttendanceSystem() {
+    // STEP 1: Load Hardcoded Data
+    initializeStudents();   // 45 students → vector<Student>
+    initializeCourses();    // 8 courses → map<string, Course>
+    initializeRoutine();    // 23 periods → vector<ClassPeriod>
+    
+    // STEP 2: Load Persistent Data
+    loadAttendanceData();   // Read all CSV files from disk
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Execution Timeline:</strong>
+                <ol>
+                    <li><strong>0ms:</strong> Constructor called from <code>main()</code></li>
+                    <li><strong>0-10ms:</strong> initializeStudents() → 45 Student objects created</li>
+                    <li><strong>10-15ms:</strong> initializeCourses() → 8 Course objects in map</li>
+                    <li><strong>15-20ms:</strong> initializeRoutine() → 23 ClassPeriod objects</li>
+                    <li><strong>20-200ms:</strong> loadAttendanceData() → CSV files read (varies by count)</li>
+                    <li><strong>200ms:</strong> Constructor complete, system ready</li>
+                </ol>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">2.1 - Initialization Order (Critical!)</h3>
+        <div class="func-block">
+            <div class="func-purpose">Why students must be initialized before courses and routine</div>
+
+            <div class="info-box warning-box">
+                <strong>⚠️ Order Matters!</strong><br>
+                <strong>Correct Order:</strong>
+                <ol>
+                    <li><code>initializeStudents()</code> FIRST</li>
+                    <li><code>initializeCourses()</code> SECOND</li>
+                    <li><code>initializeRoutine()</code> THIRD</li>
+                    <li><code>loadAttendanceData()</code> LAST</li>
+                </ol>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why This Order?</strong><br><br>
+
+                <strong>1. Students First:</strong><br>
+                • <code>saveAttendanceData()</code> iterates through <code>students</code> vector<br>
+                • If students empty, no data would be saved<br>
+                • Must exist before any attendance is loaded<br><br>
+
+                <strong>2. Courses Second:</strong><br>
+                • Used to get course titles in various displays<br>
+                • <code>getCourseTitle()</code> lookups need populated map<br>
+                • No dependencies on students or routine<br><br>
+
+                <strong>3. Routine Third:</strong><br>
+                • Used by <code>getClassesForDay()</code> and <code>getEndTime()</code><br>
+                • No dependencies on other data<br>
+                • Must exist before taking attendance<br><br>
+
+                <strong>4. Load Attendance Last:</strong><br>
+                • Depends on students (validates student IDs)<br>
+                • Depends on courses (validates course codes)<br>
+                • If loaded first, references would be invalid
+            </div>
+
+            <div class="info-box error-box">
+                <strong>🔥 What Happens If Wrong Order?</strong>
+                <div class="code-block">
+                    <pre><code class="language-cpp">// WRONG ORDER:
+loadAttendanceData();   // CSV has student C253027
+initializeStudents();   // C253027 doesn't exist yet!
+// Result: Attendance records reference non-existent students
+// When saveAttendanceData() runs, students list is empty → no output!</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">2.2 - Exception Safety</h3>
+        <div class="func-block">
+            <div class="func-purpose">What happens if constructor throws?</div>
+
+            <div class="info-box warning-box">
+                <strong>⚠️ Exception in Constructor:</strong><br>
+                If <code>loadAttendanceData()</code> throws (e.g., corrupted CSV):<br>
+                • Constructor fails<br>
+                • Object is NOT created<br>
+                • Memory for partially-initialized members is cleaned up automatically<br>
+                • Exception propagates to <code>main()</code>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// In main():
+try {
+    AttendanceSystem system;  // Constructor throws!
+    // This line never executes
+    system.run();
+} catch (const exception &e) {
+    // Caught here
+    cerr << "Fatal Error: " << e.what() << endl;
+    // system object never fully created
+}</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why This is Safe:</strong><br>
+                • C++ guarantees cleanup of fully-constructed members<br>
+                • <code>students</code>, <code>courses</code>, <code>routine</code> vectors/maps auto-cleanup<br>
+                • No memory leaks even if constructor fails midway
+            </div>
+        </div>
+
+        <h3 class="subsection-title">2.3 - Memory Layout After Construction</h3>
+        <div class="func-block">
+            <div class="func-purpose">Where data lives in memory</div>
+
+            <div class="info-box example-box">
+                <strong>Stack vs Heap:</strong>
+                <div class="code-block">
+                    <pre><code>STACK:
+└─ main() stack frame
+   └─ system (AttendanceSystem object)
+      ├─ students (vector object itself ~24 bytes)
+      ├─ courses (map object itself ~48 bytes)
+      ├─ routine (vector object itself ~24 bytes)
+      └─ attendanceRecords (vector object itself ~24 bytes)
+
+HEAP:
+├─ Student array [45 elements × ~80 bytes = 3.6 KB]
+│  └─ Each Student contains:
+│     ├─ int sl (4 bytes)
+│     ├─ string id → heap-allocated char array (~8 bytes)
+│     └─ string name → heap-allocated char array (~20-40 bytes)
+│
+├─ Map nodes for courses [8 nodes × ~120 bytes = 960 bytes]
+│  └─ Each node contains:
+│     ├─ string key (course code)
+│     ├─ Course value
+│     └─ Red-black tree pointers
+│
+├─ ClassPeriod array [23 elements × ~80 bytes = 1.8 KB]
+│
+└─ AttendanceRecord array [N elements × ~150 bytes]
+   └─ Example: 1000 records = 150 KB</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Memory Breakdown:</strong>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Count</th>
+                            <th>Per-Item Size</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Students</td>
+                            <td>45</td>
+                            <td>~80 bytes</td>
+                            <td>3.6 KB</td>
+                        </tr>
+                        <tr>
+                            <td>Courses</td>
+                            <td>8</td>
+                            <td>~120 bytes</td>
+                            <td>960 bytes</td>
+                        </tr>
+                        <tr>
+                            <td>Routine</td>
+                            <td>23</td>
+                            <td>~80 bytes</td>
+                            <td>1.8 KB</td>
+                        </tr>
+                        <tr>
+                            <td>Attendance (1000)</td>
+                            <td>1000</td>
+                            <td>~150 bytes</td>
+                            <td>150 KB</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>~156 KB</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Why Heap Instead of Stack for Data?</strong><br>
+                • <code>vector</code> and <code>map</code> store elements on heap<br>
+                • Stack size is limited (~1-8 MB depending on OS)<br>
+                • Heap can grow dynamically as needed<br>
+                • Container objects on stack, data on heap = best of both worlds
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- COMPLETE STARTUP FLOW -->
+        <h2 class="section-title">3. Complete Startup Flow</h2>
+        <div class="info-box example-box">
+            <div class="code-block">
+                <pre><code>════════════════════════════════════════════════
+PROGRAM STARTUP SEQUENCE
+════════════════════════════════════════════════
+
+1. main() starts
+   ↓
+2. #ifdef _WIN32 check
+   ↓
+3. SetConsoleOutputCP(CP_UTF8)     ✅ UTF-8 output enabled
+   ↓
+4. SetConsoleCP(CP_UTF8)           ✅ UTF-8 input enabled
+   ↓
+5. Get console handle
+   ↓
+6. Read current mode
+   ↓
+7. Add ANSI flag with |=
+   ↓
+8. Apply new mode                  ✅ ANSI codes enabled
+   ↓
+9. Enter try block
+   ↓
+10. Create AttendanceSystem object
+    ↓
+    Constructor runs:
+    ├─ initializeStudents()        → 45 students
+    ├─ initializeCourses()         → 8 courses
+    ├─ initializeRoutine()         → 23 periods
+    └─ loadAttendanceData()        → CSV files read
+    ↓
+11. Constructor complete           ✅ System ready
+    ↓
+12. system.run() called
+    ↓
+13. Main menu displayed
+    ↓
+    [Application runs...]
+    ↓
+14. User exits
+    ↓
+15. run() returns
+    ↓
+16. Destructor auto-called         ✅ Cleanup
+    ↓
+17. return 0;                      ✅ Success
+
+════════════════════════════════════════════════
+Total startup time: ~100-200ms
+════════════════════════════════════════════════</code></pre>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- PERFORMANCE CONSIDERATIONS -->
+        <h2 class="section-title">4. Performance & Optimization</h2>
+        <div class="func-block">
+            <div class="func-title">Why Constructor is Fast</div>
+
+            <div class="info-box why-box">
+                <strong>Optimization Techniques Used:</strong><br><br>
+
+                <strong>1. Reserve Capacity:</strong><br>
+                <code>students.reserve(45);</code> could pre-allocate memory<br>
+                (Not currently used, but would prevent reallocations)<br><br>
+
+                <strong>2. Const References:</strong><br>
+                All functions use <code>const string &</code> to avoid string copies<br>
+                Example: <code>getStudentName(const string &id)</code><br><br>
+
+                <strong>3. Map for Courses:</strong><br>
+                <code>map&lt;string, Course&gt;</code> = O(log n) lookup<br>
+                vs <code>vector&lt;Course&gt;</code> = O(n) lookup<br>
+                For 8 courses, difference is minimal, but scales better<br><br>
+
+                <strong>4. Move Semantics:</strong><br>
+                <code>push_back()</code> uses move when possible (C++11+)<br>
+                Strings and vectors moved, not copied
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Time Complexity:</strong>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Complexity</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>initializeStudents()</td>
+                            <td>O(45)</td>
+                            <td>45 push_back operations</td>
+                        </tr>
+                        <tr>
+                            <td>initializeCourses()</td>
+                            <td>O(8 log 8)</td>
+                            <td>Map insertion is log(n)</td>
+                        </tr>
+                        <tr>
+                            <td>initializeRoutine()</td>
+                            <td>O(23)</td>
+                            <td>23 push_back operations</td>
+                        </tr>
+                        <tr>
+                            <td>loadAttendanceData()</td>
+                            <td>O(files × lines)</td>
+                            <td>Depends on CSV count</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td><strong>~O(n)</strong></td>
+                            <td>Linear in data size</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SUMMARY -->
+        <div style="text-align: center; padding: 2rem; background: rgba(0, 217, 255, 0.05); border-radius: 16px;">
+            <h3 style="color: #00d9ff; font-size: 1.8rem;">✅ Complete Constructor & main() Documentation!</h3>
+            <p style="color: #a8b3cf;">
+                <strong>Windows Console Setup:</strong> UTF-8 encoding (input/output) + ANSI color codes<br>
+                <strong>Constructor:</strong> Initialization order, exception safety, memory layout<br>
+                <strong>Complete Coverage:</strong> All Windows APIs explained with bitwise operations, code pages, and
+                platform differences
+            </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="quiz.html" class="nav-button">Take Knowledge Quiz 🎯</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+
+        <!-- Quick Reference Box -->
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1rem;">🔗 Quick Reference Links</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Foundations</h4>
+                    <a href="guide-foundations.html" class="resource-link">Data Structures & ANSI Codes</a>
+                    <a href="COMPLETE-GUIDE-FINAL.html" class="resource-link">Complete System Reference</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Implementation</h4>
+                    <a href="complete-guide-FULL.html" class="resource-link">24 Helper Functions</a>
+                    <a href="guide-major-features.html" class="resource-link">6 Major Functions</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Advanced</h4>
+                    <a href="guide-file-io.html" class="resource-link">File I/O & Windows APIs</a>
+                    <a href="error-validation-reference.html" class="resource-link">Error & Validation Reference</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

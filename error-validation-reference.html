@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Error, Validation & Navigation Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6, #f1fa8c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00d9ff;
+            margin: 2.5rem 0 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid rgba(0, 217, 255, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(26, 31, 58, 0.6);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        th {
+            background: rgba(0, 217, 255, 0.2);
+            color: #00d9ff;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        td {
+            color: #a8b3cf;
+        }
+
+        .error-row {
+            background: rgba(255, 85, 85, 0.1);
+        }
+
+        .success-row {
+            background: rgba(80, 250, 123, 0.1);
+        }
+
+        .warning-row {
+            background: rgba(241, 250, 140, 0.1);
+        }
+
+        .code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #f1fa8c;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            margin: 3rem 0;
+        }
+
+        .info-box {
+            background: rgba(0, 217, 255, 0.1);
+            border-left: 4px solid #00d9ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        strong {
+            color: #00d9ff;
+        }
+
+        .highlight {
+            color: #50fa7b;
+        }
+
+        /* --- NEW NAVIGATION & REFERENCE STYLES --- */
+
+        /* Solid Cyan Buttons */
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Resource Links */
+        .resource-link {
+            display: block;
+            color: #00d9ff;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .resource-link:hover {
+            color: #ff79c6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">📋Complete Reference Tables</h1>
+            <p style="color: #8be9fd; font-size: 1.2rem;">Error Catalog • Validation Matrix • Navigation Patterns •
+                Buffer Scenarios</p>
+        </div>
+
+        <!-- SECTION 1: COMPLETE ERROR CATALOG -->
+        <h2 class="section-title">1. Complete Error & Success Message Catalog (23 Messages)</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 25%;">Message</th>
+                    <th style="width: 20%;">Type</th>
+                    <th style="width: 25%;">Trigger Condition</th>
+                    <th style="width: 25%;">Context / Function</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="error-row">
+                    <td>1</td>
+                    <td><span class="code">❌ Invalid choice!</span></td>
+                    <td>Error</td>
+                    <td>Input not in valid range (menu 1-4, day 1-5, etc.)</td>
+                    <td>takeAttendance(), displayMainMenu(), all menus</td>
+                </tr>
+                <tr class="error-row">
+                    <td>2</td>
+                    <td><span class="code">❌ No classes on Thursday!</span></td>
+                    <td>Error</td>
+                    <td>Selected day has empty dayClasses vector</td>
+                    <td>takeAttendance() after getClassesForDay()</td>
+                </tr>
+                <tr class="error-row">
+                    <td>3</td>
+                    <td><span class="code">❌ Invalid range!</span></td>
+                    <td>Error</td>
+                    <td>Multi-period: start > end OR out of bounds</td>
+                    <td>selectPeriodAndMark() multi-period parsing</td>
+                </tr>
+                <tr class="error-row">
+                    <td>4</td>
+                    <td><span class="code">❌ Invalid period number</span></td>
+                    <td>Error</td>
+                    <td>Space-separated multi-period includes invalid number</td>
+                    <td>selectPeriodAndMark() stringstream parsing</td>
+                </tr>
+                <tr class="error-row">
+                    <td>5</td>
+                    <td><span class="code">❌ All periods must be same course!</span></td>
+                    <td>Error</td>
+                    <td>Selected periods have different courseCode values</td>
+                    <td>selectPeriodAndMark() same-course validation</td>
+                </tr>
+                <tr class="error-row">
+                    <td>6</td>
+                    <td><span class="code">❌ Invalid date format! Use DD-MM-YYYY</span></td>
+                    <td>Error</td>
+                    <td>dateStr.length() != 10 OR wrong separators</td>
+                    <td>selectPeriodAndMark() format check</td>
+                </tr>
+                <tr class="error-row">
+                    <td>7</td>
+                    <td><span class="code">❌ Cannot take attendance for future dates!</span></td>
+                    <td>Error</td>
+                    <td>isDateInFuture(dateStr) returns true</td>
+                    <td>selectPeriodAndMark() future date prevention</td>
+                </tr>
+                <tr class="error-row">
+                    <td>8</td>
+                    <td><span class="code">❌ Date mismatch! You selected Monday but 27-11-2025 is Wednesday</span></td>
+                    <td>Error</td>
+                    <td>validateDayDateMatch() returns false (Zeller's check)</td>
+                    <td>selectPeriodAndMark() day-date validation</td>
+                </tr>
+                <tr class="error-row">
+                    <td>9</td>
+                    <td><span class="code">❌ Attendance already recorded!</span></td>
+                    <td>Error</td>
+                    <td>hasAttendanceRecord() returns true (duplicate)</td>
+                    <td>selectPeriodAndMark() duplicate prevention</td>
+                </tr>
+                <tr class="error-row">
+                    <td>10</td>
+                    <td><span class="code">❌ Invalid input! Please enter 'P' or 'A'</span></td>
+                    <td>Error</td>
+                    <td>Individual marking: input not exactly "P" or "A"</td>
+                    <td>selectPeriodAndMark() validation loop</td>
+                </tr>
+                <tr class="error-row">
+                    <td>11</td>
+                    <td><span class="code">❌ Student not found!</span></td>
+                    <td>Error</td>
+                    <td>Student ID doesn't exist in students vector</td>
+                    <td>viewStudentStatus() search</td>
+                </tr>
+                <tr class="error-row">
+                    <td>12</td>
+                    <td><span class="code">❌ Could not create directory...</span></td>
+                    <td>Error</td>
+                    <td>_mkdir() returns -1 (permission or disk error)</td>
+                    <td>saveAttendanceData() folder creation</td>
+                </tr>
+                <tr class="error-row">
+                    <td>13</td>
+                    <td><span class="code">❌ Could not save file...</span></td>
+                    <td>Error</td>
+                    <td>ofstream.fail() after file.open()</td>
+                    <td>saveAttendanceData() CSV writing</td>
+                </tr>
+                <tr class="success-row">
+                    <td>14</td>
+                    <td><span class="code">✅ SUCCESS! Attendance marked for 45 students</span></td>
+                    <td>Success</td>
+                    <td>After creating all attendance records</td>
+                    <td>selectPeriodAndMark() all modes</td>
+                </tr>
+                <tr class="success-row">
+                    <td>15</td>
+                    <td><span class="code">✅ All marked PRESENT for 3 periods!</span></td>
+                    <td>Success</td>
+                    <td>Multi-period marking mode 1 (all present)</td>
+                    <td>selectPeriodAndMark() after save</td>
+                </tr>
+                <tr class="success-row">
+                    <td>16</td>
+                    <td><span class="code">✅ All marked ABSENT for 2 periods!</span></td>
+                    <td>Success</td>
+                    <td>Multi-period marking mode 2 (all absent)</td>
+                    <td>selectPeriodAndMark() after save</td>
+                </tr>
+                <tr class="success-row">
+                    <td>17</td>
+                    <td><span class="code">✅ Reset complete! Attendance cleared.</span></td>
+                    <td>Success</td>
+                    <td>After lambda erase and re-save</td>
+                    <td>selectPeriodAndMark() post-mark reset</td>
+                </tr>
+                <tr class="success-row">
+                    <td>18</td>
+                    <td><span class="code">✅ Data saved successfully!</span></td>
+                    <td>Success</td>
+                    <td>After saveAttendanceData() completes</td>
+                    <td>Generic save confirmation</td>
+                </tr>
+                <tr class="warning-row">
+                    <td>19</td>
+                    <td><span class="code">⚠️ WARNING! This will reset ALL attendance data...</span></td>
+                    <td>Warning</td>
+                    <td>User presses [R] for reset</td>
+                    <td>viewStudentStatus() or selectPeriodAndMark()</td>
+                </tr>
+                <tr class="warning-row">
+                    <td>20</td>
+                    <td><span class="code">⚠️ Attendance below 60% - DISCOLLEGIATE</span></td>
+                    <td>Warning</td>
+                    <td>Student attendance < 60.0%</td>
+                    <td>viewStudentStatus() status display</td>
+                </tr>
+                <tr class="warning-row">
+                    <td>21</td>
+                    <td><span class="code">⚠️ No attendance records found</span></td>
+                    <td>Info</td>
+                    <td>attendanceRecords.empty() == true</td>
+                    <td>viewStudentStatus() when no data</td>
+                </tr>
+                <tr class="error-row">
+                    <td>22</td>
+                    <td><span class="code">❌ You selected periods for: EEE-1121, CSE-1122</span></td>
+                    <td>Error</td>
+                    <td>Multi-period course mismatch detailed message</td>
+                    <td>selectPeriodAndMark() validation with course names</td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td><span class="code">Press any key to continue...</span></td>
+                    <td>Prompt</td>
+                    <td>Pause after error or info display</td>
+                    <td>All error scenarios, viewWeeklyRoutine()</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="divider"></div>
+
+        <!-- SECTION 2: VALIDATION MATRIX -->
+        <h2 class="section-title">2. Complete Validation Logic Matrix</h2>
+
+        <div class="info-box">
+            <strong>8 Critical Validations in Correct Order:</strong> These MUST execute in sequence because later
+            validations depend on earlier ones passing.
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 5%;">Order</th>
+                    <th style="width: 20%;">Validation Name</th>
+                    <th style="width: 30%;">Check Logic</th>
+                    <th style="width: 25%;">Success Condition</th>
+                    <th style="width: 20%;">Failure Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1</strong></td>
+                    <td>Menu Input Range</td>
+                    <td><span class="code">choice >= 1 && choice <= maxOption</span>
+                    </td>
+                    <td>Input in valid range</td>
+                    <td>Show error, loop back</td>
+                </tr>
+                <tr>
+                    <td><strong>2</strong></td>
+                    <td>Period Selection Range</td>
+                    <td><span class="code">periodChoice >= 1 && periodChoice <= dayClasses.size()</span>
+                    </td>
+                    <td>Period exists for day</td>
+                    <td>Show error, re-prompt</td>
+                </tr>
+                <tr>
+                    <td><strong>3</strong></td>
+                    <td>Multi-Period Range</td>
+                    <td><span class="code">start >= 1 && end <= size && start <=end</span>
+                    </td>
+                    <td>Range is valid</td>
+                    <td>Show "Invalid range!", loop</td>
+                </tr>
+                <tr>
+                    <td><strong>4</strong></td>
+                    <td>Same Course Check</td>
+                    <td>All <span class="code">selectedPeriods[i].courseCode == firstCourse</span></td>
+                    <td>All same course</td>
+                    <td>Show course names, loop</td>
+                </tr>
+                <tr>
+                    <td><strong>5</strong></td>
+                    <td>Date Format</td>
+                    <td><span class="code">dateStr.length() == 10 && dateStr[2] == '-' && dateStr[5] == '-'</span></td>
+                    <td>DD-MM-YYYY format</td>
+                    <td>Show format error</td>
+                </tr>
+                <tr>
+                    <td><strong>6</strong></td>
+                    <td>Future Date Prevention</td>
+                    <td><span class="code">isDateInFuture(dateStr) == false</span><br>(Compares with <span
+                            class="code">getCurrentDate()</span>)</td>
+                    <td>Date <= today</td>
+                    <td>Show "Cannot take for future"</td>
+                </tr>
+                <tr>
+                    <td><strong>7</strong></td>
+                    <td>Day-Date Match</td>
+                    <td><span class="code">validateDayDateMatch(selectedDay, dateStr)</span><br>(Uses Zeller's
+                        algorithm)</td>
+                    <td>Actual day == selected day</td>
+                    <td>Show actual day calculated</td>
+                </tr>
+                <tr>
+                    <td><strong>8</strong></td>
+                    <td>Duplicate Check</td>
+                    <td><span class="code">hasAttendanceRecord(studentId, courseCode, date, timeSlot) == false</span>
+                    </td>
+                    <td>No existing record</td>
+                    <td>Show "Already recorded!"</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-box">
+            <strong>P/A Input Validation Loop (Individual Marking):</strong>
+            <ul style="margin-left:2rem; margin-top:0.5rem;">
+                <li><span class="highlight">Step 1:</span> Read input as string: <span class="code">cin >>
+                        inputStr</span></li>
+                <li><span class="highlight">Step 2:</span> Convert to uppercase: <span
+                        class="code">transform(inputStr.begin(), inputStr.end(), inputStr.begin(), ::toupper)</span>
+                </li>
+                <li><span class="highlight">Step 3:</span> Validate: <span class="code">inputStr.length() == 1 &&
+                        (inputStr[0] == 'P' || inputStr[0] == 'A')</span></li>
+                <li><span class="highlight">Step 4:</span> If valid: set <span class="code">validInput = true</span> and
+                    exit loop</li>
+                <li><span class="highlight">Step 5:</span> If invalid: show error and loop (repeat from step 1)</li>
+            </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SECTION 3: NAVIGATION MATRIX -->
+        <h2 class="section-title">3. Complete Navigation Patterns Matrix</h2>
+
+        <div class="info-box">
+            <strong>Understanding Navigation Return Values:</strong><br>
+            • <span class="code">[0]</span> → <span class="code">return false</span> → Go back one level (loop
+            continues)<br>
+            • <span class="code">[9]</span> → <span class="code">return true</span> → Exit to main menu immediately
+            (exits all loops)<br>
+            • <span class="code">[R]</span> → Reset data, stay in current menu
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Menu Level</th>
+                    <th>[0] Behavior</th>
+                    <th>[9] Behavior</th>
+                    <th>[R] Behavior</th>
+                    <th>Other Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Main Menu</strong></td>
+                    <td>N/A (no [0] option)</td>
+                    <td>N/A (no [9] option)</td>
+                    <td>N/A</td>
+                    <td>1-4: Features, Exit</td>
+                </tr>
+                <tr>
+                    <td><strong>Day Selection</strong><br><span class="code">takeAttendance()</span></td>
+                    <td>return → Main Menu</td>
+                    <td>return → Main Menu</td>
+                    <td>N/A</td>
+                    <td>1-5: Select day</td>
+                </tr>
+                <tr>
+                    <td><strong>Period Selection</strong><br><span class="code">selectPeriodAndMark()</span></td>
+                    <td>return false → Day Selection</td>
+                    <td>return true → Main Menu</td>
+                    <td>N/A</td>
+                    <td>1-6: Periods, 7: Multi</td>
+                </tr>
+                <tr>
+                    <td><strong>Multi-Period Input</strong></td>
+                    <td>return false → Period Selection</td>
+                    <td>return true → Main Menu</td>
+                    <td>N/A</td>
+                    <td>"2-6" or "2 3 4 5"</td>
+                </tr>
+                <tr>
+                    <td><strong>Date Input</strong></td>
+                    <td>continue → Re-prompt date</td>
+                    <td>continue → Re-prompt date</td>
+                    <td>N/A</td>
+                    <td>DD-MM-YYYY or Enter (today)</td>
+                </tr>
+                <tr>
+                    <td><strong>Marking Choice</strong><br>(1: All Present, 2: All Absent, 3: Individual)</td>
+                    <td>return false → Period Selection</td>
+                    <td>return true → Main Menu</td>
+                    <td>N/A</td>
+                    <td>1-3: Marking modes</td>
+                </tr>
+                <tr>
+                    <td><strong>Post-Marking Menu</strong><br>(After successful save)</td>
+                    <td>return false → Period Selection</td>
+                    <td>return true → Main Menu</td>
+                    <td>Reset, stay in post-mark menu</td>
+                    <td>[R], [0], [9]</td>
+                </tr>
+                <tr>
+                    <td><strong>Student Status View</strong></td>
+                    <td>return → Main Menu</td>
+                    <td>return → Main Menu</td>
+                    <td>Reset attendance data</td>
+                    <td>Student ID or "ALL"</td>
+                </tr>
+                <tr>
+                    <td><strong>Weekly Routine View</strong></td>
+                    <td>return (after Enter) → Main Menu</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>Enter key to continue</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="divider"></div>
+
+        <!-- SECTION 4: BUFFER MANAGEMENT -->
+        <h2 class="section-title">4. Buffer Management Scenarios (Complete Guide)</h2>
+
+        <div class="info-box">
+            <strong>The Golden Rule:</strong> <span class="code">cin >></span> leaves <span class="code">'\n'</span> in
+            buffer, <span class="code">getline()</span> consumes it.
+            Must call <span class="code">cin.ignore()</span> before <span class="code">getline()</span> if previous
+            input was <span class="code">cin >></span>.
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:10%;">Scenario</th>
+                    <th style="width:35%;">Input Sequence</th>
+                    <th style="width:20%;">Buffer State</th>
+                    <th style="width:20%;">Required Action</th>
+                    <th style="width:15%;">Code Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="warning-row">
+                    <td><strong>A</strong></td>
+                    <td>
+                        1. <span class="code">cin >> periodChoice;</span><br>
+                        2. <span class="code">getline(cin, dateInput);</span>
+                    </td>
+                    <td>'\n' left by cin >></td>
+                    <td><strong>MUST</strong> <span class="code">cin.ignore();</span> between steps</td>
+                    <td>Single period mode</td>
+                </tr>
+                <tr class="success-row">
+                    <td><strong>B</strong></td>
+                    <td>
+                        1. <span class="code">getline(cin, multiInput);</span><br>
+                        2. <span class="code">getline(cin, dateInput);</span>
+                    </td>
+                    <td>Empty (getline consumed '\n')</td>
+                    <td><strong>NO</strong> ignore needed</td>
+                    <td>Multi-period date input</td>
+                </tr>
+                <tr class="warning-row">
+                    <td><strong>C</strong></td>
+                    <td>
+                        1. <span class="code">cin >> periodInput;</span> (reads "7")<br>
+                        2. <span class="code">cin.ignore();</span> (clears '\n')<br>
+                        3. <span class="code">getline(cin, multiInput);</span>
+                    </td>
+                    <td>'\n' after "7", cleared by ignore</td>
+                    <td>ignore() AFTER cin >> before getline</td>
+                    <td>Entering multi-period mode</td>
+                </tr>
+                <tr class="error-row">
+                    <td><strong>D</strong><br>(BUG!)</td>
+                    <td>
+                        1. <span class="code">cin >> "7"</span> + <span class="code">cin.ignore()</span><br>
+                        2. <span class="code">getline(multi)</span> (buffer clean)<br>
+                        3. <span class="code">cin.ignore()</span> <strong>← WRONG!</strong><br>
+                        4. <span class="code">getline(date)</span> ← Skips user input!
+                    </td>
+                    <td>Empty after step 2, no '\n' to ignore</td>
+                    <td><strong>SKIP</strong> second ignore (use flag)</td>
+                    <td>WHY isMultiPeriodMode exists</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 style="color: #ff79c6; margin-top: 2rem;">isMultiPeriodMode Flag Implementation</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:35%;">Code Section</th>
+                    <th style="width:35%;">isMultiPeriodMode Value</th>
+                    <th style="width:30%;">Action Taken</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Initial declaration:</strong><br><span class="code">bool isMultiPeriodMode =
+                            false;</span></td>
+                    <td><span class="highlight">false</span> (default)</td>
+                    <td>Assume single period mode</td>
+                </tr>
+                <tr>
+                    <td><strong>If user enters "7":</strong><br><span class="code">if (periodInput == "7")
+                            {<br>&nbsp;&nbsp;isMultiPeriodMode = true;<br>}</span></td>
+                    <td><span class="highlight">true</span></td>
+                    <td>Mark that we entered multi-period</td>
+                </tr>
+                <tr>
+                    <td><strong>Before date input:</strong><br><span class="code">if (!isMultiPeriodMode)
+                            {<br>&nbsp;&nbsp;cin.ignore();<br>}</span></td>
+                    <td>If <span class="highlight">false</span> → ignore<br>If <span class="highlight">true</span> →
+                        skip ignore</td>
+                    <td>Only ignore if we didn't use getline</td>
+                </tr>
+                <tr>
+                    <td><strong>Date getline:</strong><br><span class="code">getline(cin, dateInput);</span></td>
+                    <td>N/A</td>
+                    <td>Works correctly either way</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-box">
+            <strong>🔥 Why This Matters:</strong><br>
+            Without the <span class="code">isMultiPeriodMode</span> flag, multi-period mode would double-ignore the
+            buffer:<br>
+            1. <span class="code">cin.ignore()</span> after entering "7" (clears '\n' from cin >>)<br>
+            2. <span class="code">getline()</span> for multi-period input (buffer now clean)<br>
+            3. <span class="code">cin.ignore()</span> before date input <strong>← PROBLEM! Consumes user's actual date
+                input</strong><br>
+            4. <span class="code">getline()</span> for date <strong>← Gets empty string or next line</strong><br><br>
+            Result: User types date, program skips it. <strong>Critical bug prevented by flag!</strong>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SECTION 5: MULTI-PERIOD PARSING -->
+        <h2 class="section-title">5. Multi-Period Parsing Complete Algorithm</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:15%;">Input Type</th>
+                    <th style="width:20%;">Example</th>
+                    <th style="width:30%;">Detection Logic</th>
+                    <th style="width:35%;">Parsing Algorithm</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Range Format</strong></td>
+                    <td>"2-6"</td>
+                    <td><span class="code">multiPeriodInput.find('-') != string::npos</span></td>
+                    <td>
+                        1. <span class="code">dashPos = find('-')</span><br>
+                        2. <span class="code">start = stoi(substr(0, dashPos))</span><br>
+                        3. <span class="code">end = stoi(substr(dashPos + 1))</span><br>
+                        4. Validate: <span class="code">start <= end</span> and <span class="code">1 <= start, end
+                                        <=size</span><br>
+                                        5. Loop: <span class="code">for (i = start; i <= end; i++)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Space-Separated</strong></td>
+                    <td>"2 3 4 5"</td>
+                    <td>No dash found</td>
+                    <td>
+                        1. <span class="code">stringstream ss(multiPeriodInput)</span><br>
+                        2. <span class="code">while (ss >> periodStr)</span><br>
+                        3. <span class="code">periodNum = stoi(periodStr)</span><br>
+                        4. Validate each: <span class="code">1 <= periodNum <=size</span><br>
+                                5. Push to <span class="code">selectedPeriodIndices</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Single Number</strong></td>
+                    <td>"3"</td>
+                    <td>No dash, space-separated parses as one</td>
+                    <td>Falls through to space-separated logic, works fine</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="divider"></div>
+
+        <div
+            style="text-align: center; padding: 2rem; background: rgba(0, 217, 255, 0.05); border-radius: 16px; margin-top: 3rem;">
+            <h3 style="color: #00d9ff; font-size: 1.8rem;">✅ Complete Reference Documentation!</h3>
+            <p style="color: #a8b3cf; margin-top: 1rem;">23 messages • 8 validations • Full navigation matrix • 4 buffer
+                scenarios • Multi-period parsing</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="quiz.html" class="nav-button">Take Knowledge Quiz 🎯</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+
+        <!-- Quick Reference Box -->
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1rem;">🔗 Quick Reference Links</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Foundations</h4>
+                    <a href="guide-foundations.html" class="resource-link">Data Structures & ANSI Codes</a>
+                    <a href="COMPLETE-GUIDE-FINAL.html" class="resource-link">Complete System Reference</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Implementation</h4>
+                    <a href="complete-guide-FULL.html" class="resource-link">24 Helper Functions</a>
+                    <a href="guide-major-features.html" class="resource-link">6 Major Functions</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Advanced</h4>
+                    <a href="guide-file-io.html" class="resource-link">File I/O & Windows APIs</a>
+                    <a href="error-validation-reference.html" class="resource-link">Error & Validation Reference</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File I/O & Windows APIs - C++ Attendance System</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00d9ff;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .subsection-title {
+            font-size: 1.5rem;
+            color: #ff79c6;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .func-block {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #00d9ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+        }
+
+        .func-title {
+            color: #f1fa8c;
+            font-size: 1.4rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .func-purpose {
+            color: #50fa7b;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .example-box {
+            background: rgba(0, 217, 255, 0.1);
+            border-left-color: #00d9ff;
+        }
+
+        .why-box {
+            background: rgba(80, 250, 123, 0.1);
+            border-left-color: #50fa7b;
+        }
+
+        .warning-box {
+            background: rgba(241, 250, 140, 0.1);
+            border-left-color: #f1fa8c;
+        }
+
+        .error-box {
+            background: rgba(255, 85, 85, 0.1);
+            border-left-color: #ff5555;
+        }
+
+        .code-block {
+            background: #1e1e3f;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #f1fa8c;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        ul,
+        ol {
+            margin-left: 2rem;
+            color: #a8b3cf;
+        }
+
+        li {
+            margin: 0.4rem 0;
+        }
+
+        strong {
+            color: #00d9ff;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            margin: 3rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th,
+        td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        th {
+            background: rgba(0, 217, 255, 0.2);
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        td {
+            color: #a8b3cf;
+        }
+
+        /* --- NEW NAVIGATION & REFERENCE STYLES --- */
+
+        /* Solid Cyan Buttons */
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Resource Links */
+        .resource-link {
+            display: block;
+            color: #00d9ff;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .resource-link:hover {
+            color: #ff79c6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">💾 File I/O & Windows APIs</h1>
+            <p style="color: #8be9fd; font-size: 1.1rem;">Complete persistence with Windows File System APIs</p>
+        </div>
+
+        <h2 class="section-title">Overview</h2>
+        <div class="info-box example-box">
+            <strong>2 Core Functions:</strong>
+            <ul>
+                <li><strong>loadAttendanceData()</strong> - Load all CSV files using Windows FindFirstFile API (~120
+                    lines)</li>
+                <li><strong>saveAttendanceData()</strong> - Write CSV files with nested directory structure (~110 lines)
+                </li>
+            </ul>
+        </div>
+
+        <div class="info-box warning-box">
+            <strong>⚠️ Windows APIs Required:</strong><br>
+            • <code>WIN32_FIND_DATAA</code> - File/directory information structure<br>
+            • <code>FindFirstFileA()</code> - Begin directory traversal<br>
+            • <code>FindNextFile()</code> - Get next item in directory<br>
+            • <code>FindClose()</code> - Release file handle (MUST call!)<br>
+            • <code>_stat()</code> - Check folder existence<br>
+            • <code>FILE_ATTRIBUTE_DIRECTORY</code> - Flag to identify folders<br>
+            • <code>INVALID_HANDLE_VALUE</code> - Error indicator
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- LOAD ATTENDANCE DATA -->
+        <h2 class="section-title">1. loadAttendanceData() - Windows API Implementation</h2>
+        <div class="func-block">
+            <div class="func-title">void loadAttendanceData()</div>
+            <div class="func-purpose">Load ALL attendance records from nested date folders using Windows File System
+                APIs (~120 lines)</div>
+
+            <div class="info-box example-box">
+                <strong>Load Process:</strong>
+                <ol>
+                    <li><strong>Check folder existence</strong> using <code>_stat()</code></li>
+                    <li><strong>Find all date folders</strong> (e.g., "27-11-2025", "28-11-2025")</li>
+                    <li><strong>For each date folder:</strong> Find all CSV files</li>
+                    <li><strong>Parse filename</strong> to extract course code and time slot</li>
+                    <li><strong>Convert timestamp</strong> ("11-30-AM" → "11:30 AM")</li>
+                    <li><strong>Read CSV</strong> with <code>getline(file, line, ',')</code></li>
+                    <li><strong>Skip header</strong> and empty lines</li>
+                    <li><strong>Create AttendanceRecord</strong> for each student</li>
+                    <li><strong>Clean up</strong> with <code>FindClose()</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.1 - Folder Existence Check</h3>
+        <div class="func-block">
+            <div class="func-purpose">Check if "Attendance Sheet" folder exists before attempting to load</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">void loadAttendanceData() {
+    attendanceRecords.clear();  // Clear existing records
+    
+#ifdef _WIN32
+    // STEP 1: Check if folder exists using _stat()
+    struct _stat folderInfo;
+    if (_stat(ATTENDANCE_FOLDER.c_str(), &folderInfo) != 0) {
+        // Folder doesn't exist - return silently (first run)
+        return;
+    }
+    
+    // _stat returns 0 on success, non-zero on failure
+    // folderInfo contains: st_mode, st_size, st_mtime, etc.
+}</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why _stat()?</strong><br>
+                Windows-specific function to check file/folder existence.<br>
+                Returns 0 if exists, -1 if not found.<br><br>
+                <strong>Alternative on Linux:</strong> Use <code>stat()</code> (without underscore)
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.2 - Finding Date Folders (Level 1)</h3>
+        <div class="func-block">
+            <div class="func-purpose">Traverse "Attendance Sheet" to find all date subdirectories</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">    // STEP 2: Find all date folders
+    WIN32_FIND_DATAA findDateData;  // Structure to hold file info
+    string searchPattern = ATTENDANCE_FOLDER + "/*";  // "Attendance Sheet/*"
+    
+    HANDLE hFindDate = FindFirstFileA(searchPattern.c_str(), &findDateData);
+    
+    // ERROR CHECK: Did find operation succeed?
+    if (hFindDate == INVALID_HANDLE_VALUE) {
+        // No files found or error
+        return;
+    }
+    
+    // LOOP through all items in folder
+    do {
+        // FILTER 1: Skip "." and ".." (current and parent directory)
+        if (strcmp(findDateData.cFileName, ".") == 0 ||
+            strcmp(findDateData.cFileName, "..") == 0) {
+            continue;
+        }
+        
+        // FILTER 2: Only process directories (not files)
+        if (findDateData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+            string dateFolder = findDateData.cFileName;  // e.g., "27-11-2025"
+            string datePath = ATTENDANCE_FOLDER + "/" + dateFolder;
+            
+            // ... (process this date folder next)
+        }
+        
+    } while (FindNextFile(hFindDate, &findDateData) != 0);
+    
+    // CLEANUP: Must close handle after loop
+    FindClose(hFindDate);</code></pre>
+            </div>
+
+            <div class="info-box warning-box">
+                <strong>⚠️ Critical Pattern:</strong><br>
+                <strong>1.</strong> <code>FindFirstFileA()</code> starts search, returns HANDLE<br>
+                <strong>2.</strong> Check <code>INVALID_HANDLE_VALUE</code> for errors<br>
+                <strong>3.</strong> Loop with <code>FindNextFile()</code> until returns 0<br>
+                <strong>4.</strong> <strong>MUST</strong> call <code>FindClose()</code> to release handle!
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Why strcmp() for "." and ".."?</strong><br>
+                Every directory has these special entries:<br>
+                • <code>"."</code> = Current directory<br>
+                • <code>".."</code> = Parent directory<br><br>
+                Without filtering, we'd enter infinite loop!
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Bitwise AND (&) for FILE_ATTRIBUTE_DIRECTORY:</strong><br>
+                <code>dwFileAttributes</code> is a bitmask (multiple flags in one int).<br>
+                <code>&</code> operator checks if specific bit is set.<br><br>
+                <code>0x00000010 & FILE_ATTRIBUTE_DIRECTORY</code> → true (is directory)<br>
+                <code>0x00000020 & FILE_ATTRIBUTE_DIRECTORY</code> → false (is file)
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.3 - Finding CSV Files (Level 2 - Nested)</h3>
+        <div class="func-block">
+            <div class="func-purpose">Inside each date folder, find all .csv files</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">        // Inside date folder processing...
+        if (findDateData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+            string dateFolder = findDateData.cFileName;
+            string datePath = ATTENDANCE_FOLDER + "/" + dateFolder;
+            
+            // STEP 3: Find all CSV files in this date folder
+            WIN32_FIND_DATAA findFileData;  // New structure for file search
+            string csvPattern = datePath + "/*.csv";  // Only .csv files
+            
+            HANDLE hFindFile = FindFirstFileA(csvPattern.c_str(), &findFileData);
+            
+            // Check if any CSV files exist
+            if (hFindFile == INVALID_HANDLE_VALUE) {
+                continue;  // No CSV files, try next date folder
+            }
+            
+            // NESTED LOOP: For each CSV file
+            do {
+                string fileName = findFileData.cFileName;
+                string filePath = datePath + "/" + fileName;
+                
+                // ... (parse filename and read CSV next)
+                
+            } while (FindNextFile(hFindFile, &findFileData) != 0);
+            
+            // CLEANUP: Close file search handle
+            FindClose(hFindFile);
+        }</code></pre>
+            </div>
+
+            <div class="info-box error-box">
+                <strong>🔥 Common Mistake:</strong><br>
+                Forgetting to close BOTH handles: <code>hFindDate</code> AND <code>hFindFile</code><br>
+                Result: Resource leaks, file locks, crashes
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.4 - Filename Parsing & Timestamp Conversion</h3>
+        <div class="func-block">
+            <div class="func-purpose">Extract course code and time from filename, convert time format</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">                string fileName = findFileData.cFileName;
+                // Example: "EEE-1121_11-30-AM_Period-1.csv"
+                
+                // PARSE FILENAME using underscores as separators
+                size_t firstUnderscore = fileName.find('_');
+                size_t secondUnderscore = fileName.find('_', firstUnderscore + 1);
+                
+                // EXTRACT PARTS:
+                // Part 1: "EEE-1121"
+                string courseCode = fileName.substr(0, firstUnderscore);
+                
+                // Part 2: "11-30-AM"
+                string timeSlotRaw = fileName.substr(firstUnderscore + 1,
+                                                     secondUnderscore - firstUnderscore - 1);
+                
+                // Part 3: "Period-1.csv" (not needed for loading)
+                
+                // CONVERT TIMESTAMP: "11-30-AM" → "11:30 AM"
+                string timeSlot = timeSlotRaw;
+                size_t firstDash = timeSlot.find('-');
+                size_t secondDash = timeSlot.find('-', firstDash + 1);
+                
+                // REPLACE dashes with ":" and " "
+                timeSlot[firstDash] = ':';     // "11:30-AM"
+                timeSlot[secondDash] = ' ';    // "11:30 AM"</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>String Manipulation Breakdown:</strong>
+                <div class="code-block">
+                    <pre><code class="language-cpp">// Filename: "EEE-1121_11-30-AM_Period-1.csv"
+//              0123456789...
+//                       ↑ firstUnderscore = 8
+//                                ↑ secondUnderscore = 17
+
+// substr(0, 8) = "EEE-1121"
+// substr(9, 8) = "11-30-AM" (start=9, length=8)
+
+// Timestamp conversion:
+// "11-30-AM"
+//   ↑  ↑
+//   2  5  (positions of dashes)
+// Replace with ':' and ' '
+// Result: "11:30 AM"</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why not simple replace?</strong><br>
+                Filenames cannot contain <code>:</code> on Windows.<br>
+                Must use <code>-</code> instead, then convert back when loading.
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.5 - Reading CSV with getline()</h3>
+        <div class="func-block">
+            <div class="func-purpose">Parse CSV file line by line, extract fields separated by commas</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">                // STEP 4: READ CSV FILE
+                string filePath = datePath + "/" + fileName;
+                ifstream file(filePath);
+                
+                if (!file.is_open()) {
+                    // File couldn't be opened (permissions, locked, etc.)
+                    continue;
+                }
+                
+                // SKIP HEADER LINE
+                string line;
+                getline(file, line);  // Reads entire first line, discards it
+                
+                // READ DATA LINES
+                while (getline(file, line)) {
+                    // FILTER: Skip empty lines
+                    if (line.empty()) continue;
+                    
+                    // PARSE CSV LINE using stringstream
+                    stringstream ss(line);
+                    string sl, id, name, course, title, date, day;
+                    string start, end, period, status, recorded;
+                    
+                    // EXTRACT 12 COLUMNS (comma-separated)
+                    getline(ss, sl, ',');        // 1. SL
+                    getline(ss, id, ',');        // 2. StudentID
+                    getline(ss, name, ',');      // 3. Name
+                    getline(ss, course, ',');    // 4. Course
+                    getline(ss, title, ',');     // 5. Title
+                    getline(ss, date, ',');      // 6. Date
+                    getline(ss, day, ',');       // 7. Day
+                    getline(ss, start, ',');     // 8. Start
+                    getline(ss, end, ',');       // 9. End
+                    getline(ss, period, ',');    // 10. Period
+                    getline(ss, status, ',');    // 11. Status
+                    getline(ss, recorded, ',');  // 12. Recorded
+                    
+                    // CONVERT STATUS to boolean
+                    bool present = (status == "Present");
+                    
+                    // CREATE RECORD
+                    attendanceRecords.push_back(
+                        AttendanceRecord(id, courseCode, dateFolder,
+                                       getDayName(dateFolder), timeSlot, present));
+                }
+                
+                file.close();</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>How getline(ss, var, ',') works:</strong><br>
+                Reads from stringstream <code>ss</code> until comma is encountered.<br>
+                Stores result in <code>var</code>, excludes the comma itself.<br><br>
+                <code>"1,C253027,John" → getline(ss, sl, ',') → sl="1"</code><br>
+                <code>Next call → getline(ss, id, ',') → id="C253027"</code><br>
+                <code>Last call → getline(ss, name, ',') → name="John"</code>
+            </div>
+
+            <div class="info-box warning-box">
+                <strong>⚠️ CSV Escaping Note:</strong><br>
+                This simple parser does NOT handle names with commas (e.g., "Smith, John").<br>
+                If student name contains comma, parsing will break.<br>
+                Production systems should use proper CSV library or escape commas.
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Example CSV Line:</strong>
+                <div class="code-block">
+                    <pre><code>1,C251027,Mohammad Sifat Ullah,EEE-1121,Electrical Engineering Fundamentals,27-11-2025,Wednesday,10:40 AM,11:30 AM,1,Present,27-11-2025 14:35:42</code></pre>
+                </div>
+                Parsed into 12 variables:<br>
+                <code>sl="1"</code>, <code>id="C251027"</code>, <code>name="Mohammad Sifat Ullah"</code>, ...,
+                <code>status="Present"</code>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">1.6 - Complete loadAttendanceData() Function</h3>
+        <div class="func-block">
+            <div class="func-purpose">Full implementation with all components integrated</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">void loadAttendanceData() {
+    attendanceRecords.clear();
+    
+#ifdef _WIN32
+    // 1. CHECK FOLDER EXISTENCE
+    struct _stat folderInfo;
+    if (_stat(ATTENDANCE_FOLDER.c_str(), &folderInfo) != 0) return;
+    
+    // 2. FIND ALL DATE FOLDERS
+    WIN32_FIND_DATAA findDateData;
+    HANDLE hFindDate = FindFirstFileA((ATTENDANCE_FOLDER + "/*").c_str(), 
+                                      &findDateData);
+    
+    if (hFindDate == INVALID_HANDLE_VALUE) return;
+    
+    do {
+        // FILTER: Skip "." and ".."
+        if (strcmp(findDateData.cFileName, ".") == 0 ||
+            strcmp(findDateData.cFileName, "..") == 0) continue;
+        
+        // FILTER: Only directories
+        if (findDateData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+            string dateFolder = findDateData.cFileName;
+            string datePath = ATTENDANCE_FOLDER + "/" + dateFolder;
+            
+            // 3. FIND ALL CSV FILES IN DATE FOLDER
+            WIN32_FIND_DATAA findFileData;
+            HANDLE hFindFile = FindFirstFileA((datePath + "/*.csv").c_str(), 
+                                             &findFileData);
+            
+            if (hFindFile == INVALID_HANDLE_VALUE) continue;
+            
+            do {
+                string fileName = findFileData.cFileName;
+                string filePath = datePath + "/" + fileName;
+                
+                // 4. PARSE FILENAME
+                size_t firstUnderscore = fileName.find('_');
+                size_t secondUnderscore = fileName.find('_', firstUnderscore + 1);
+                
+                string courseCode = fileName.substr(0, firstUnderscore);
+                string timeSlotRaw = fileName.substr(firstUnderscore + 1,
+                                                     secondUnderscore - firstUnderscore - 1);
+                
+                // 5. CONVERT TIMESTAMP
+                string timeSlot = timeSlotRaw;
+                size_t firstDash = timeSlot.find('-');
+                size_t secondDash = timeSlot.find('-', firstDash + 1);
+                timeSlot[firstDash] = ':';
+                timeSlot[secondDash] = ' ';
+                
+                // 6. READ CSV FILE
+                ifstream file(filePath);
+                if (!file.is_open()) continue;
+                
+                string line;
+                getline(file, line);  // Skip header
+                
+                while (getline(file, line)) {
+                    if (line.empty()) continue;
+                    
+                    stringstream ss(line);
+                    string sl, id, name, course, title, date, day;
+                    string start, end, period, status, recorded;
+                    
+                    getline(ss, sl, ',');
+                    getline(ss, id, ',');
+                    getline(ss, name, ',');
+                    getline(ss, course, ',');
+                    getline(ss, title, ',');
+                    getline(ss, date, ',');
+                    getline(ss, day, ',');
+                    getline(ss, start, ',');
+                    getline(ss, end, ',');
+                    getline(ss, period, ',');
+                    getline(ss, status, ',');
+                    getline(ss, recorded, ',');
+                    
+                    bool present = (status == "Present");
+                    
+                    attendanceRecords.push_back(
+                        AttendanceRecord(id, courseCode, dateFolder,
+                                       getDayName(dateFolder), timeSlot, present));
+                }
+                
+                file.close();
+                
+            } while (FindNextFile(hFindFile, &findFileData) != 0);
+            
+            FindClose(hFindFile);  // CLEANUP: Close file handle
+        }
+        
+    } while (FindNextFile(hFindDate, &findDateData) != 0);
+    
+    FindClose(hFindDate);  // CLEANUP: Close date folder handle
+#endif
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SAVE ATTENDANCE DATA -->
+        <h2 class="section-title">2. saveAttendanceData() - CSV Generation</h2>
+        <div class="func-block">
+            <div class="func-title">void saveAttendanceData()</div>
+            <div class="func-purpose">Generate nested directory structure and write CSV files (~110 lines)</div>
+
+            <div class="info-box example-box">
+                <strong>Save Process:</strong>
+                <ol>
+                    <li><strong>Create main folder</strong> "Attendance Sheet"</li>
+                    <li><strong>Group records</strong> by date + course + timeslot</li>
+                    <li><strong>For each group:</strong></li>
+                    <ul>
+                        <li>Create date subfolder (e.g., "27-11-2025")</li>
+                        <li>Generate CSV filename with period number</li>
+                        <li>Open file for writing</li>
+                        <li>Write 12-column header</li>
+                        <li>Write all 45 students (with attendance status)</li>
+                        <li>Close file</li>
+                    </ul>
+                </ol>
+            </div>
+
+            <div class="info-box warning-box">
+                <strong>Directory Structure Created:</strong>
+                <div class="code-block">
+                    <pre>Attendance Sheet/
+├── 27-11-2025/
+│   ├── EEE-1121_11-30-AM_Period-1.csv
+│   ├── EEE-1121_12-20-PM_Period-2.csv
+│   └── CSE-1121_01-50-PM_Period-1.csv
+├── 28-11-2025/
+│   ├── MATH-1107_10-40-AM_Period-1.csv
+│   └── EEE-1122_12-20-PM_Period-1.csv
+└── 29-11-2025/
+    └── PHY-1101_10-40-AM_Period-1.csv</pre>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">2.1 - Grouping Records (Nested Maps)</h3>
+        <div class="func-block">
+            <div class="func-purpose">Organize attendance records by date, then by course+time using nested map</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">void saveAttendanceData() {
+    // STEP 1: Create main folder
+    createDirectory(ATTENDANCE_FOLDER);
+    
+    // STEP 2: Group records by date AND (course + timeslot)
+    // Structure: map< date, map< "course_time", vector<Records> > >
+    map<string, map<string, vector<AttendanceRecord>>> dateGroupedRecords;
+    
+    for (const auto &record : attendanceRecords) {
+        // KEY CONSTRUCTION: "courseCode_timeSlot"
+        string key = record.courseCode + "_" + record.timeSlot;
+        
+        // NESTED MAP ACCESS
+        dateGroupedRecords[record.date][key].push_back(record);
+    }
+    
+    // Now we have:
+    // dateGroupedRecords["27-11-2025"]["EEE-1121_11:30 AM"] = [45 records]
+    // dateGroupedRecords["27-11-2025"]["CSE-1121_1:50 PM"] = [45 records]
+    // dateGroupedRecords["28-11-2025"]["MATH-1107_10:40 AM"] = [45 records]</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Nested Map Visualization:</strong>
+                <div class="code-block">
+                    <pre><code>dateGroupedRecords = {
+    "27-11-2025": {
+        "EEE-1121_11:30 AM": [Record1, Record2, ..., Record45],
+        "EEE-1121_12:20 PM": [Record1, Record2, ..., Record45],
+        "CSE-1121_1:50 PM":  [Record1, Record2, ..., Record45]
+    },
+    "28-11-2025": {
+        "MATH-1107_10:40 AM": [Record1, Record2, ..., Record45]
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why nested map?</strong><br>
+                • First level groups by DATE → creates date folders<br>
+                • Second level groups by COURSE+TIME → creates separate CSV files<br>
+                • Vector contains all student records for that specific class session
+            </div>
+        </div>
+
+        <h3 class="subsection-title">2.2 - Iterating Nested Maps & Creating Files</h3>
+        <div class="func-block">
+            <div class="func-purpose">Loop through grouped records, create directories and CSV files</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">    // STEP 3: Iterate through dates and groups
+    for (const auto &datePair : dateGroupedRecords) {
+        string date = datePair.first;  // e.g., "27-11-2025"
+        const auto &groupsForDate = datePair.second;  // map of groups
+        
+        // CREATE DATE SUBFOLDER
+        string datePath = ATTENDANCE_FOLDER + "/" + date;
+        if (!createDirectory(datePath)) {
+            cout << RED << "❌ Error: Could not create folder for date " 
+                 << date << RESET << endl;
+            continue;
+        }
+        
+        // Iterate through course+time groups
+        for (const auto &groupPair : groupsForDate) {
+            string key = groupPair.first;  // "EEE-1121_11:30 AM"
+            const vector<AttendanceRecord> &records = groupPair.second;
+            
+            // EXTRACT: courseCode and timeSlot from key
+            size_t underscorePos = key.find('_');
+            string courseCode = key.substr(0, underscorePos);
+            string timeSlot = key.substr(underscorePos + 1);
+            
+            // GET PERIOD NUMBER
+            int periodNumber = getPeriodNumber(courseCode, date, timeSlot);
+            
+            // GENERATE FILENAME
+            string fileName = generateCSVFilename(courseCode, date, timeSlot, periodNumber);
+            string filePath = datePath + "/" + fileName;
+            
+            // ... (write CSV file next)
+        }
+    }</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why extract courseCode and timeSlot from key?</strong><br>
+                The key "EEE-1121_11:30 AM" contains both pieces of data.<br>
+                Split by underscore to get individual components needed for filename generation.
+            </div>
+        </div>
+
+        <h3 class="subsection-title">2.3 - Writing 12-Column CSV Files</h3>
+        <div class="func-block">
+            <div class="func-purpose">Write complete CSV file with header and all student data</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">            // OPEN FILE FOR WRITING
+            ofstream file(filePath);
+            
+            if (!file.is_open()) {
+                cout << RED << "❌ Error: Could not save file " << fileName 
+                     << RESET << endl;
+                continue;
+            }
+            
+            // GET COURSE INFORMATION
+            string courseTitle = getCourseTitle(courseCode);
+            string dayName = records[0].day;  // All records have same day
+            string startTime = records[0].timeSlot;
+            string endTime = getEndTime(startTime);
+            
+            // WRITE 12-COLUMN HEADER
+            file << "SL,StudentID,Name,Course,Title,Date,Day,Start,End,Period,Status,Recorded\n";
+            
+            // WRITE EACH STUDENT (ALL 45)
+            int serialNumber = 1;
+            for (const auto &student : students) {
+                // Find this student's record in current group
+                bool found = false;
+                bool present = false;
+                
+                for (const auto &record : records) {
+                    if (record.studentId == student.id) {
+                        found = true;
+                        present = record.present;
+                        break;
+                    }
+                }
+                
+                if (found) {
+                    // GET TIMESTAMP
+                    string timestamp = getFullTimestamp();
+                    
+                    // WRITE ROW (12 columns)
+                    file << serialNumber << ","
+                         << student.id << ","
+                         << student.name << ","
+                         << courseCode << ","
+                         << courseTitle << ","
+                         << date << ","
+                         << dayName << ","
+                         << startTime << ","
+                         << endTime << ","
+                         << periodNumber << ","
+                         << (present ? "Present" : "Absent") << ","
+                         << timestamp << "\n";
+                    
+                    serialNumber++;
+                }
+            }
+            
+            file.close();
+            cout << GREEN << "💾 Saved: " << fileName << RESET << endl;</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Example CSV Output:</strong>
+                <div class="code-block">
+                    <pre><code>SL,StudentID,Name,Course,Title,Date,Day,Start,End,Period,Status,Recorded
+1,C251027,Mohammad Sifat Ullah,EEE-1121,Electrical Engineering Fundamentals,27-11-2025,Wednesday,10:40 AM,11:30 AM,1,Present,27-11-2025 14:35:42
+2,C253002,Sultan Mahmud,EEE-1121,Electrical Engineering Fundamentals,27-11-2025,Wednesday,10:40 AM,11:30 AM,1,Absent,27-11-2025 14:35:42
+3,C253003,Md. Zunaed Rahman Afif,EEE-1121,Electrical Engineering Fundamentals,27-11-2025,Wednesday,10:40 AM,11:30 AM,1,Present,27-11-2025 14:35:42
+...
+45,C253169,Mohammad Ariful Islam,EEE-1121,Electrical Engineering Fundamentals,27-11-2025,Wednesday,10:40 AM,11:30 AM,1,Present,27-11-2025 14:35:42</code></pre>
+                </div>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why ALL 45 students in every CSV?</strong><br>
+                • Maintains complete roster for each class session<br>
+                • Easy to verify who was absent (missing students vs explicitly marked absent)<br>
+                • Excel-compatible for easy viewing and printing<br>
+                • Consistent file format regardless of attendance count
+            </div>
+        </div>
+
+        <h3 class="subsection-title">2.4 - Complete saveAttendanceData() Function</h3>
+        <div class="func-block">
+            <div class="func-purpose">Full implementation with all components integrated</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">void saveAttendanceData() {
+    // 1. CREATE MAIN FOLDER
+    createDirectory(ATTENDANCE_FOLDER);
+    
+    // 2. GROUP RECORDS BY DATE AND (COURSE + TIME)
+    map<string, map<string, vector<AttendanceRecord>>> dateGroupedRecords;
+    
+    for (const auto &record : attendanceRecords) {
+        string key = record.courseCode + "_" + record.timeSlot;
+        dateGroupedRecords[record.date][key].push_back(record);
+    }
+    
+    // 3. ITERATE AND SAVE
+    for (const auto &datePair : dateGroupedRecords) {
+        string date = datePair.first;
+        const auto &groupsForDate = datePair.second;
+        
+        // Create date subfolder
+        string datePath = ATTENDANCE_FOLDER + "/" + date;
+        if (!createDirectory(datePath)) {
+            cout << RED << "❌ Error: Could not create folder for date " 
+                 << date << RESET << endl;
+            continue;
+        }
+        
+        // For each course+time group
+        for (const auto &groupPair : groupsForDate) {
+            string key = groupPair.first;
+            const vector<AttendanceRecord> &records = groupPair.second;
+            
+            // Extract components
+            size_t underscorePos = key.find('_');
+            string courseCode = key.substr(0, underscorePos);
+            string timeSlot = key.substr(underscorePos + 1);
+            
+            // Generate filename
+            int periodNumber = getPeriodNumber(courseCode, date, timeSlot);
+            string fileName = generateCSVFilename(courseCode, date, timeSlot, periodNumber);
+            string filePath = datePath + "/" + fileName;
+            
+            // Open file
+            ofstream file(filePath);
+            if (!file.is_open()) {
+                cout << RED << "❌ Error: Could not save file " << fileName 
+                     << RESET << endl;
+                continue;
+            }
+            
+            // Get course info
+            string courseTitle = getCourseTitle(courseCode);
+            string dayName = records[0].day;
+            string startTime = records[0].timeSlot;
+            string endTime = getEndTime(startTime);
+            
+            // Write header
+            file << "SL,StudentID,Name,Course,Title,Date,Day,Start,End,Period,Status,Recorded\n";
+            
+            // Write all students
+            int serialNumber = 1;
+            for (const auto &student : students) {
+                // Find student in records
+                bool found = false;
+                bool present = false;
+                
+                for (const auto &record : records) {
+                    if (record.studentId == student.id) {
+                        found = true;
+                        present = record.present;
+                        break;
+                    }
+                }
+                
+                if (found) {
+                    string timestamp = getFullTimestamp();
+                    
+                    file << serialNumber << ","
+                         << student.id << ","
+                         << student.name << ","
+                         << courseCode << ","
+                         << courseTitle << ","
+                         << date << ","
+                         << dayName << ","
+                         << startTime << ","
+                         << endTime << ","
+                         << periodNumber << ","
+                         << (present ? "Present" : "Absent") << ","
+                         << timestamp << "\n";
+                    
+                    serialNumber++;
+                }
+            }
+            
+            file.close();
+            cout << GREEN << "💾 Saved: " << fileName << RESET << endl;
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- CSV COLUMN REFERENCE -->
+        <h2 class="section-title">📋 CSV Column Format Reference</h2>
+        <div class="func-block">
+            <div class="func-title">Complete 12-Column CSV Structure</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Example</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><code>SL</code></td>
+                        <td>int</td>
+                        <td>1, 2, 3...</td>
+                        <td>Serial number (roster order)</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><code>StudentID</code></td>
+                        <td>string</td>
+                        <td>C253027</td>
+                        <td>Unique student identifier</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><code>Name</code></td>
+                        <td>string</td>
+                        <td>Mohammad Sifat Ullah</td>
+                        <td>Full student name</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><code>Course</code></td>
+                        <td>string</td>
+                        <td>EEE-1121</td>
+                        <td>Course code</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><code>Title</code></td>
+                        <td>string</td>
+                        <td>Electrical Engineering Fundamentals</td>
+                        <td>Full course title (redundant but Excel-friendly)</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><code>Date</code></td>
+                        <td>string</td>
+                        <td>27-11-2025</td>
+                        <td>DD-MM-YYYY format</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><code>Day</code></td>
+                        <td>string</td>
+                        <td>Wednesday</td>
+                        <td>Day of week</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><code>Start</code></td>
+                        <td>string</td>
+                        <td>10:40 AM</td>
+                        <td>Class start time</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><code>End</code></td>
+                        <td>string</td>
+                        <td>11:30 AM</td>
+                        <td>Class end time</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td><code>Period</code></td>
+                        <td>int</td>
+                        <td>1, 2, 3...</td>
+                        <td>Period number (nth occurrence on this date)</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><code>Status</code></td>
+                        <td>string</td>
+                        <td>Present / Absent</td>
+                        <td>Attendance status</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td><code>Recorded</code></td>
+                        <td>string</td>
+                        <td>27-11-2025 14:35:42</td>
+                        <td>Timestamp when attendance was marked</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box why-box">
+                <strong>Design Rationale:</strong><br>
+                • <strong>12 columns (not 4):</strong> Excel compatibility, readability, complete context in each
+                row<br>
+                • <strong>Redundant data:</strong> Course title repeated in every row for standalone file viewing<br>
+                • <strong>Period column:</strong> Distinguishes between multiple sessions of same course on same day<br>
+                • <strong>Recorded timestamp:</strong> Audit trail for when attendance was taken<br>
+                • <strong>All students listed:</strong> Complete roster even if some absent
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Sample Complete CSV Row:</strong>
+                <div class="code-block">
+                    <pre><code>1,C251027,Mohammad Sifat Ullah,EEE-1121,Electrical Engineering Fundamentals,27-11-2025,Wednesday,10:40 AM,11:30 AM,1,Present,27-11-2025 14:35:42</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SUMMARY -->
+        <div style="text-align: center; padding: 2rem; background: rgba(0, 217, 255, 0.05); border-radius: 16px;">
+            <h3 style="color: #00d9ff; font-size: 1.8rem;">✅ Complete File I/O Documentation!</h3>
+            <p style="color: #a8b3cf;">
+                <strong>Total:</strong> ~230 lines across 2 functions<br>
+                <strong>Technologies:</strong> Windows FindFirstFile API, nested directories, 12-column CSV format<br>
+                <strong>Coverage:</strong> Complete implementation with all Windows API details, error handling, and
+                parsing logic
+            </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="quiz.html" class="nav-button">Take Knowledge Quiz 🎯</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+
+        <!-- Quick Reference Box -->
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1rem;">🔗 Quick Reference Links</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Foundations</h4>
+                    <a href="guide-foundations.html" class="resource-link">Data Structures & ANSI Codes</a>
+                    <a href="COMPLETE-GUIDE-FINAL.html" class="resource-link">Complete System Reference</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Implementation</h4>
+                    <a href="complete-guide-FULL.html" class="resource-link">24 Helper Functions</a>
+                    <a href="guide-major-features.html" class="resource-link">6 Major Functions</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Advanced</h4>
+                    <a href="guide-file-io.html" class="resource-link">File I/O & Windows APIs</a>
+                    <a href="error-validation-reference.html" class="resource-link">Error & Validation Reference</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

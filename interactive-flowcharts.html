@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Flowcharts - C++ Attendance System</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.2rem;
+        }
+
+        .flowchart-section {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #00d9ff;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .section-title {
+            color: #00d9ff;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: #a8b3cf;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .mermaid {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        /* --- NEW NAVIGATION & REFERENCE STYLES --- */
+
+        /* Solid Cyan Buttons */
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Resource Links */
+        .resource-link {
+            display: block;
+            color: #00d9ff;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .resource-link:hover {
+            color: #ff79c6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">📊 Interactive Flowcharts</h1>
+            <p class="subtitle">Visual diagrams of key functions and workflows</p>
+        </div>
+
+        <!-- Main System Flow -->
+        <div class="flowchart-section">
+            <h2 class="section-title">1. Main System Flow</h2>
+            <p class="section-desc">Overall program execution from start to exit</p>
+            <div class="mermaid">
+                flowchart TD
+                Start([Start Program]) --> Init[Initialize System]
+                Init --> LoadData{Load CSV Files}
+                LoadData -->|Success| Menu[Display Main Menu]
+                LoadData -->|No Files| Menu
+                Menu --> Choice{User Choice}
+                Choice -->|1| TakeAtt[Take Attendance]
+                Choice -->|2| ViewStat[View Student Status]
+                Choice -->|3| ViewRout[View Weekly Routine]
+                Choice -->|4| Exit([Exit System])
+                TakeAtt --> Save[Save to CSV]
+                Save --> Menu
+                ViewStat --> Menu
+                ViewRout --> Menu
+
+                style Start fill:#50fa7b
+                style Exit fill:#ff5555
+                style Menu fill:#00d9ff
+                style Save fill:#f1fa8c
+            </div>
+        </div>
+
+        <!-- Take Attendance Flow -->
+        <div class="flowchart-section">
+            <h2 class="section-title">2. Take Attendance Flow</h2>
+            <p class="section-desc">Complete workflow for marking attendance</p>
+            <div class="mermaid">
+                flowchart TD
+                Start([Take Attendance]) --> SelectDay[Select Day: 1-5]
+                SelectDay --> DayValid{Valid Day?}
+                DayValid -->|No| Error1[Show Error]
+                Error1 --> SelectDay
+                DayValid -->|Yes| GetClasses[Get Classes for Day]
+                GetClasses --> ClassesExist{Classes Found?}
+                ClassesExist -->|No| Error2[No Classes Error]
+                Error2 --> SelectDay
+                ClassesExist -->|Yes| SelectPeriod[Select Period]
+                SelectPeriod --> PeriodType{Single or Multi?}
+                PeriodType -->|Single| ValidateSingle[Validate Period]
+                PeriodType -->|Multi 7| ParseMulti[Parse Multi-Period]
+                ParseMulti --> ValidateMulti{Same Course?}
+                ValidateMulti -->|No| Error3[Course Mismatch]
+                Error3 --> SelectPeriod
+                ValidateMulti -->|Yes| EnterDate
+                ValidateSingle --> EnterDate[Enter Date]
+                EnterDate --> ValidateDate{Date Valid?}
+                ValidateDate -->|No| Error4[Date Error]
+                Error4 --> SelectPeriod
+                ValidateDate -->|Yes| CheckDup{Duplicate?}
+                CheckDup -->|Yes| Error5[Already Recorded]
+                Error5 --> SelectPeriod
+                CheckDup -->|No| MarkChoice[Choose Marking Mode]
+                MarkChoice --> Mode{Mode?}
+                Mode -->|1 All Present| MarkAll1[Mark All Present]
+                Mode -->|2 All Absent| MarkAll2[Mark All Absent]
+                Mode -->|3 Individual| MarkIndiv[Mark Each Student]
+                MarkAll1 --> SaveCSV[Save to CSV]
+                MarkAll2 --> SaveCSV
+                MarkIndiv --> SaveCSV
+                SaveCSV --> PostAction{Next Action?}
+                PostAction -->|0 Back| SelectPeriod
+                PostAction -->|9 Menu| End([Return to Menu])
+                PostAction -->|R Reset| Reset[Clear Records]
+                Reset --> SelectPeriod
+
+                style Start fill:#50fa7b
+                style End fill:#ff79c6
+                style SaveCSV fill:#f1fa8c
+                style Error1 fill:#ff5555
+                style Error2 fill:#ff5555
+                style Error3 fill:#ff5555
+                style Error4 fill:#ff5555
+                style Error5 fill:#ff5555
+            </div>
+        </div>
+
+        <!-- Multi-Period Parsing -->
+        <div class="flowchart-section">
+            <h2 class="section-title">3. Multi-Period Parsing Algorithm</h2>
+            <p class="section-desc">How "2-6" or "2 3 4" input is processed</p>
+            <div class="mermaid">
+                flowchart TD
+                Start([User Input]) --> GetInput[Get Multi-Period String]
+                GetInput --> Trim[Trim Whitespace]
+                Trim --> CheckFormat{Contains '-'?}
+                CheckFormat -->|Yes| ParseRange[Parse Range Format]
+                CheckFormat -->|No| ParseSpace[Parse Space-Separated]
+
+                ParseRange --> ExtractStart[Extract Start Number]
+                ExtractStart --> ExtractEnd[Extract End Number]
+                ExtractEnd --> ValidateRange{Valid Range?}
+                ValidateRange -->|No| ErrorRange[Range Error]
+                ValidateRange -->|Yes| BuildRange[Build Indices i=start to end]
+                BuildRange --> Return
+
+                ParseSpace --> Stream[Create stringstream]
+                Stream --> Loop{More Tokens?}
+                Loop -->|Yes| ReadToken[Read Next Token]
+                ReadToken --> ValidateToken{Valid Number?}
+                ValidateToken -->|No| ErrorToken[Token Error]
+                ValidateToken -->|Yes| AddToList[Add to List]
+                AddToList --> Loop
+                Loop -->|No| Return([Return Indices])
+
+                ErrorRange --> Retry([Ask Again])
+                ErrorToken --> Retry
+
+                style Start fill:#50fa7b
+                style Return fill:#00d9ff
+                style ErrorRange fill:#ff5555
+                style ErrorToken fill:#ff5555
+                style BuildRange fill:#f1fa8c
+            </div>
+        </div>
+
+        <!-- Date Validation -->
+        <div class="flowchart-section">
+            <h2 class="section-title">4. Date Validation Process</h2>
+            <p class="section-desc">4-step date validation with Zeller's algorithm</p>
+            <div class="mermaid">
+                flowchart TD
+                Start([Date Input]) --> Format{Length == 10?}
+                Format -->|No| Err1[Format Error]
+                Format -->|Yes| Sep1{Char2 == '-'?}
+                Sep1 -->|No| Err1
+                Sep1 -->|Yes| Sep2{Char5 == '-'?}
+                Sep2 -->|No| Err1
+                Sep2 -->|Yes| Parse[Parse DD-MM-YYYY]
+                Parse --> Future{Is Future?}
+                Future -->|Yes| Err2[Future Date Error]
+                Future -->|No| Zeller[Run Zeller's Algorithm]
+                Zeller --> CalcDay[Calculate Day of Week]
+                CalcDay --> Match{Day Matches?}
+                Match -->|No| Err3[Day Mismatch Error]
+                Match -->|Yes| Valid([Valid Date ✓])
+
+                Err1 --> Retry([Ask Again])
+                Err2 --> Retry
+                Err3 --> Retry
+
+                style Start fill:#50fa7b
+                style Valid fill:#00d9ff
+                style Zeller fill:#f1fa8c
+                style Err1 fill:#ff5555
+                style Err2 fill:#ff5555
+                style Err3 fill:#ff5555
+            </div>
+        </div>
+
+        <!-- Buffer Management -->
+        <div class="flowchart-section">
+            <h2 class="section-title">5. Buffer Management Decision Tree</h2>
+            <p class="section-desc">When to use cin.ignore() - critical for preventing input skipping</p>
+            <div class="mermaid">
+                flowchart TD
+                Start([Before getline]) --> PrevInput{Previous Input Type?}
+                PrevInput -->|cin >> int| NeedIgnore1[MUST use cin.ignore]
+                PrevInput -->|cin >> string| NeedIgnore2[MUST use cin.ignore]
+                PrevInput -->|getline| NoIgnore1[NO ignore needed]
+
+                NeedIgnore1 --> Ignore1[cin.ignore max, newline]
+                NeedIgnore2 --> Ignore2[cin.ignore max, newline]
+                Ignore1 --> GetLine1[getline cin, variable]
+                Ignore2 --> GetLine2[getline cin, variable]
+                NoIgnore1 --> GetLine3[getline cin, variable]
+
+                GetLine1 --> Success([Input Captured ✓])
+                GetLine2 --> Success
+                GetLine3 --> Success
+
+                PrevInput -->|First Input| Direct[Direct getline OK]
+                Direct --> Success
+
+                style Start fill:#50fa7b
+                style Success fill:#00d9ff
+                style NeedIgnore1 fill:#ff79c6
+                style NeedIgnore2 fill:#ff79c6
+                style NoIgnore1 fill:#f1fa8c
+            </div>
+        </div>
+
+        <!-- File I/O Flow -->
+        <div class="flowchart-section">
+            <h2 class="section-title">6. File I/O - Save Attendance Data</h2>
+            <p class="section-desc">Nested grouping and CSV file generation</p>
+            <div class="mermaid">
+                flowchart TD
+                Start([Save Data]) --> CreateFolder[Create 'Attendance Sheet' Folder]
+                CreateFolder --> GroupByDate[Group Records by Date]
+                GroupByDate --> DateLoop{For Each Date}
+                DateLoop -->|Next Date| CreateDateFolder[Create Date Subfolder]
+                CreateDateFolder --> GroupByCourse[Group by Course+Time]
+                GroupByCourse --> CourseLoop{For Each Course+Time}
+                CourseLoop -->|Next| CalcPeriod[Calculate Period Number]
+                CalcPeriod --> GenFilename[Generate Filename]
+                GenFilename --> OpenFile[Open CSV File]
+                OpenFile --> WriteHeader[Write 12-Column Header]
+                WriteHeader --> StudentLoop{For Each Student}
+                StudentLoop -->|Next| WriteRow[Write Student Row]
+                WriteRow --> StudentLoop
+                StudentLoop -->|Done| CloseFile[Close File]
+                CloseFile --> CourseLoop
+                CourseLoop -->|Done| DateLoop
+                DateLoop -->|Done| Complete([Save Complete ✓])
+
+                style Start fill:#50fa7b
+                style Complete fill:#00d9ff
+                style WriteHeader fill:#f1fa8c
+                style GenFilename fill:#ff79c6
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="quiz.html" class="nav-button">Take Knowledge Quiz 🎯</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+
+        <!-- Quick Reference Box -->
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1rem;">🔗 Quick Reference Links</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Foundations</h4>
+                    <a href="guide-foundations.html" class="resource-link">Data Structures & ANSI Codes</a>
+                    <a href="COMPLETE-GUIDE-FINAL.html" class="resource-link">Complete System Reference</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Implementation</h4>
+                    <a href="complete-guide-FULL.html" class="resource-link">24 Helper Functions</a>
+                    <a href="guide-major-features.html" class="resource-link">6 Major Functions</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Advanced</h4>
+                    <a href="guide-file-io.html" class="resource-link">File I/O & Windows APIs</a>
+                    <a href="error-validation-reference.html" class="resource-link">Error & Validation Reference</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                curve: 'basis',
+                padding: 20
+            }
+        });
+    </script>
+</body>
+
+</html>

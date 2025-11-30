@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Major Features - C++ Attendance System</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00d9ff;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .subsection-title {
+            font-size: 1.5rem;
+            color: #ff79c6;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .func-block {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #00d9ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+        }
+
+        .func-title {
+            color: #f1fa8c;
+            font-size: 1.4rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .func-purpose {
+            color: #50fa7b;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .example-box {
+            background: rgba(0, 217, 255, 0.1);
+            border-left-color: #00d9ff;
+        }
+
+        .why-box {
+            background: rgba(80, 250, 123, 0.1);
+            border-left-color: #50fa7b;
+        }
+
+        .warning-box {
+            background: rgba(241, 250, 140, 0.1);
+            border-left-color: #f1fa8c;
+        }
+
+        .error-box {
+            background: rgba(255, 85, 85, 0.1);
+            border-left-color: #ff5555;
+        }
+
+        .code-block {
+            background: #1e1e3f;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #f1fa8c;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        ul,
+        ol {
+            margin-left: 2rem;
+            color: #a8b3cf;
+        }
+
+        li {
+            margin: 0.4rem 0;
+        }
+
+        strong {
+            color: #00d9ff;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            margin: 3rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th,
+        td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        th {
+            background: rgba(0, 217, 255, 0.1);
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .flow-step {
+            background: rgba(80, 250, 123, 0.05);
+            border-left: 3px solid #50fa7b;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+        }
+
+        /* --- NEW NAVIGATION & REFERENCE STYLES --- */
+
+        /* Solid Cyan Buttons */
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Resource Links */
+        .resource-link {
+            display: block;
+            color: #00d9ff;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .resource-link:hover {
+            color: #ff79c6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🚀 Major Feature Functions</h1>
+            <p style="color: #8be9fd; font-size: 1.1rem;">Complete implementation details for all 6 core features</p>
+        </div>
+
+        <h2 class="section-title">Overview</h2>
+        <div class="info-box example-box">
+            <strong>6 Major Functions:</strong>
+            <ol>
+                <li><strong>displayMainMenu()</strong> - Main menu display (~20 lines)</li>
+                <li><strong>run()</strong> - Main application loop (~60 lines)</li>
+                <li><strong>takeAttendance()</strong> - Day selection loop (~80 lines)</li>
+                <li><strong>selectPeriodAndMark()</strong> - Period selection & marking ⭐ <strong>THE BIG ONE - 320+
+                        lines!</strong></li>
+                <li><strong>viewStudentStatus()</strong> - Individual & ALL students view (~240 lines)</li>
+                <li><strong>viewWeeklyRoutine()</strong> - Schedule display (~60 lines)</li>
+            </ol>
+        </div>
+
+        <div class="info-box warning-box">
+            <strong>⚠️ Navigation Pattern (Used Everywhere):</strong><br>
+            • <code>[0]</code> = Back to previous menu<br>
+            • <code>[9]</code> = Jump to main menu<br>
+            • <code>[R]</code> = Reset/Clear current operation<br>
+            • <code>1-N</code> = Menu options
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 1. DISPLAY MAIN MENU -->
+        <h2 class="section-title">1. displayMainMenu()</h2>
+        <div class="func-block">
+            <div class="func-title">void displayMainMenu()</div>
+            <div class="func-purpose">Display main menu with 4 options</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">void displayMainMenu() {
+    clearScreen();
+    printHeader("ATTENDANCE TRACKING SYSTEM");
+    
+    cout << " " << CYAN << BOLD << "📋 MAIN MENU" << RESET << "\n\n";
+    cout << " " << GREEN << " [1]" << RESET << " 📝 Take Attendance\n";
+    cout << " " << BLUE << " [2]" << RESET << " 👥 View Student Status\n";
+    cout << " " << YELLOW << " [3]" << RESET << " 📅 View Weekly Routine\n";
+    cout << " " << RED << " [4]" << RESET << " 🚪 Exit System\n\n";
+    
+    printLine();
+    cout << "\n " << CYAN << "❯❯ " << RESET << BOLD 
+         << "Enter your choice: " << RESET;
+}</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why Simple?</strong> Menu is just display - no logic. All interactions handled by run() loop.
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 2. RUN FUNCTION -->
+        <h2 class="section-title">2. run() - Main Loop</h2>
+        <div class="func-block">
+            <div class="func-title">void run()</div>
+            <div class="func-purpose">Main event loop handling menu choices with input validation</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">void run() {
+    string choice;
+    do {
+        displayMainMenu();
+        cin >> choice;
+        
+        // NORMALIZE TO UPPERCASE (allows 'a', 'A', '1' all to work)
+        transform(choice.begin(), choice.end(), choice.begin(), ::toupper);
+        
+        if (choice == "1") {
+            takeAttendance();
+        } else if (choice == "2") {
+            viewStudentStatus();
+        } else if (choice == "3") {
+            viewWeeklyRoutine();
+        } else if (choice == "4") {
+            // FANCY EXIT SCREEN
+            clearScreen();
+            cout << "\n\n  " << CYAN << BOLD;
+            cout << "┌────────────────────────────────────────────────────────────┐\n";
+            cout << "  │" << string(20, ' ') << GREEN << "✅ SYSTEM SHUTDOWN"
+                 << CYAN << string(22, ' ') << "│\n";
+            cout << "  │" << RESET << string(60, ' ') << CYAN << "│\n";
+            cout << "  │" << RESET << "     " << YELLOW
+                 << "Thank you for using the Attendance System!" << CYAN
+                 << "             │\n";
+            cout << "  │" << RESET << "     " << DIM
+                 << "All data has been saved successfully." << RESET << CYAN
+                 << "                  │\n";
+            cout << "  │" << RESET << string(60, ' ') << CYAN << "│\n";
+            cout << "  └────────────────────────────────────────────────────────────┘"
+                 << RESET << "\n\n";
+            break;
+        } else {
+            // INVALID CHOICE ERROR HANDLING
+            cout << RED << "\n  ❌ Invalid choice!" << RESET << endl;
+            cout << "  " << YELLOW << "Please enter a number from 1-4." 
+                 << RESET << endl;
+            cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+            cin.ignore(10000, '\n');
+            cin.get();
+        }
+    } while (choice != "4");
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Loop Pattern:</strong><br>
+                Infinite loop → display menu → get input → <strong>normalize</strong> → process → repeat until exit
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why transform to uppercase?</strong><br>
+                User can type "1", "a", "A" for option A. Normalizing makes comparison easier.<br><br>
+                <strong>Why cin.ignore(10000, '\n')?</strong><br>
+                After invalid input, the newline remains in buffer. Must clear before cin.get().
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 3. TAKE ATTENDANCE -->
+        <h2 class="section-title">3. takeAttendance() - Day Selection</h2>
+        <div class="func-block">
+            <div class="func-title">void takeAttendance()</div>
+            <div class="func-purpose">Let user select which day to take attendance for (with validation)</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">void takeAttendance() {
+    while (true) {
+        clearScreen();
+        printHeader("TAKE ATTENDANCE");
+        
+        cout << " " << CYAN << BOLD << "📅 SELECT DAY" << RESET 
+             << " - " << DIM << "Choose which day to mark" << RESET << "\n\n";
+        
+        // Display 5 days (Saturday - Wednesday)
+        cout << " " << GREEN << " [1]" << RESET << " Saturday\n";
+        cout << " " << BLUE << " [2]" << RESET << " Sunday\n";
+        cout << " " << YELLOW << " [3]" << RESET << " Monday\n";
+        cout << " " << MAGENTA << " [4]" << RESET << " Tuesday\n";
+        cout << " " << CYAN << " [5]" << RESET << " Wednesday\n\n";
+        
+        printLine();
+        cout << "\n " << DIM << "[0] Back  |  [9] Main Menu" << RESET << "\n\n";
+        cout << " " << CYAN << "❯❯ " << RESET << BOLD 
+             << "Select day: " << RESET;
+        
+        string dayInput;
+        cin >> dayInput;
+        
+        // NAVIGATION: Back or Main Menu
+        if (dayInput == "0" || dayInput == "9") return;
+        
+        // VALIDATION: Try to convert to integer
+        int dayChoice;
+        try {
+            dayChoice = stoi(dayInput);
+        } catch (...) {
+            cout << RED << "\n  ❌ Invalid choice!" << RESET << endl;
+            cout << "\n  " << DIM << "Press any key to continue..." << RESET;
+            cin.ignore();
+            cin.get();
+            continue;
+        }
+        
+        // VALIDATION: Range check (1-5)
+        if (dayChoice < 1 || dayChoice > 5) {
+            cout << RED << "\n  ❌ Invalid choice! Enter 1-5." << RESET << endl;
+            cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+            cin.ignore(10000, '\n');
+            cin.get();
+            continue;
+        }
+        
+        // Convert choice to day name
+        string days[] = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"};
+        string selectedDay = days[dayChoice - 1];
+        
+        // Get classes for this day
+        vector<ClassPeriod> dayClasses = getClassesForDay(selectedDay);
+        
+        // VALIDATION: Check if day has classes
+        if (dayClasses.empty()) {
+            cout << RED << "\n  ❌ No classes on " << selectedDay << "!" 
+                 << RESET << endl;
+            cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+            cin.ignore(10000, '\n');
+            cin.get();
+            continue;
+        }
+        
+        // Proceed to period selection
+        bool exitToMainMenu = selectPeriodAndMark(selectedDay, dayClasses);
+        if (exitToMainMenu) return;  // User chose [9] Main Menu
+        // Otherwise loop back to day selection
+    }
+}</code></pre>
+            </div>
+
+            <div class="info-box warning-box">
+                <strong>⚠️ Error Handling:</strong><br>
+                • <code>try-catch</code> for <code>stoi()</code> exceptions (invalid input like "abc")<br>
+                • Range validation (1-5 only)<br>
+                • Empty class list check<br>
+                • Buffer management before <code>cin.get()</code>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Return Value Pattern:</strong><br>
+                • <code>selectPeriodAndMark()</code> returns <code>bool</code><br>
+                • <code>true</code> = Exit to main menu (user pressed [9])<br>
+                • <code>false</code> = Back to day selection (user pressed [0])
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 4. SELECT PERIOD AND MARK -->
+        <h2 class="section-title">4. selectPeriodAndMark() ⭐ THE BIG ONE (320+ lines)</h2>
+        <div class="func-block">
+            <div class="func-title">bool selectPeriodAndMark(const string &selectedDay, const vector&lt;ClassPeriod&gt;
+                &dayClasses)</div>
+            <div class="func-purpose">Handle period selection, date input, duplicate check, and attendance marking</div>
+
+            <div class="info-box error-box">
+                <strong>🔥 MOST COMPLEX FUNCTION in the entire system!</strong><br>
+                Lines: 320+<br>
+                Features: 7 major subsystems (multi-period, validation, marking modes, reset, navigation)<br>
+                Error Cases: 12+ distinct error messages<br>
+                Input Modes: 3 different (single, multi-space, multi-range)
+            </div>
+        </div>
+
+        <h3 class="subsection-title">4.1 - Multi-Period Input Parsing</h3>
+        <div class="func-block">
+            <div class="func-purpose">Parse space-separated ("2 3 4") or range ("2-6") input</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">// Display periods with [7] Multi-period option
+for (size_t i = 0; i < dayClasses.size(); i++) {
+    cout << " [" << (i + 1) << "] " << dayClasses[i].time 
+         << " - " << dayClasses[i].endTime 
+         << " (" << dayClasses[i].courseCode << ")\n";
+}
+cout << " [7] 📋 Select Multiple Periods\n\n";
+
+string periodInput;
+cin >> periodInput;
+
+vector<int> selectedPeriodIndices;
+bool isMultiPeriodMode = false;
+
+if (periodInput == "7") {
+    isMultiPeriodMode = true;
+    cout << "\nEnter periods (e.g., '2 3 4' or '2-6'): ";
+    
+    // MUST CLEAR BUFFER before getline
+    cin.ignore((std::numeric_limits<streamsize>::max)(), '\n');
+    
+    string multiPeriodInput;
+    getline(cin, multiPeriodInput);
+    
+    // TRIM WHITESPACE
+    multiPeriodInput.erase(0, multiPeriodInput.find_first_not_of(" \t\n\r"));
+    multiPeriodInput.erase(multiPeriodInput.find_last_not_of(" \t\n\r") + 1);
+    
+    // CHECK FOR RANGE FORMAT ("2-6")
+    if (multiPeriodInput.find('-') != string::npos) {
+        size_t dashPos = multiPeriodInput.find('-');
+        
+        try {
+            int start = stoi(multiPeriodInput.substr(0, dashPos));
+            int end = stoi(multiPeriodInput.substr(dashPos + 1));
+            
+            // VALIDATION
+            if (start < 1 || end > static_cast<int>(dayClasses.size()) || start > end) {
+                cout << RED << "\n  ❌ Invalid range!" << RESET;
+                continue;
+            }
+            
+            // Build indices
+            for (int i = start; i <= end; i++) {
+                selectedPeriodIndices.push_back(i - 1);
+            }
+        } catch (...) {
+            cout << RED << "\n  ❌ Invalid range format!" << RESET;
+            continue;
+        }
+    } else {
+        // SPACE-SEPARATED FORMAT ("2 3 4")
+        stringstream ss(multiPeriodInput);
+        string periodStr;
+        
+        while (ss >> periodStr) {
+            try {
+                int periodNum = stoi(periodStr);
+                
+                // VALIDATION
+                if (periodNum < 1 || periodNum > static_cast<int>(dayClasses.size())) {
+                    cout << RED << "\n  ❌ Invalid period number: " 
+                         << periodNum << RESET;
+                    continue;
+                }
+                
+                selectedPeriodIndices.push_back(periodNum - 1);
+            } catch (...) {
+                cout << RED << "\n  ❌ Invalid input!" << RESET;
+                continue;
+            }
+        }
+    }
+}</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why cin.ignore() before getline()?</strong><br>
+                <code>cin >> periodInput</code> leaves a newline <code>\n</code> in the buffer.<br>
+                Without <code>ignore()</code>, <code>getline()</code> would immediately read that newline as empty
+                input.<br><br>
+                <strong>Why use numeric_limits?</strong><br>
+                Guarantees clearing entire buffer, not just first N characters.
+            </div>
+        </div>
+
+        <h3 class="subsection-title">4.2 - Same Course Validation</h3>
+        <div class="func-block">
+            <div class="func-purpose">Ensure all selected periods belong to the same course</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">// SAME COURSE VALIDATION (required for multi-period)
+if (selectedPeriodIndices.size() > 1) {
+    string firstCourse = dayClasses[selectedPeriodIndices[0]].courseCode;
+    bool allSameCourse = true;
+    
+    for (auto idx : selectedPeriodIndices) {
+        if (dayClasses[idx].courseCode != firstCourse) {
+            allSameCourse = false;
+            break;
+        }
+    }
+    
+    if (!allSameCourse) {
+        cout << RED << "\n  ❌ All selected periods must be for the same course!" 
+             << RESET << endl;
+        cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+        
+        // CONDITIONAL BUFFER CLEAR (only if multi-period mode used getline)
+        if (!isMultiPeriodMode) {
+            cin.ignore((std::numeric_limits<streamsize>::max)(), '\n');
+        }
+        cin.get();
+        continue;
+    }
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Why Same Course?</strong><br>
+                Period 1: EEE-1121 (11:30-12:20)<br>
+                Period 2: EEE-1121 (12:20-1:10)<br>
+                Period 3: CSE-1121 (1:50-2:40)<br><br>
+                User can select [1, 2] ✅ (both EEE-1121)<br>
+                User CANNOT select [1, 3] ❌ (different courses)
+            </div>
+        </div>
+
+        <h3 class="subsection-title">4.3 - Date Validation</h3>
+        <div class="func-block">
+            <div class="func-purpose">Validate date format, future dates, and day-date matching</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">// DATE INPUT
+cout << "\nEnter date (DD-MM-YYYY) or press Enter for today: ";
+
+if (!isMultiPeriodMode) {
+    cin.ignore((std::numeric_limits<streamsize>::max)(), '\n');
+}
+
+string dateInput;
+getline(cin, dateInput);
+
+// TRIM WHITESPACE
+dateInput.erase(0, dateInput.find_first_not_of(" \t\n\r"));
+dateInput.erase(dateInput.find_last_not_of(" \t\n\r") + 1);
+
+// DEFAULT TO TODAY if empty
+if (dateInput.empty()) {
+    dateInput = getCurrentDate();
+    cout << YELLOW << "  → Using today's date: " << dateInput << RESET << endl;
+}
+
+// VALIDATION 1: Format check (DD-MM-YYYY, exactly 10 chars)
+if (dateInput.length() != 10 || dateInput[2] != '-' || dateInput[5] != '-') {
+    cout << RED << "\n  ❌ Invalid date format! Use DD-MM-YYYY" << RESET << endl;
+    cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+    cin.get();
+    continue;
+}
+
+// VALIDATION 2: Future date check
+if (isDateInFuture(dateInput)) {
+    cout << RED << "\n  ❌ Cannot take attendance for future dates!" 
+         << RESET << endl;
+    cout << "  " << YELLOW << "Date entered: " << dateInput << RESET << endl;
+    cout << "  " << YELLOW << "Today: " << getCurrentDate() << RESET << endl;
+    cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+    cin.get();
+    continue;
+}
+
+// VALIDATION 3: Day-Date match check
+if (!validateDayDateMatch(selectedDay, dateInput)) {
+    // Parse date to show actual day
+    int day, month, year;
+    char sep1, sep2;
+    stringstream ss(dateInput);
+    ss >> day >> sep1 >> month >> sep2 >> year;
+    
+    int dayOfWeek = getDayOfWeek(day, month, year);
+    string actualDay = getDayName(dayOfWeek);
+    
+    cout << RED << "\n  ❌ Date mismatch!" << RESET << endl;
+    cout << "  " << YELLOW << "You selected: " << selectedDay << RESET << endl;
+    cout << "  " << YELLOW << "But " << dateInput << " is a " 
+         << actualDay << RESET << endl;
+    cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+    cin.get();
+    continue;
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Example Error Flows:</strong><br><br>
+                <strong>Format Error:</strong> "27/11/2025" → ❌ Must use dashes<br>
+                <strong>Future Error:</strong> User selects "30-12-2025" when today is "27-11-2025" → ❌<br>
+                <strong>Mismatch Error:</strong> Selected "Saturday" but entered "28-11-2025" (Thursday) → ❌
+            </div>
+        </div>
+
+        <h3 class="subsection-title">4.4 - Duplicate Prevention</h3>
+        <div class="func-block">
+            <div class="func-purpose">Check if attendance already recorded for selected periods</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">// DUPLICATE CHECK for all selected periods
+bool hasDuplicate = false;
+vector<string> duplicatePeriods;
+
+for (const auto &period : selectedPeriods) {
+    // Check if ANY student has attendance for this period+date
+    for (const auto &student : students) {
+        if (hasAttendanceRecord(student.id, period.courseCode, 
+                                dateInput, period.time)) {
+            hasDuplicate = true;
+            
+            // Add to duplicate list (no duplicates in the list itself)
+            string periodTime = period.time + " - " + period.endTime;
+            if (find(duplicatePeriods.begin(), duplicatePeriods.end(),
+                     periodTime) == duplicatePeriods.end()) {
+                duplicatePeriods.push_back(periodTime);
+            }
+            break;  // Found duplicate for this period, move to next
+        }
+    }
+}
+
+if (hasDuplicate) {
+    cout << RED << "\n  ❌ Attendance already recorded for this date and period(s)!" 
+         << RESET << endl;
+    cout << "  " << YELLOW << "  Date: " << dateInput << RESET << endl;
+    cout << "  " << YELLOW << "  Duplicate periods: ";
+    
+    for (size_t i = 0; i < duplicatePeriods.size(); i++) {
+        cout << duplicatePeriods[i];
+        if (i < duplicatePeriods.size() - 1) cout << ", ";
+    }
+    cout << RESET << endl;
+    cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+    cin.get();
+    continue;
+}</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why check all students?</strong><br>
+                If even ONE student has a record for this course+date+time, it means attendance was already
+                taken.<br><br>
+                <strong>Why vector for duplicate periods?</strong><br>
+                User may select multiple periods, need to show ALL that have duplicates.
+            </div>
+        </div>
+
+        <h3 class="subsection-title">4.5 - Three Marking Modes</h3>
+        <div class="func-block">
+            <div class="func-purpose">Mode 1: All Present | Mode 2: All Absent | Mode 3: Individual Marking</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">cout << "\n " << CYAN << BOLD << "📝 MARKING OPTIONS" << RESET << "\n";
+cout << " [1] Mark all students PRESENT\n";
+cout << " [2] Mark all students ABSENT\n";
+cout << " [3] Mark individually\n\n";
+cout << " " << CYAN << "❯❯ " << RESET << "Select: ";
+
+string markingChoice;
+cin >> markingChoice;
+
+if (markingChoice == "1") {
+    // MODE 1: ALL PRESENT
+    for (const auto &period : selectedPeriods) {
+        for (const auto &student : students) {
+            attendanceRecords.push_back(
+                AttendanceRecord(student.id, period.courseCode, dateInput,
+                               selectedDay, period.time, true));  // true = present
+        }
+    }
+    
+    saveAttendanceData();
+    
+    cout << "\n  " << GREEN << BOLD << "✅ SUCCESS!" << RESET << GREEN
+         << " All students marked present";
+    if (selectedPeriods.size() > 1) {
+        cout << " for " << selectedPeriods.size() << " periods";
+    }
+    cout << RESET << endl;
+    
+} else if (markingChoice == "2") {
+    // MODE 2: ALL ABSENT
+    for (const auto &period : selectedPeriods) {
+        for (const auto &student : students) {
+            attendanceRecords.push_back(
+                AttendanceRecord(student.id, period.courseCode, dateInput,
+                               selectedDay, period.time, false));  // false = absent
+        }
+    }
+    
+    saveAttendanceData();
+    
+    cout << "\n  " << YELLOW << BOLD << "⚠️  RECORDED!" << RESET << YELLOW
+         << " All students marked absent";
+    if (selectedPeriods.size() > 1) {
+        cout << " for " << selectedPeriods.size() << " periods";
+    }
+    cout << RESET << endl;
+    
+} else if (markingChoice == "3") {
+    // MODE 3: INDIVIDUAL MARKING
+    clearScreen();
+    printHeader("INDIVIDUAL ATTENDANCE");
+    
+    cout << " " << CYAN << "Course: " << YELLOW << selectedPeriods[0].courseCode 
+         << RESET << "\n";
+    cout << " " << CYAN << "Date: " << YELLOW << dateInput << RESET << "\n\n";
+    
+    printLine();
+    
+    for (const auto &student : students) {
+        bool validInput = false;
+        char attendance;
+        
+        // VALIDATION LOOP until valid P or A
+        while (!validInput) {
+            cout << "\n " << student.sl << ". " << CYAN << student.name 
+                 << RESET << " [P/A]: ";
+            
+            string inputStr;
+            cin >> inputStr;
+            
+            // NORMALIZE TO UPPERCASE
+            transform(inputStr.begin(), inputStr.end(), 
+                     inputStr.begin(), ::toupper);
+            
+            // VALIDATE: Must be single char, either 'P' or 'A'
+            if (inputStr.length() == 1 && 
+                (inputStr[0] == 'P' || inputStr[0] == 'A')) {
+                attendance = inputStr[0];
+                validInput = true;
+            } else {
+                cout << RED << "  ❌ Invalid input! Please enter 'P' for Present or 'A' for Absent." 
+                     << RESET << endl;
+            }
+        }
+        
+        // Add record for each period
+        for (const auto &period : selectedPeriods) {
+            attendanceRecords.push_back(
+                AttendanceRecord(student.id, period.courseCode, dateInput,
+                               selectedDay, period.time, 
+                               (attendance == 'P')));
+        }
+    }
+    
+    saveAttendanceData();
+    
+    cout << "\n\n  " << GREEN << BOLD << "✅ SUCCESS!" << RESET << GREEN
+         << " Attendance recorded for all students";
+    if (selectedPeriods.size() > 1) {
+        cout << " (" << selectedPeriods.size() << " periods)";
+    }
+    cout << RESET << endl;
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Individual Marking Flow:</strong><br>
+                System: "1. Mohammad Sifat Ullah [P/A]:"<br>
+                User types: "p" ✅ (normalized to 'P')<br>
+                User types: "present" ❌ (length != 1, retry)<br>
+                User types: "x" ❌ (not P or A, retry)<br>
+                User types: "A" ✅ (valid)
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why validation loop?</strong><br>
+                User may mistype. Loop until valid input received, no crashes or bad data.
+            </div>
+        </div>
+
+        <h3 class="subsection-title">4.6 - Reset Functionality (Lambda)</h3>
+        <div class="func-block">
+            <div class="func-purpose">Allow user to undo attendance marking using STL algorithms and lambda</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// POST-MARKING MENU
+cout << "\n " << CYAN << "OPTIONS:" << RESET << "\n";
+cout << " [R] Reset (undo this marking)\n";
+cout << " [0] Back to period selection\n";
+cout << " [9] Main menu\n\n";
+cout << " " << CYAN << "❯❯ " << RESET;
+
+string postChoice;
+cin >> postChoice;
+transform(postChoice.begin(), postChoice.end(), postChoice.begin(), ::toupper);
+
+if (postChoice == "R") {
+    // RESET using ERASE-REMOVE IDIOM with LAMBDA
+    attendanceRecords.erase(
+        remove_if(attendanceRecords.begin(), attendanceRecords.end(),
+                 [&](const AttendanceRecord &r) {
+                     // CAPTURE [&] = capture all local vars by reference
+                     for (const auto &period : selectedPeriods) {
+                         if (r.courseCode == period.courseCode &&
+                             r.date == dateInput &&
+                             r.timeSlot == period.time) {
+                             return true;  // Mark for removal
+                         }
+                     }
+                     return false;  // Keep this record
+                 }),
+        attendanceRecords.end());
+    
+    saveAttendanceData();
+    
+    cout << GREEN << "\n  ✅ Reset complete! Attendance cleared for "
+         << selectedPeriods.size() << " period(s)." << RESET << endl;
+    cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+    cin.ignore(10000, '\n');
+    cin.get();
+    continue;  // Back to period selection
+    
+} else if (postChoice == "0") {
+    return false;  // Back to day selection
+} else if (postChoice == "9") {
+    return true;  // Exit to main menu
+}</code></pre>
+            </div>
+
+            <div class="info-box why-box">
+                <strong>🔍 Lambda Function Breakdown:</strong><br>
+                <code>[&]</code> = Capture list (captures <code>selectedPeriods</code>, <code>dateInput</code> by
+                reference)<br>
+                <code>(const AttendanceRecord &r)</code> = Parameter (current record being checked)<br>
+                <code>{ ... return true/false; }</code> = Body (return true to remove, false to keep)<br><br>
+                <strong>Why lambda instead of separate function?</strong><br>
+                Lambda can access local variables directly. A separate function would need many parameters.
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Erase-Remove Idiom:</strong><br>
+                <code>remove_if()</code> moves matching items to end, returns iterator to first "removed" item<br>
+                <code>erase()</code> actually deletes from that point to end<br><br>
+                Before: [A, B✓, C, D✓, E] (✓ = should remove)<br>
+                After remove_if: [A, C, E, B, D] ^ iterator here<br>
+                After erase: [A, C, E]
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 5. VIEW STUDENT STATUS -->
+        <h2 class="section-title">5. viewStudentStatus() - Complete Implementation</h2>
+        <div class="func-block">
+            <div class="func-title">void viewStudentStatus()</div>
+            <div class="func-purpose">Display attendance status for one student or all 45 students with reset option
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">void viewStudentStatus() {
+    // SYNC WITH CSV FILES FIRST
+    cout << "\n " << CYAN << "🔄 Syncing with spreadsheet files..." 
+         << RESET << flush;
+    loadAttendanceData();
+    cout << " " << GREEN << "✓" << RESET << endl;
+    
+    clearScreen();
+    printHeader("STUDENT ATTENDANCE STATUS");
+    
+    cout << " " << CYAN << BOLD << "👥 SEARCH STUDENT" << RESET << "\n\n";
+    cout << "  Enter student ID (or 'ALL' to view all students): ";
+    
+    string searchId;
+    cin >> searchId;
+    
+    // NORMALIZE TO UPPERCASE
+    transform(searchId.begin(), searchId.end(), searchId.begin(), ::toupper);
+    
+    if (searchId == "ALL") {
+        // MODE 1: ALL STUDENTS TABLE
+        clearScreen();
+        printHeader("ALL STUDENTS ATTENDANCE REPORT");
+        
+        // Get all course codes (sorted)
+        vector<string> courseCodes;
+        for (const auto &pair : courses) {
+            courseCodes.push_back(pair.first);
+        }
+        sort(courseCodes.begin(), courseCodes.end());
+        
+        // TABLE HEADER
+        cout << "\n ";
+        cout << centerAlign("SL", 5) << centerAlign("ID", 12) 
+             << centerAlign("Name", 35);
+        for (const auto &code : courseCodes) {
+            cout << centerAlign(code, 12);
+        }
+        cout << "\n ";
+        printLine();
+        
+        // ROWS: Each student
+        for (const auto &student : students) {
+            bool anyDiscollegiate = false;
+            vector<double> percentages;
+            
+            // Calculate percentages for each course
+            for (const auto &code : courseCodes) {
+                double percentage = calculateAttendance(student.id, code);
+                percentages.push_back(percentage);
+                if (percentage < 60.0) anyDiscollegiate = true;
+            }
+            
+            // ROW COLOR: RED if any course is dis-collegiate
+            cout << "  " << (anyDiscollegiate ? RED : GREEN);
+            
+            // Format data
+            stringstream slStr, idStr, nameStr;
+            slStr << student.sl;
+            idStr << student.id;
+            nameStr << student.name.substr(0, 32);  // Truncate long names
+            
+            // Print row
+            cout << centerAlign(slStr.str(), 5)
+                 << centerAlign(idStr.str(), 12)
+                 << centerAlign(nameStr.str(), 35);
+            
+            for (double pct : percentages) {
+                stringstream pctStr;
+                pctStr << fixed << setprecision(1) << pct << "%";
+                cout << centerAlign(pctStr.str(), 12);
+            }
+            cout << RESET << "\n";
+        }
+        
+        printLine();
+        cout << "\n " << DIM << "Legend: " << GREEN << "● Collegiate (≥60%)" 
+             << DIM << " | " << RED << "● Dis-collegiate (<60%)" 
+             << RESET << "\n\n";
+        
+    } else {
+        // MODE 2: INDIVIDUAL STUDENT PROFILE
+        
+        // Find student
+        bool found = false;
+        Student targetStudent;
+        for (const auto &student : students) {
+            if (student.id == searchId) {
+                found = true;
+                targetStudent = student;
+                break;
+            }
+        }
+        
+        if (!found) {
+            cout << RED << "\n  ❌ Student not found!" << RESET << endl;
+            cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+            cin.ignore(10000, '\n');
+            cin.get();
+            return;
+        }
+        
+        // Display individual profile
+        clearScreen();
+        printHeader("STUDENT PROFILE");
+        
+        cout << " " << CYAN << BOLD << "📋 PERSONAL INFO" << RESET << "\n\n";
+        cout << "  " << YELLOW << "SL No:  " << RESET << targetStudent.sl << "\n";
+        cout << "  " << YELLOW << "ID:     " << RESET << targetStudent.id << "\n";
+        cout << "  " << YELLOW << "Name:   " << RESET << targetStudent.name << "\n\n";
+        
+        printLine();
+        
+        cout << "\n " << CYAN << BOLD << "📊 ATTENDANCE BREAKDOWN" << RESET << "\n\n";
+        
+        // For each course, show detailed stats
+        for (const auto &pair : courses) {
+            string courseCode = pair.first;
+            string courseTitle = pair.second.title;
+            
+            int attended = countAttendedClasses(targetStudent.id, courseCode);
+            int total = countTotalClasses(courseCode);
+            double percentage = calculateAttendance(targetStudent.id, courseCode);
+            
+            // STATUS ICONS based on percentage
+            string icon, status, color;
+            if (percentage >= 85) {
+                icon = "🌟"; status = "Excellent "; color = GREEN;
+            } else if (percentage >= 70) {
+                icon = "✅"; status = "Good      "; color = GREEN;
+            } else if (percentage >= 60.0) {
+                icon = "⚠️"; status = "Warning   "; color = YELLOW;
+            } else {
+                icon = "❌"; status = "At Risk   "; color = RED;
+            }
+            
+            cout << "  " << icon << " " << YELLOW << BOLD << courseCode << RESET << "\n";
+            cout << "     " << DIM << courseTitle << RESET << "\n";
+            cout << "     Attended: " << CYAN << attended << "/" << total 
+                 << RESET << " classes\n";
+            cout << "     Percentage: " << color << BOLD << fixed 
+                 << setprecision(2) << percentage << "%" << RESET << "\n";
+            cout << "     Status: " << color << status << RESET << "\n\n";
+        }
+        
+        printLine();
+    }
+    
+    // RESET OPTION (for both modes)
+    cout << "\n " << CYAN << "OPTIONS:" << RESET << "\n";
+    cout << " [R] Reset attendance data\n";
+    cout << " [0] Back\n\n";
+    cout << " " << CYAN << "❯❯ " << RESET;
+    
+    string choice;
+    cin >> choice;
+    transform(choice.begin(), choice.end(), choice.begin(), ::toupper);
+    
+    if (choice == "R") {
+        if (searchId == "ALL") {
+            // RESET ALL
+            cout << RED << "\n  ⚠️  Reset ALL attendance data? (Y/N): " << RESET;
+            string confirm;
+            cin >> confirm;
+            transform(confirm.begin(), confirm.end(), confirm.begin(), ::toupper);
+            
+            if (confirm == "Y") {
+                attendanceRecords.clear();
+                saveAttendanceData();
+                cout << GREEN << "\n  ✅ All attendance data has been reset!" 
+                     << RESET << endl;
+            }
+        } else {
+            // RESET SINGLE STUDENT
+            cout << RED << "\n  ⚠️  Reset attendance for " << searchId 
+                 << "? (Y/N): " << RESET;
+            string confirm;
+            cin >> confirm;
+            transform(confirm.begin(), confirm.end(), confirm.begin(), ::toupper);
+            
+            if (confirm == "Y") {
+                attendanceRecords.erase(
+                    remove_if(attendanceRecords.begin(), attendanceRecords.end(),
+                             [&](const AttendanceRecord &r) {
+                                 return r.studentId == searchId;
+                             }),
+                    attendanceRecords.end());
+                
+                saveAttendanceData();
+                cout << GREEN << "\n  ✅ Attendance data for student " 
+                     << searchId << " has been reset!" << RESET << endl;
+            }
+        }
+        
+        cout << "\n  " << DIM << "Press Enter to continue..." << RESET;
+        cin.ignore(10000, '\n');
+        cin.get();
+    }
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Status Icon Thresholds:</strong><br>
+                🌟 Excellent: ≥85%<br>
+                ✅ Good: 70-84%<br>
+                ⚠️ Warning: 60-69%<br>
+                ❌ At Risk (Dis-collegiate): &lt;60%
+            </div>
+
+            <div class="info-box why-box">
+                <strong>Why sync at start?</strong><br>
+                Other users or external programs may have modified CSV files.<br>
+                <code>loadAttendanceData()</code> ensures we show latest data.
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 6. VIEW WEEKLY ROUTINE -->
+        <h2 class="section-title">6. viewWeeklyRoutine() - Complete Implementation</h2>
+        <div class="func-block">
+            <div class="func-title">void viewWeeklyRoutine()</div>
+            <div class="func-purpose">Display complete weekly class schedule with formatting</div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">void viewWeeklyRoutine() {
+    clearScreen();
+    printHeader("WEEKLY ROUTINE");
+    
+    cout << " " << CYAN << BOLD << "📅 CLASS SCHEDULE" << RESET << " - " << DIM
+         << "Autumn 2025, Section 1AM" << RESET << "\n\n";
+    
+    string days[] = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"};
+    
+    for (const auto &day : days) {
+        vector<ClassPeriod> dayClasses = getClassesForDay(day);
+        
+        if (!dayClasses.empty()) {
+            cout << "\n " << MAGENTA << BOLD << "▸ " << day << RESET << "\n";
+            printLine();
+            
+            for (const auto &period : dayClasses) {
+                // Format times with zero-padding
+                string startTime = formatTimeWithZeroPadding(period.time);
+                string endTime = formatTimeWithZeroPadding(period.endTime);
+                
+                cout << " 🕐 " << CYAN << startTime << " - " << endTime << RESET
+                     << " → " << YELLOW << BOLD << period.courseCode << RESET;
+                
+                // Show course title if available
+                if (courses.find(period.courseCode) != courses.end()) {
+                    cout << DIM << " (" << courses[period.courseCode].title << ")" 
+                         << RESET;
+                }
+                cout << "\n";
+            }
+        }
+    }
+    
+    cout << "\n\n  " << DIM << "Press Enter to continue..." << RESET;
+    cin.ignore(10000, '\n');
+    cin.get();
+}</code></pre>
+            </div>
+
+            <div class="info-box example-box">
+                <strong>Sample Output:</strong><br>
+                <code style="display: block; white-space: pre;">
+▸ Saturday
+────────────────────────────────────
+🕐 11:30 AM - 12:20 PM → EEE-1121 (Electrical Engineering Fundamentals)
+🕐 12:20 PM - 01:10 PM → EEE-1121 (Electrical Engineering Fundamentals)
+🕐 01:50 PM - 02:40 PM → CSE-1121 (Structured Programming)
+                </code>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- SUMMARY TABLE -->
+        <h2 class="section-title">📋 Complete Function Summary</h2>
+        <div class="info-box example-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Function</th>
+                        <th>Lines</th>
+                        <th>Complexity</th>
+                        <th>Key Features</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>displayMainMenu()</code></td>
+                        <td>~20</td>
+                        <td>Simple</td>
+                        <td>Display only, no logic</td>
+                    </tr>
+                    <tr>
+                        <td><code>run()</code></td>
+                        <td>~60</td>
+                        <td>Medium</td>
+                        <td>Event loop, input normalization, exit screen</td>
+                    </tr>
+                    <tr>
+                        <td><code>takeAttendance()</code></td>
+                        <td>~80</td>
+                        <td>Medium</td>
+                        <td>Day selection, validation, error handling</td>
+                    </tr>
+                    <tr>
+                        <td><code>selectPeriodAndMark()</code></td>
+                        <td><strong>~320</strong></td>
+                        <td><strong>Very High</strong></td>
+                        <td>Multi-period, validation, 3 modes, reset, lambda</td>
+                    </tr>
+                    <tr>
+                        <td><code>viewStudentStatus()</code></td>
+                        <td>~240</td>
+                        <td>High</td>
+                        <td>ALL vs individual, table formatting, reset</td>
+                    </tr>
+                    <tr>
+                        <td><code>viewWeeklyRoutine()</code></td>
+                        <td>~60</td>
+                        <td>Simple</td>
+                        <td>Schedule display, formatting</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <div style="text-align: center; padding: 2rem; background: rgba(0, 217, 255, 0.05); border-radius: 16px;">
+            <h3 style="color: #00d9ff; font-size: 1.8rem;">✅ Complete Implementation Details Added!</h3>
+            <p style="color: #a8b3cf;">
+                <strong>Total Documentation:</strong> ~900 lines of major feature code fully explained<br>
+                <strong>Added:</strong> Complete validation logic, error handling, buffer management, lambda functions,
+                STL algorithms<br>
+                <strong>Coverage:</strong> All 6 major functions with complete implementations and edge cases
+            </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="quiz.html" class="nav-button">Take Knowledge Quiz 🎯</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+
+        <!-- Quick Reference Box -->
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1rem;">🔗 Quick Reference Links</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Foundations</h4>
+                    <a href="guide-foundations.html" class="resource-link">Data Structures & ANSI Codes</a>
+                    <a href="COMPLETE-GUIDE-FINAL.html" class="resource-link">Complete System Reference</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Implementation</h4>
+                    <a href="complete-guide-FULL.html" class="resource-link">24 Helper Functions</a>
+                    <a href="guide-major-features.html" class="resource-link">6 Major Functions</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Advanced</h4>
+                    <a href="guide-file-io.html" class="resource-link">File I/O & Windows APIs</a>
+                    <a href="error-validation-reference.html" class="resource-link">Error & Validation Reference</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

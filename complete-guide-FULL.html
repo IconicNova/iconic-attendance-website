@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helper Functions - C++ Attendance System</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00d9ff;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .func-block {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #00d9ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+        }
+
+        .func-title {
+            color: #f1fa8c;
+            font-size: 1.4rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .func-purpose {
+            color: #a8b3cf;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .info-box {
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .example-box {
+            background: rgba(0, 217, 255, 0.1);
+            border-left-color: #00d9ff;
+        }
+
+        .why-box {
+            background: rgba(80, 250, 123, 0.1);
+            border-left-color: #50fa7b;
+        }
+
+        .warning-box {
+            background: rgba(241, 250, 140, 0.1);
+            border-left-color: #f1fa8c;
+        }
+
+        .code-block {
+            background: #1e1e3f;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #f1fa8c;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        ul {
+            margin-left: 2rem;
+            color: #a8b3cf;
+        }
+
+        li {
+            margin: 0.4rem 0;
+        }
+
+        strong {
+            color: #00d9ff;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            margin: 3rem 0;
+        }
+
+        /* --- NEW NAVIGATION & REFERENCE STYLES --- */
+
+        /* Solid Cyan Buttons */
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Resource Links */
+        .resource-link {
+            display: block;
+            color: #00d9ff;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .resource-link:hover {
+            color: #ff79c6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">⚙️ Helper Functions Reference</h1>
+            <p style="color: #8be9fd; font-size: 1.2rem;">Complete documentation of all 24 utility functions</p>
+        </div>
+
+        <!-- FILE & STRING OPERATIONS -->
+        <h2 class="section-title">📁 File & String Operations (5)</h2>
+
+        <div class="func-block">
+            <div class="func-title">1. createDirectory()</div>
+            <div class="func-purpose">Create directory if it doesn't exist (cross-platform with error handling)</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">bool createDirectory(const string &path) {
+#ifdef _WIN32
+    int result = _mkdir(path.c_str());
+    return (result == 0) || (errno == EEXIST);
+#else
+    int result = mkdir(path.c_str(), 0755);
+    return (result == 0) || (errno == EEXIST);
+#endif
+}</code></pre>
+            </div>
+            <div class="info-box warning-box">
+                <strong>Windows vs Linux:</strong><br>
+                • Windows: <code>_mkdir()</code> - no permissions parameter<br>
+                • Linux/Mac: <code>mkdir()</code> - requires permissions (0755 = rwxr-xr-x)
+            </div>
+            <div class="info-box why-box">
+                <strong>Return Value Logic:</strong><br>
+                • <code>result == 0</code> → Directory created successfully<br>
+                • <code>errno == EEXIST</code> → Directory already exists (OK!)<br>
+                • Returns <code>false</code> only if creation failed for other reasons
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">2. getTimestampForFilename()</div>
+            <div class="func-purpose">Convert time format for safe filenames (parse and rebuild)</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">string getTimestampForFilename(const string &timeSlot) {
+    // Parse time from "HH:MM AM/PM" format
+    stringstream ss(timeSlot);
+    int hour, minute;
+    char colon;
+    string period;
+    ss >> hour >> colon >> minute >> period;
+    
+    // Rebuild with dashes instead of colons
+    stringstream result;
+    result << setfill('0') << setw(2) << hour << "-"
+           << setfill('0') << setw(2) << minute << "-" << period;
+    return result.str();
+}</code></pre>
+            </div>
+            <div class="info-box example-box">
+                <strong>Examples:</strong><br>
+                "10:40 AM" → "10-40-AM"<br>
+                "01:50 PM" → "01-50-PM"<br>
+                "11:30 AM" → "11-30-AM"
+            </div>
+            <div class="info-box why-box">
+                <strong>Why Parse Instead of Replace?</strong><br>
+                • Ensures zero-padding ("8:30" becomes "08-30")<br>
+                • Validates format (parsing fails on invalid input)<br>
+                • Windows filenames cannot contain <code>:</code> character
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">3. getFullTimestamp()</div>
+            <div class="func-purpose">Get formatted timestamp for CSV records</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">string getFullTimestamp() {
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    
+    stringstream ss;
+    ss << setfill('0') << setw(2) << ltm->tm_mday << "-"
+       << setfill('0') << setw(2) << 1 + ltm->tm_mon << "-"
+       << 1900 + ltm->tm_year << " "
+       << setfill('0') << setw(2) << ltm->tm_hour << ":"
+       << setfill('0') << setw(2) << ltm->tm_min << ":"
+       << setfill('0') << setw(2) << ltm->tm_sec;
+    
+    return ss.str();
+}</code></pre>
+            </div>
+            <div class="info-box example-box">
+                <strong>Output:</strong> "27-11-2025 14:35:42"
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">4. formatTimeWithZeroPadding()</div>
+            <div class="func-purpose">Parse and format time string with zero-padded hours</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">string formatTimeWithZeroPadding(const string &timeStr) {
+    // Parse time from "H:MM AM/PM" or "HH:MM AM/PM" format
+    stringstream ss(timeStr);
+    int hour, minute;
+    char colon;
+    string period;
+    ss >> hour >> colon >> minute >> period;
+    
+    // Format with zero-padded hour
+    stringstream result;
+    result << setfill('0') << setw(2) << hour << ":"
+           << setfill('0') << setw(2) << minute << " " << period;
+    return result.str();
+}</code></pre>
+            </div>
+            <div class="info-box example-box">
+                <strong>Examples:</strong><br>
+                "8:30 AM" → "08:30 AM"<br>
+                "12:20 PM" → "12:20 PM"<br>
+                "1:50 PM" → "01:50 PM"
+            </div>
+            <div class="info-box why-box">
+                <strong>Why Parse?</strong> Input can have single-digit hours ("8:30"), output must have two digits
+                ("08:30")
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">5. centerAlign()</div>
+            <div class="func-purpose">Center text within specified width with left and right padding</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">string centerAlign(const string &text, int width) {
+    int padding = width - text.length();
+    if (padding <= 0) return text;  // Text too long, no padding
+    
+    int leftPad = padding / 2;
+    int rightPad = padding - leftPad;  // Handle odd widths
+    
+    return string(leftPad, ' ') + text + string(rightPad, ' ');
+}</code></pre>
+            </div>
+            <div class="info-box example-box">
+                <strong>Examples:</strong><br>
+                <code>centerAlign("CSE-1121", 12)</code> → " CSE-1121 " (1 left, 2 right)<br>
+                <code>centerAlign("SL", 5)</code> → " SL " (1 left, 2 right)<br>
+                <code>centerAlign("Name", 10)</code> → " Name " (3 left, 3 right)
+            </div>
+            <div class="info-box why-box">
+                <strong>Why Both Pads?</strong> For odd-width padding, need different left/right counts<br>
+                <strong>Example:</strong> "Hi" in width 5 = 3 spaces total → 1 left + 2 right
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- DATA QUERIES -->
+        <h2 class="section-title">🔍 Data Query Functions (5)</h2>
+
+        <div class="func-block">
+            <div class="func-title">6. getStudentName()</div>
+            <div class="func-purpose">Look up student name by ID</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">string getStudentName(const string &studentId) {
+    for (const auto &student : students) {
+        if (student.id == studentId) {
+            return student.name;
+        }
+    }
+    return "Unknown";
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">7. getCourseTitle()</div>
+            <div class="func-purpose">Get course title from code (map lookup)</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">string getCourseTitle(const string &courseCode) {
+    if (courses.find(courseCode) != courses.end()) {
+        return courses[courseCode].title;
+    }
+    return "Unknown Course";
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">8. getEndTime()</div>
+            <div class="func-purpose">Find end time for a class period</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">string getEndTime(const string &timeSlot) {
+    for (const auto &period : routine) {
+        if (period.time == timeSlot) {
+            return period.endTime;
+        }
+    }
+    return "";
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">9. getClassesForDay()</div>
+            <div class="func-purpose">Filter routine by day</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">vector<ClassPeriod> getClassesForDay(const string &day) {
+    vector<ClassPeriod> dayClasses;
+    for (const auto &period : routine) {
+        if (period.day == day) {
+            dayClasses.push_back(period);
+        }
+    }
+    return dayClasses;
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">10. getPeriodNumber()</div>
+            <div class="func-purpose">Calculate period number using set for uniqueness</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">int getPeriodNumber(const string &courseCode, const string &date,
+                    const string &timeSlot) {
+    set<string> uniqueTimeslots;
+    
+    // Collect all unique timeslots for this course on this date 
+    // that come before or equal to current timeslot
+    for (const auto &record : attendanceRecords) {
+        if (record.courseCode == courseCode && record.date == date &&
+            record.timeSlot <= timeSlot) {
+            uniqueTimeslots.insert(record.timeSlot);
+        }
+    }
+    
+    // Count this timeslot's position
+    int position = 0;
+    for (const auto &ts : uniqueTimeslots) {
+        position++;
+        if (ts == timeSlot) return position;
+    }
+    
+    // If not found in records yet, count it as next period
+    return uniqueTimeslots.size() + 1;
+}</code></pre>
+            </div>
+            <div class="info-box why-box">
+                <strong>Why use set?</strong> Automatically handles duplicates and keeps sorted order
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- DATE & TIME -->
+        <h2 class="section-title">📅 Date & Time Operations (6)</h2>
+
+        <div class="func-block">
+            <div class="func-title">11. getCurrentDate()</div>
+            <div class="func-purpose">Get today's date as DD-MM-YYYY</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">string getCurrentDate() {
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    stringstream ss;
+    ss << setfill('0') << setw(2) << ltm->tm_mday << "-"
+       << setfill('0') << setw(2) << 1 + ltm->tm_mon << "-"
+       << 1900 + ltm->tm_year;
+    return ss.str();
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">12. getDayOfWeek()</div>
+            <div class="func-purpose">Calculate day using Zeller's Congruence</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">int getDayOfWeek(int day, int month, int year) {
+    if (month < 3) {
+        month += 12;
+        year--;
+    }
+    
+    int k = year % 100;
+    int j = year / 100;
+    
+    int h = (day + (13 * (month + 1)) / 5 + k + k/4 + j/4 - 2*j) % 7;
+    
+    return h;  // 0=Sat, 1=Sun, 2=Mon, 3=Tue, 4=Wed, 5=Thu, 6=Fri
+}</code></pre>
+            </div>
+            <div class="info-box example-box">
+                <strong>Example:</strong> getDayOfWeek(27, 11, 2025) = 5 (Thursday)
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">13. getDayName()</div>
+            <div class="func-purpose">Convert day index to name</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">string getDayName(int dayIndex) {
+    string days[] = {"Saturday", "Sunday", "Monday", "Tuesday",
+                     "Wednesday", "Thursday", "Friday"};
+    return days[dayIndex];
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">14. isDateInFuture()</div>
+            <div class="func-purpose">Check if date is after today</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">bool isDateInFuture(const string &dateStr) {
+    int day, month, year;
+    char sep1, sep2;
+    stringstream ss(dateStr);
+    ss >> day >> sep1 >> month >> sep2 >> year;
+    
+    if (sep1 != '-' || sep2 != '-') return true;
+    
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    int currentDay = ltm->tm_mday;
+    int currentMonth = 1 + ltm->tm_mon;
+    int currentYear = 1900 + ltm->tm_year;
+    
+    if (year > currentYear) return true;
+    if (year < currentYear) return false;
+    if (month > currentMonth) return true;
+    if (month < currentMonth) return false;
+    if (day > currentDay) return true;
+    return false;
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">15. validateDayDateMatch()</div>
+            <div class="func-purpose">Verify date actually falls on selected day</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">bool validateDayDateMatch(const string &selectedDay, const string &dateStr) {
+    int day, month, year;
+    char sep1, sep2;
+    stringstream ss(dateStr);
+    ss >> day >> sep1 >> month >> sep2 >> year;
+    
+    if (sep1 != '-' || sep2 != '-') return false;
+    
+    int dayOfWeek = getDayOfWeek(day, month, year);
+    string actualDay = getDayName(dayOfWeek);
+    
+    return (actualDay == selectedDay);
+}</code></pre>
+            </div>
+            <div class="info-box why-box">
+                <strong>Why:</strong> Prevents user errors when entering dates
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">16. generateCSVFilename()</div>
+            <div class="func-purpose">Create CSV filename with course, time, and period number</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">string generateCSVFilename(const string &courseCode, const string &date,
+                           const string &timeSlot, int periodNumber) {
+    string timestamp = getTimestampForFilename(timeSlot);
+    
+    stringstream filename;
+    filename << courseCode << "_" 
+             << timestamp << "_"
+             << "Period-" << periodNumber << ".csv";
+    
+    return filename.str();
+}</code></pre>
+            </div>
+            <div class="info-box example-box">
+                <strong>Examples:</strong><br>
+                <code>generateCSVFilename("EEE-1121", "27-11-2025", "11:30 AM", 1)</code><br>
+                → <code>"EEE-1121_11-30-AM_Period-1.csv"</code><br><br>
+                <code>generateCSVFilename("CSE-1122", "28-11-2025", "10:40 AM", 2)</code><br>
+                → <code>"CSE-1122_10-40-AM_Period-2.csv"</code>
+            </div>
+            <div class="info-box why-box">
+                <strong>Filename Structure:</strong><br>
+                <code>[CourseCode]_[Time]_Period-[N].csv</code><br>
+                • CourseCode = Which course<br>
+                • Time = When class occurred<br>
+                • Period-N = Nth occurrence of this course on this date
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ATTENDANCE LOGIC -->
+        <h2 class="section-title">📊 Attendance Logic (5)</h2>
+
+        <div class="func-block">
+            <div class="func-title">17. hasAttendanceRecord()</div>
+            <div class="func-purpose">Check for duplicate records</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">bool hasAttendanceRecord(const string &studentId, const string &courseCode,
+                         const string &date, const string &timeSlot) {
+    for (const auto &record : attendanceRecords) {
+        if (record.studentId == studentId &&
+            record.courseCode == courseCode &&
+            record.date == date &&
+            record.timeSlot == timeSlot) {
+            return true;
+        }
+    }
+    return false;
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">18. countAttendedClasses()</div>
+            <div class="func-purpose">Count present classes for student+course</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">int countAttendedClasses(const string &studentId, const string &courseCode) {
+    int count = 0;
+    for (const auto &record : attendanceRecords) {
+        if (record.studentId == studentId &&
+            record.courseCode == courseCode &&
+            record.present)
+            count++;
+    }
+    return count;
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">19. countTotalClasses()</div>
+            <div class="func-purpose">Get total semester classes for course</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">int countTotalClasses(const string &courseCode) {
+    if (courses.find(courseCode) != courses.end()) {
+        return courses[courseCode].totalSemesterClasses;
+    }
+    return 0;
+}</code></pre>
+            </div>
+            <div class="info-box example-box">
+                <strong>Returns:</strong> 48 for most courses, 32 for GEEM-1101
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">20. countClassesHeld()</div>
+            <div class="func-purpose">Count unique class sessions actually held for a course</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">int countClassesHeld(const string &courseCode) {
+    map<string, int> uniqueClasses;
+    
+    for (const auto &record : attendanceRecords) {
+        if (record.courseCode == courseCode) {
+            // Create unique key: date + timeslot
+            uniqueClasses[record.date + "_" + record.timeSlot] = 1;
+        }
+    }
+    
+    return uniqueClasses.size();
+}</code></pre>
+            </div>
+            <div class="info-box example-box">
+                <strong>Example:</strong><br>
+                If EEE-1121 had attendance taken on:<br>
+                • 27-11-2025 at 11:30 AM<br>
+                • 28-11-2025 at 11:30 AM<br>
+                • 28-11-2025 at 2:40 PM<br>
+                Result: <code>countClassesHeld("EEE-1121") = 3</code>
+            </div>
+            <div class="info-box why-box">
+                <strong>Why use map?</strong><br>
+                • Map automatically handles duplicates (same key = one entry)<br>
+                • Combining date + timeslot creates unique key<br>
+                • Even if 45 students have records for same period, counts as 1 class
+            </div>
+            <div class="info-box warning-box">
+                <strong>⚠️ Important Distinction:</strong><br>
+                • <code>countTotalClasses()</code> = Semester total (48 or 32)<br>
+                • <code>countClassesHeld()</code> = Actually conducted (0-48/32)
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">21. calculateAttendance()</div>
+            <div class="func-purpose">Calculate attendance percentage for student in course</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">double calculateAttendance(const string &studentId, const string &courseCode) {
+    int attended = countAttendedClasses(studentId, courseCode);
+    int total = countTotalClasses(courseCode);
+    
+    if (total == 0) return 0.0;
+    
+    double percentage = (static_cast<double>(attended) / total) * 100.0;
+    
+    // Cap at 100% (edge case: more attended than total)
+    if (percentage > 100.0) percentage = 100.0;
+    
+    return percentage;
+}</code></pre>
+            </div>
+            <div class="info-box example-box">
+                <strong>Example Calculation:</strong>
+                <div class="code-block">
+                    <pre><code class="language-cpp">// Student C253027 in EEE-1121
+int attended = 40;  // countAttendedClasses returns 40
+int total = 48;     // countTotalClasses returns 48
+double percentage = (40.0 / 48.0) * 100.0 = 83.33%</code></pre>
+                </div>
+            </div>
+            <div class="info-box why-box">
+                <strong>Why static_cast&lt;double&gt;?</strong><br>
+                Without cast: <code>40 / 48 = 0</code> (integer division)<br>
+                With cast: <code>40.0 / 48.0 = 0.8333...</code> (floating-point division)
+            </div>
+            <div class="info-box warning-box">
+                <strong>⚠️ Dis-collegiate Threshold:</strong><br>
+                • <code>percentage >= 60.0</code> = Collegiate (GREEN)<br>
+                • <code>percentage < 60.0</code> = Dis-collegiate (RED, at risk)<br>
+                • Threshold defined as: <code>const double DISCOLLEGIATE_THRESHOLD = 60.0;</code>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- UI & DISPLAY -->
+        <h2 class="section-title">🖥️ UI & Display (3)</h2>
+
+        <div class="func-block">
+            <div class="func-title">22. printHeader()</div>
+            <div class="func-purpose">Display formatted section header with title</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">void printHeader(const string &title) {
+    cout << "\n\n";
+    cout << CYAN << BOLD << " ╔";
+    for (int i = 0; i < 74; i++) cout << "═";
+    cout << "╗\n";
+    
+    cout << " ║" << string(18, ' ') << " 📚 " << MAGENTA << title << CYAN;
+    int spaces = 74 - 22 - title.length();
+    cout << string(spaces, ' ') << "║\n";
+    
+    cout << " ║" << string(18, ' ') << DIM
+         << "University Attendance Management System" << RESET << CYAN << BOLD;
+    cout << string(17, ' ') << "║\n";
+    
+    cout << " ╚";
+    for (int i = 0; i < 74; i++) cout << "═";
+    cout << "╝" << RESET << "\n\n";
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">23. printLine()</div>
+            <div class="func-purpose">Print separator line</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">void printLine() {
+    cout << " " << DIM << CYAN;
+    for (int i = 0; i < 74; i++) cout << "─";
+    cout << RESET << "\n";
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="func-block">
+            <div class="func-title">24. clearScreen()</div>
+            <div class="func-purpose">Clear terminal (cross-platform)</div>
+            <div class="code-block">
+                <pre><code class="language-cpp">void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div style="text-align: center; padding: 2rem; background: rgba(0, 217, 255, 0.05); border-radius: 16px;">
+            <h3 style="color: #00d9ff; font-size: 1.8rem;">✅ All 24 Helper Functions Documented!</h3>
+            <p style="color: #a8b3cf;">
+                Complete reference for every utility function in the system<br>
+                <strong>Organized by category:</strong> File & String Ops (5), Data Queries (5), Date & Time (6),
+                Attendance Logic (5), UI & Display (3)
+            </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="quiz.html" class="nav-button">Take Knowledge Quiz 🎯</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+
+        <!-- Quick Reference Box -->
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1rem;">🔗 Quick Reference Links</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Foundations</h4>
+                    <a href="guide-foundations.html" class="resource-link">Data Structures & ANSI Codes</a>
+                    <a href="COMPLETE-GUIDE-FINAL.html" class="resource-link">Complete System Reference</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Implementation</h4>
+                    <a href="complete-guide-FULL.html" class="resource-link">24 Helper Functions</a>
+                    <a href="guide-major-features.html" class="resource-link">6 Major Functions</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Advanced</h4>
+                    <a href="guide-file-io.html" class="resource-link">File I/O & Windows APIs</a>
+                    <a href="error-validation-reference.html" class="resource-link">Error & Validation Reference</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

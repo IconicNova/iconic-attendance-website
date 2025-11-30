@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛠️ Build From Scratch - Ultimate Roadmap</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6, #50fa7b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: #a8b3cf;
+            font-size: 0.9rem;
+        }
+
+        /* Progress Bar CSS removed here */
+
+        .milestone-tracker {
+            background: rgba(26, 31, 58, 0.6);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(138, 233, 253, 0.3);
+        }
+
+        .milestone-title {
+            color: #8be9fd;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .milestone-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            background: rgba(0, 217, 255, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .milestone-item:hover {
+            background: rgba(0, 217, 255, 0.1);
+        }
+
+        .milestone-item.completed {
+            background: rgba(80, 250, 123, 0.1);
+            border-left: 3px solid #50fa7b;
+        }
+
+        .milestone-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .step-card {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 5px solid #00d9ff;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.3);
+        }
+
+        .step-card.completed {
+            border-left-color: #50fa7b;
+            background: rgba(80, 250, 123, 0.05);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #00d9ff, #50fa7b);
+            color: #0a0e27;
+            font-size: 2rem;
+            font-weight: bold;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            color: #00d9ff;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .difficulty-badge {
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .difficulty-easy {
+            background: rgba(80, 250, 123, 0.2);
+            color: #50fa7b;
+        }
+
+        .difficulty-medium {
+            background: rgba(241, 250, 140, 0.2);
+            color: #f1fa8c;
+        }
+
+        .difficulty-hard {
+            background: rgba(255, 121, 198, 0.2);
+            color: #ff79c6;
+        }
+
+        .difficulty-expert {
+            background: rgba(255, 85, 85, 0.2);
+            color: #ff5555;
+        }
+
+        .step-time {
+            background: rgba(255, 121, 198, 0.2);
+            color: #ff79c6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .objectives-box {
+            background: rgba(80, 250, 123, 0.1);
+            border-left: 3px solid #50fa7b;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+
+        .objectives-title {
+            color: #50fa7b;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .resources-box {
+            background: rgba(138, 233, 253, 0.1);
+            border-left: 3px solid #8be9fd;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+
+        .resources-title {
+            color: #8be9fd;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-link {
+            display: block;
+            color: #00d9ff;
+            text-decoration: none;
+            padding: 0.5rem;
+            margin: 0.3rem 0;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .resource-link:hover {
+            background: rgba(0, 217, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .code-block {
+            background: #1e1e3f;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #f1fa8c;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .test-box {
+            background: rgba(0, 217, 255, 0.1);
+            border-left: 3px solid #00d9ff;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+
+        .test-title {
+            color: #00d9ff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .pitfall-box {
+            background: rgba(255, 85, 85, 0.1);
+            border-left: 3px solid #ff5555;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+
+        .pitfall-title {
+            color: #ff5555;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-box {
+            background: rgba(241, 250, 140, 0.1);
+            border-left: 3px solid #f1fa8c;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+
+        .tip-title {
+            color: #f1fa8c;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: #00d9ff;
+            font-size: 1.2rem;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            margin: 3rem 0;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .completion-banner {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.2), rgba(0, 217, 255, 0.2));
+            border: 2px solid #50fa7b;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .completion-title {
+            font-size: 3rem;
+            color: #50fa7b;
+            margin-bottom: 1rem;
+        }
+
+        ul,
+        ol {
+            margin-left: 2rem;
+            color: #a8b3cf;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        strong {
+            color: #00d9ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🛠️ Build From Scratch - Ultimate Roadmap</h1>
+            <h1 class="title">By IconicNova</h1>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Progressive Steps</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">~6h</div>
+                    <div class="stat-label">Total Time</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">Functions</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Resource Guides</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Tracker HTML Removed -->
+
+        <!-- Milestone Tracker -->
+        <div class="milestone-tracker">
+            <div class="milestone-title">🎯 Major Milestones</div>
+            <div class="milestone-grid">
+                <div class="milestone-item" onclick="scrollToStep(1)">
+                    <input type="checkbox" class="milestone-checkbox" id="m1">
+                    <label for="m1">Basic Setup</label>
+                </div>
+                <div class="milestone-item" onclick="scrollToStep(3)">
+                    <input type="checkbox" class="milestone-checkbox" id="m2">
+                    <label for="m2">ANSI Colors</label>
+                </div>
+                <div class="milestone-item" onclick="scrollToStep(5)">
+                    <input type="checkbox" class="milestone-checkbox" id="m3">
+                    <label for="m3">Data Structures</label>
+                </div>
+                <div class="milestone-item" onclick="scrollToStep(8)">
+                    <input type="checkbox" class="milestone-checkbox" id="m4">
+                    <label for="m4">Class Shell</label>
+                </div>
+                <div class="milestone-item" onclick="scrollToStep(11)">
+                    <input type="checkbox" class="milestone-checkbox" id="m5">
+                    <label for="m5">Helper Functions</label>
+                </div>
+                <div class="milestone-item" onclick="scrollToStep(15)">
+                    <input type="checkbox" class="milestone-checkbox" id="m6">
+                    <label for="m6">UI Functions</label>
+                </div>
+                <div class="milestone-item" onclick="scrollToStep(18)">
+                    <input type="checkbox" class="milestone-checkbox" id="m7">
+                    <label for="m7">File I/O</label>
+                </div>
+                <div class="milestone-item" onclick="scrollToStep(20)">
+                    <input type="checkbox" class="milestone-checkbox" id="m8">
+                    <label for="m8">Attendance Logic</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="step-card" id="step1" data-step="1">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">Empty C++ Shell</div>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="step-time">⏱️ 5 min</span>
+            </div>
+
+            <div class="objectives-box">
+                <div class="objectives-title">🎯 Objectives</div>
+                <p>Create minimal working C++ program and verify your compiler works correctly.</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// main.cpp
+#include &lt;iostream&gt;
+
+int main() {
+    std::cout &lt;&lt; "Attendance System Starting..." &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+            </div>
+
+            <div class="test-box">
+                <div class="test-title">✅ Test</div>
+                Compile: <code>g++ main.cpp -o attendance</code><br>
+                Run: <code>./attendance</code> (Linux/Mac) or <code>attendance.exe</code> (Windows)<br>
+                Expected output: "Attendance System Starting..."
+            </div>
+
+            <div class="pitfall-box">
+                <div class="pitfall-title">⚠️ Common Pitfall</div>
+                If you get "g++ not found", install MinGW (Windows) or GCC (Linux/Mac) first.
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-card" id="step2" data-step="2">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">Add namespace & Test Output</div>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="step-time">⏱️ 5 min</span>
+            </div>
+
+            <div class="objectives-box">
+                <div class="objectives-title">🎯 Objectives</div>
+                <p>Simplify code with <code>using namespace std;</code> and verify multi-line output.</p>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "Testing output..." &lt;&lt; endl;
+    cout &lt;&lt; "Line 1\\nLine 2\\nLine 3" &lt;&lt; endl;
+    return 0;
+}</code></pre>
+            </div>
+
+            <div class="test-box">
+                <div class="test-title">✅ Test</div>
+                Should print 4 lines total (1 header + 3 numbered lines).
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-card" id="step3" data-step="3">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">Add ALL 10 ANSI Color Codes</div>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="step-time">⏱️ 10 min</span>
+            </div>
+
+            <div class="objectives-box">
+                <div class="objectives-title">🎯 Objectives</div>
+                <p>Define all color macros for terminal UI. These will make your system visually stunning!</p>
+            </div>
+
+            <div class="resources-box">
+                <div class="resources-title">📖 Complete Reference</div>
+                <a href="guide-foundations.html#ansi-codes" target="_blank" class="resource-link">
+                    → All 10 ANSI codes explained in guide-foundations.html
+                </a>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// ANSI Color Codes
+#define RESET   "\\033[0m"
+#define RED     "\\033[91m"
+#define GREEN   "\\033[92m"
+#define YELLOW  "\\033[93m"
+#define BLUE    "\\033[94m"
+#define MAGENTA "\\033[95m"
+#define CYAN    "\\033[96m"
+#define WHITE   "\\033[97m"
+#define BOLD    "\\033[1m"
+#define DIM     "\\033[2m"
+
+int main() {
+    cout &lt;&lt; RED &lt;&lt; "Red Text" &lt;&lt; RESET &lt;&lt; endl;
+    cout &lt;&lt; GREEN &lt;&lt; "Green Text" &lt;&lt; RESET &lt;&lt; endl;
+    cout &lt;&lt; CYAN &lt;&lt; BOLD &lt;&lt; "Cyan Bold" &lt;&lt; RESET &lt;&lt; endl;
+    return 0;
+}</code></pre>
+            </div>
+
+            <div class="test-box">
+                <div class="test-title">✅ Test</div>
+                You should see colored output. If colors don't work on Windows, proceed to Step 4.
+            </div>
+
+            <div class="tip-box">
+                <div class="tip-title">💡 Pro Tip</div>
+                Test colors in code-playground.html interactive examples!
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step-card" id="step4" data-step="4">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <div class="step-title">Windows Console Setup for ANSI</div>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="step-time">⏱️ 15 min</span>
+            </div>
+
+            <div class="objectives-box">
+                <div class="objectives-title">🎯 Objectives</div>
+                <p>Enable ANSI escape codes in Windows terminal + UTF-8 encoding for emoji support.</p>
+            </div>
+
+            <div class="resources-box">
+                <div class="resources-title">📖 Complete Reference</div>
+                <a href="guide-constructor-main.html#console-setup" target="_blank" class="resource-link">
+                    → Full Windows console setup in guide-constructor-main.html
+                </a>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#ifdef _WIN32
+#include &lt;windows.h&gt;
+#endif
+using namespace std;
+
+// ... ANSI codes from Step 3 ...
+
+int main() {
+#ifdef _WIN32
+    // Enable ANSI escape codes in Windows terminal
+    SetConsoleOutputCP(CP_UTF8);  // Output encoding (for emojis)
+    SetConsoleCP(CP_UTF8);        // Input encoding
+    
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dwMode = 0;
+    GetConsoleMode(hOut, &dwMode);
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(hOut, dwMode);
+#endif
+
+    cout &lt;&lt; CYAN &lt;&lt; BOLD &lt;&lt; "✅ Colors work! 🎨" &lt;&lt; RESET &lt;&lt; endl;
+    return 0;
+}</code></pre>
+            </div>
+
+            <div class="pitfall-box">
+                <div class="pitfall-title">⚠️ Critical</div>
+                This MUST be at the very top of main() BEFORE any colored output!
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STEPS 5-7 Combined -->
+        <div class="step-card" id="step5" data-step="5">
+            <div class="step-header">
+                <div class="step-number">5-7</div>
+                <div class="step-title">Add All 4 Data Structures</div>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="step-time">⏱️ 30 min total</span>
+            </div>
+
+            <div class="objectives-box">
+                <div class="objectives-title">🎯 Objectives</div>
+                <p>Define Student, Course, ClassPeriod, and AttendanceRecord structs - the foundation of your system!
+                </p>
+            </div>
+
+            <div class="resources-box">
+                <div class="resources-title">📖 Complete References</div>
+                <a href="guide-foundations.html#data-structures" target="_blank" class="resource-link">
+                    → All 4 structs with field explanations in guide-foundations.html
+                </a>
+                <a href="COMPLETE-GUIDE-FINAL.html#design-decisions" target="_blank" class="resource-link">
+                    → Design rationale (why these fields?) in COMPLETE-GUIDE-FINAL.html
+                </a>
+                <a href="interactive-flowcharts.html" target="_blank" class="resource-link">
+                    → Visual structure diagrams in interactive-flowcharts.html
+                </a>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// Add these BEFORE main()
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+struct Student {
+    int sl;          // Serial number
+    string id;       // Student ID (e.g., "C251027")
+    string name;     // Full name
+    Student(int s, string i, string n) : sl(s), id(i), name(n) {}
+};
+
+struct Course {
+    string code;                // Course code (e.g., "EEE-1121")
+    string title;               // Course title
+    int weeklyClasses;          // Classes per week
+    int totalSemesterClasses;   // Total classes in semester
+    Course(string c = "", string t = "", int w = 0, int total = 48)
+        : code(c), title(t), weeklyClasses(w), totalSemesterClasses(total) {}
+};
+
+struct ClassPeriod {
+    string day;         // Day name (e.g., "Saturday")
+    string time;        // Start time (e.g., "11:30 AM")
+    string endTime;     // End time (e.g., "12:20 PM")
+    string courseCode;  // Course code
+    ClassPeriod(string d, string t, string et, string c)
+        : day(d), time(t), endTime(et), courseCode(c) {}
+};
+
+struct AttendanceRecord {
+    string studentId;   // Student ID
+    string courseCode;  // Course code
+    string date;        // Date (DD-MM-YYYY)
+    string day;         // Day name
+    string timeSlot;    // Time slot
+    bool present;       // True = Present, False = Absent
+    AttendanceRecord(string sid, string cc, string dt, string dy, string ts, bool p)
+        : studentId(sid), courseCode(cc), date(dt), day(dy), timeSlot(ts), present(p) {}
+};</code></pre>
+            </div>
+
+            <div class="test-box">
+                <div class="test-title">✅ Test Creation</div>
+                <div class="code-block">
+                    <pre><code class="language-cpp">// In main():
+Student s(1, "C253027", "Test Student");
+cout &lt;&lt; s.sl &lt;&lt; " " &lt;&lt; s.id &lt;&lt; " " &lt;&lt; s.name &lt;&lt; endl;
+
+Course c("EEE-1121", "Electrical Fundamentals", 6, 48);
+cout &lt;&lt; c.code &lt;&lt; ": " &lt;&lt; c.title &lt;&lt; endl;</code></pre>
+                </div>
+                Should print: <code>1 C253027 Test Student</code> and course info.
+            </div>
+
+            <div class="tip-box">
+                <div class="tip-title">💡 Design Insight</div>
+                Why use structs instead of classes? Structs have public members by default, perfect for simple data
+                containers. See COMPLETE-GUIDE-FINAL.html for full reasoning.
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STEPS 8-10 -->
+        <div class="step-card" id="step8" data-step="8">
+            <div class="step-header">
+                <div class="step-number">8-10</div>
+                <div class="step-title">Build AttendanceSystem Class & Initialize Data</div>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="step-time">⏱️ 60 min total</span>
+            </div>
+
+            <div class="objectives-box">
+                <div class="objectives-title">🎯 Objectives</div>
+                <p>Create the main class, add all private members, and initialize with complete data (45 students, 8
+                    courses, 23 class periods).</p>
+            </div>
+
+            <div class="resources-box">
+                <div class="resources-title">📖 Complete References</div>
+                <a href="COMPLETE-GUIDE-FINAL.html#students-list" target="_blank" class="resource-link">
+                    → All 45 students (copy-paste ready) in COMPLETE-GUIDE-FINAL.html
+                </a>
+                <a href="COMPLETE-GUIDE-FINAL.html#courses-list" target="_blank" class="resource-link">
+                    → All 8 courses with details in COMPLETE-GUIDE-FINAL.html
+                </a>
+                <a href="COMPLETE-GUIDE-FINAL.html#routine-complete" target="_blank" class="resource-link">
+                    → All 23 class periods in COMPLETE-GUIDE-FINAL.html
+                </a>
+                <a href="guide-constructor-main.html#initialization-order" target="_blank" class="resource-link">
+                    → Why initialization order matters in guide-constructor-main.html
+                </a>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">#include &lt;map&gt;
+#include &lt;vector&gt;
+
+class AttendanceSystem {
+private:
+    vector&lt;Student&gt; students;
+    map&lt;string, Course&gt; courses;  // Why map? O(log n) lookup!
+    vector&lt;ClassPeriod&gt; routine;
+    vector&lt;AttendanceRecord&gt; attendanceRecords;
+    
+    const string ATTENDANCE_FOLDER = "Attendance Sheet";
+    const double DISCOLLEGIATE_THRESHOLD = 60.0;
+    
+    void initializeStudents() {
+        // Copy all 45 from COMPLETE-GUIDE-FINAL.html
+        students.push_back(Student(1, "C251027", "Mohammad Sifat Ullah"));
+        students.push_back(Student(2, "C253002", "Sultan Mahmud"));
+        // ... add remaining 43 students ...
+    }
+    
+    void initializeCourses() {
+        // Copy all 8 from COMPLETE-GUIDE-FINAL.html
+        courses["EEE-1121"] = Course("EEE-1121", "Electrical Engineering Fundamentals", 6, 48);
+        courses["CSE-1121"] = Course("CSE-1121", "Structured Programming Language", 6, 48);
+        // ... add remaining 6 courses ...
+    }
+    
+    void initializeRoutine() {
+        // Copy all 23 from COMPLETE-GUIDE-FINAL.html
+        routine.push_back(ClassPeriod("Saturday", "11:30 AM", "12:20 PM", "EEE-1121"));
+        routine.push_back(ClassPeriod("Saturday", "12:20 PM", "01:10 PM", "EEE-1121"));
+        // ... add remaining 21 periods ...
+    }
+
+public:
+    AttendanceSystem() {
+        initializeStudents();    // MUST be first
+        initializeCourses();     // MUST be second
+        initializeRoutine();     // MUST be third
+        // loadAttendanceData() will come in Step 18
+    }
+    
+    void run() {
+        cout &lt;&lt; GREEN &lt;&lt; "System initialized with " 
+             &lt;&lt; students.size() &lt;&lt; " students!" &lt;&lt; RESET &lt;&lt; endl;
+    }
+};
+
+int main() {
+    // Windows console setup from Step 4...
+    
+    AttendanceSystem system;
+    system.run();
+    return 0;
+}</code></pre>
+            </div>
+
+            <div class="pitfall-box">
+                <div class="pitfall-title">⚠️ Initialization Order is CRITICAL!</div>
+                Constructor MUST call in this exact order:<br>
+                1. initializeStudents()<br>
+                2. initializeCourses()<br>
+                3. initializeRoutine()<br>
+                4. loadAttendanceData() (Step 18)<br>
+                <br>
+                <strong>WHY:</strong> loadAttendanceData() needs students/courses already populated for lookups!<br>
+                See guide-constructor-main.html for detailed explanation.
+            </div>
+
+            <div class="test-box">
+                <div class="test-title">✅ Test</div>
+                Should print: "System initialized with 45 students!"
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STEPS 11-14 -->
+        <div class="step-card" id="step11" data-step="11">
+            <div class="step-header">
+                <div class="step-number">11-14</div>
+                <div class="step-title">Add All 24 Helper Functions</div>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="step-time">⏱️ 60 min</span>
+            </div>
+
+            <div class="objectives-box">
+                <div class="objectives-title">🎯 Objectives</div>
+                <p>Copy all 24 helper functions with complete implementations. These are the workhorses of your system!
+                </p>
+            </div>
+
+            <div class="resources-box">
+                <div class="resources-title">📖 COMPLETE Implementations</div>
+                <a href="complete-guide-FULL.html#file-string-ops" target="_blank" class="resource-link">
+                    → File & String Operations (5 functions) - complete-guide-FULL.html
+                </a>
+                <a href="complete-guide-FULL.html#data-queries" target="_blank" class="resource-link">
+                    → Data Queries (5 functions) - complete-guide-FULL.html
+                </a>
+                <a href="complete-guide-FULL.html#date-time-ops" target="_blank" class="resource-link">
+                    → Date & Time Operations (6 functions) - complete-guide-FULL.html
+                </a>
+                <a href="complete-guide-FULL.html#attendance-logic" target="_blank" class="resource-link">
+                    → Attendance Logic (5 functions) - complete-guide-FULL.html
+                </a>
+                <a href="complete-guide-FULL.html#ui-display" target="_blank" class="resource-link">
+                    → UI & Display (3 functions) - complete-guide-FULL.html
+                </a>
+                <a href="code-playground.html" target="_blank" class="resource-link">
+                    → Test Zeller's algorithm, centerAlign, etc. in code-playground.html
+                </a>
+            </div>
+
+            <div class="tip-box">
+                <div class="tip-title">💡 Implementation Strategy</div>
+                <ol>
+                    <li><strong>Copy category by category</strong> - Start with File & String (5 functions)</li>
+                    <li><strong>Test immediately</strong> - Add test calls in run() after each category</li>
+                    <li><strong>Don't skip</strong> - All 24 are used. Missing even one will cause compile errors later!
+                    </li>
+                </ol>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// Add to AttendanceSystem private section:
+#include &lt;sstream&gt;
+#include &lt;iomanip&gt;
+#include &lt;ctime&gt;
+#include &lt;algorithm&gt;
+#include &lt;set&gt;
+
+// FILE & STRING OPERATIONS (5)
+string getTimestampForFilename(const string &timeSlot) { /* See guide */ }
+string getFullTimestamp() { /* See guide */ }
+string formatTimeWithZeroPadding(const string &timeStr) { /* See guide */ }
+string centerAlign(const string &text, int width) { /* See guide */ }
+bool createDirectory(const string &path) { /* See guide */ }
+
+// DATA QUERIES (5)
+string getStudentName(const string &studentId) { /* See guide */ }
+string getCourseTitle(const string &courseCode) { /* See guide */ }
+string getEndTime(const string &timeSlot) { /* See guide */ }
+vector&lt;ClassPeriod&gt; getClassesForDay(const string &day) { /* See guide */ }
+int getPeriodNumber(const string &courseCode, const string &date, const string &timeSlot) { /* See guide */ }
+
+// DATE & TIME OPERATIONS (6)
+string getCurrentDate() { /* See guide */ }
+int getDayOfWeek(int day, int month, int year) { /* Zeller's - See guide */ }
+string getDayName(int dayIndex) { /* See guide */ }
+bool isDateInFuture(const string &dateStr) { /* See guide */ }
+bool validateDayDateMatch(const string &selectedDay, const string &dateStr) { /* See guide */ }
+string generateCSVFilename(const string &courseCode, const string &date, const string &timeSlot, int periodNumber) { /* See guide */ }
+
+// ATTENDANCE LOGIC (5)
+bool hasAttendanceRecord(const string &studentId, const string &courseCode, const string &date, const string &timeSlot) { /* See guide */ }
+int countAttendedClasses(const string &studentId, const string &courseCode) { /* See guide */ }
+int countTotalClasses(const string &courseCode) { /* See guide */ }
+int countClassesHeld(const string &courseCode) { /* See guide */ }
+double calculateAttendance(const string &studentId, const string &courseCode) { /* See guide */ }
+
+// UI & DISPLAY (3)
+void printHeader(const string &title) { /* See guide */ }
+void printLine() { /* See guide */ }
+void clearScreen() { /* See guide */ }</code></pre>
+            </div>
+
+            <div class="test-box">
+                <div class="test-title">✅ Test Each Category</div>
+                <div class="code-block">
+                    <pre><code class="language-cpp">// In run() - Test after copying each category:
+cout &lt;&lt; "Current date: " &lt;&lt; getCurrentDate() &lt;&lt; endl;
+cout &lt;&lt; "Day for 30-11-2025: " &lt;&lt; getDayName(getDayOfWeek(30, 11, 2025)) &lt;&lt; endl;
+cout &lt;&lt; "Centered: |" &lt;&lt; centerAlign("TEST", 10) &lt;&lt; "|" &lt;&lt; endl;
+printHeader("TEST HEADER");
+printLine();</code></pre>
+                </div>
+            </div>
+
+            <div class="pitfall-box">
+                <div class="pitfall-title">⚠️ Required Headers</div>
+                Don't forget to add ALL these includes at the top:<br>
+                <code>#include &lt;sstream&gt;</code>, <code>#include &lt;iomanip&gt;</code>,
+                <code>#include &lt;ctime&gt;</code>,
+                <code>#include &lt;algorithm&gt;</code>, <code>#include &lt;set&gt;</code>,
+                <code>#include &lt;fstream&gt;</code>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STEPS 15-17 -->
+        <div class="step-card" id="step15" data-step="15">
+            <div class="step-header">
+                <div class="step-number">15-17</div>
+                <div class="step-title">Implement UI Functions (Menu, Routine, Status)</div>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="step-time">⏱️ 45 min</span>
+            </div>
+
+            <div class="objectives-box">
+                <div class="objectives-title">🎯 Objectives</div>
+                <p>Get the user interface working! Menu display, weekly routine view, and student status.</p>
+            </div>
+
+            <div class="resources-box">
+                <div class="resources-title">📖 Complete Implementations</div>
+                <a href="guide-major-features.html#display-menu" target="_blank" class="resource-link">
+                    → displayMainMenu() complete code in guide-major-features.html
+                </a>
+                <a href="guide-major-features.html#view-routine" target="_blank" class="resource-link">
+                    → viewWeeklyRoutine() complete code in guide-major-features.html
+                </a>
+                <a href="guide-major-features.html#view-status" target="_blank" class="resource-link">
+                    → viewStudentStatus() complete code in guide-major-features.html
+                </a>
+                <a href="guide-major-features.html#run-function" target="_blank" class="resource-link">
+                    → run() main loop in guide-major-features.html
+                </a>
+            </div>
+
+            <div class="tip-box">
+                <div class="tip-title">💡 Build Order</div>
+                <ol>
+                    <li>First: displayMainMenu() - Shows the 4 options</li>
+                    <li>Second: viewWeeklyRoutine() - Easiest feature to test</li>
+                    <li>Third: viewStudentStatus() - Uses helper functions</li>
+                    <li>Fourth: run() - Main loop connecting everything</li>
+                </ol>
+            </div>
+
+            <div class="test-box">
+                <div class="test-title">✅ Test Each Function</div>
+                After adding displayMainMenu(), call it from run() - you should see the colored 4-option menu!<br>
+                After adding viewWeeklyRoutine(), option [3] should work and display all 23 class periods by day.
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STEPS 18-19 -->
+        <div class="step-card" id="step18" data-step="18">
+            <div class="step-header">
+                <div class="step-number">18-19</div>
+                <div class="step-title">Implement File I/O (Load & Save)</div>
+                <span class="difficulty-badge difficulty-expert">Expert</span>
+                <span class="step-time">⏱️ 90 min</span>
+            </div>
+
+            <div class="objectives-box">
+                <div class="objectives-title">🎯 Objectives</div>
+                <p>Implement data persistence with Windows File System APIs. This is the most complex part!</p>
+            </div>
+
+            <div class="resources-box">
+                <div class="resources-title">📖 COMPLETE Implementations</div>
+                <a href="guide-file-io.html#load-function" target="_blank" class="resource-link">
+                    → loadAttendanceData() COMPLETE (~120 lines) in guide-file-io.html
+                </a>
+                <a href="guide-file-io.html#save-function" target="_blank" class="resource-link">
+                    → saveAttendanceData() COMPLETE (~110 lines) in guide-file-io.html
+                </a>
+                <a href="guide-file-io.html#windows-apis" target="_blank" class="resource-link">
+                    → Windows API explanation (FindFirstFileA, etc.) in guide-file-io.html
+                </a>
+                <a href="interactive-flowcharts.html#file-io" target="_blank" class="resource-link">
+                    → Visual flowchart of save process in interactive-flowcharts.html
+                </a>
+            </div>
+
+            <div class="code-block">
+                <pre><code class="language-cpp">// Required headers:
+#include &lt;fstream&gt;
+#include &lt;direct.h&gt;    // For _mkdir
+#include &lt;sys/stat.h&gt;  // For stat
+#ifdef _WIN32
+#include &lt;windows.h&gt;   // For FindFirstFileA, FindNextFile
+#endif
+
+// Add to private section - Copy complete implementations from guide-file-io.html:
+void loadAttendanceData() {
+    // ~120 lines - See guide-file-io.html for COMPLETE code
+    // Uses: FindFirstFileA, FindNextFile, CSV parsing
+}
+
+void saveAttendanceData() {
+    // ~110 lines - See guide-file-io.html for COMPLETE code  
+    // Uses: Nested map grouping, CSV generation
+}</code></pre>
+            </div>
+
+            <div class="pitfall-box">
+                <div class="pitfall-title">⚠️ MOST COMPLEX PART!</div>
+                <strong>Key Challenges:</strong>
+                <ul>
+                    <li>Nested directory traversal with Windows APIs</li>
+                    <li>Triple-nested map:
+                        <code>map&lt;string, map&lt;string, vector&lt;AttendanceRecord&gt;&gt;&gt;</code>
+                    </li>
+                    <li>12-column CSV format must be exact</li>
+                    <li>Period number calculation using set</li>
+                </ul>
+                <br>
+                <strong>Recommendation:</strong> Copy the ENTIRE function from guide-file-io.html and study line-by-line
+                with the detailed comments.
+            </div>
+
+            <div class="test-box">
+                <div class="test-title">✅ Complete Test Strategy</div>
+                <ol>
+                    <li>Create dummy attendance record in constructor</li>
+                    <li>Call saveAttendanceData() - Check if "Attendance Sheet" folder created</li>
+                    <li>Open CSV file manually, verify 12 columns</li>
+                    <li>Delete folder, call loadAttendanceData()</li>
+                    <li>Add another record, save, restart program, verify persistence</li>
+                </ol>
+            </div>
+
+            <div class="tip-box">
+                <div class="tip-title">💡 CSV Structure Reference</div>
+                12 columns in exact order: SL, StudentID, Name, Course, Title, Date, Day, Start, End, Period, Status,
+                Recorded<br>
+                See error-validation-reference.html for complete CSV specification.
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STEP 20 -->
+        <div class="step-card" id="step20" data-step="20">
+            <div class="step-header">
+                <div class="step-number">20</div>
+                <div class="step-title">Implement Attendance Functions (The Final Boss!)</div>
+                <span class="difficulty-badge difficulty-expert">Expert</span>
+                <span class="step-time">⏱️ 120 min</span>
+            </div>
+
+            <div class="objectives-box">
+                <div class="objectives-title">🎯 Objectives</div>
+                <p>Implement takeAttendance() and the legendary 320-line selectPeriodAndMark() with multi-period
+                    parsing, validation, and three marking modes!</p>
+            </div>
+
+            <div class="resources-box">
+                <div class="resources-title">📖 COMPLETE Implementations</div>
+                <a href="guide-major-features.html#take-attendance" target="_blank" class="resource-link">
+                    → takeAttendance() complete (~100 lines) in guide-major-features.html
+                </a>
+                <a href="guide-major-features.html#select-period" target="_blank" class="resource-link">
+                    → selectPeriodAndMark() COMPLETE (~320 lines) in guide-major-features.html
+                </a>
+                <a href="error-validation-reference.html#validation-matrix" target="_blank" class="resource-link">
+                    → All validation checks in error-validation-reference.html
+                </a>
+                <a href="interactive-flowcharts.html#attendance-flow" target="_blank" class="resource-link">
+                    → Complete flowchart in interactive-flowcharts.html
+                </a>
+                <a href="code-playground.html" target="_blank" class="resource-link">
+                    → Test multi-period parsing in code-playground.html
+                </a>
+            </div>
+
+            <div class="pitfall-box">
+                <div class="pitfall-title">⚠️ THE FINAL BOSS - 320 Lines!</div>
+                <strong>Incremental Build Strategy (CRITICAL!):</strong>
+                <ol>
+                    <li><strong>Version 1 (30 min):</strong> Basic single-period, all present, no validation</li>
+                    <li><strong>Version 2 (30 min):</strong> Add date validation one check at a time:
+                        <ul>
+                            <li>Format check (length == 10, separators at [2] and [5])</li>
+                            <li>Future date check</li>
+                            <li>Day mismatch check (uses Zeller's algorithm)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Version 3 (30 min):</strong> Add multi-period parsing:
+                        <ul>
+                            <li>Range format "2-6" (uses find('-') and substr)</li>
+                            <li>Space-separated "2 3 4" (uses stringstream)</li>
+                            <li>Same-course validation</li>
+                        </ul>
+                    </li>
+                    <li><strong>Version 4 (30 min):</strong> Add individual marking mode and uppercase validation</li>
+                </ol>
+                <br>
+                <strong>Test THOROUGHLY after each version!</strong>
+            </div>
+
+            <div class="test-box">
+                <div class="test-title">✅ Complete Test Checklist (10 Tests)</div>
+                <ul class="checklist">
+                    <li>Select day → period → date → mark all present → verify CSV created ✓</li>
+                    <li>Multi-period range "2-4" → verify all 3 periods marked ✓</li>
+                    <li>Space-separated "2 3 4" → verify works ✓</li>
+                    <li>Invalid date format "27/11/2025" → should show format error ✓</li>
+                    <li>Future date "01-01-2030" → should prevent ✓</li>
+                    <li>Day mismatch (select Monday, enter Wednesday's date) → should show error ✓</li>
+                    <li>Try duplicate (mark same period twice) → should prevent ✓</li>
+                    <li>Mark individual → test 'p'/'P'/'a'/'A' validation ✓</li>
+                    <li>Use Reset [R] → verify records deleted from CSV ✓</li>
+                    <li>Press [0] and [9] at each navigation level → verify back/exit ✓</li>
+                </ul>
+            </div>
+
+            <div class="tip-box">
+                <div class="tip-title">💡 Key Algorithms</div>
+                <strong>Multi-period parsing:</strong> See code-playground.html for runnable examples!<br>
+                <strong>Buffer management:</strong> isMultiPeriodMode flag prevents double cin.ignore() - see
+                error-validation-reference.html<br>
+                <strong>Lambda for reset:</strong> Uses remove_if with lambda - example in code-playground.html
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Navigation Links -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="quiz.html" class="nav-button">Take Knowledge Quiz 🎯</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+
+        <!-- Quick Reference Box -->
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1rem;">🔗 Quick Reference Links</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Foundations</h4>
+                    <a href="guide-foundations.html" class="resource-link">Data Structures & ANSI Codes</a>
+                    <a href="COMPLETE-GUIDE-FINAL.html" class="resource-link">Complete System Reference</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Implementation</h4>
+                    <a href="complete-guide-FULL.html" class="resource-link">24 Helper Functions</a>
+                    <a href="guide-major-features.html" class="resource-link">6 Major Functions</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Advanced</h4>
+                    <a href="guide-file-io.html" class="resource-link">File I/O & Windows APIs</a>
+                    <a href="error-validation-reference.html" class="resource-link">Error & Validation Reference</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>
+        hljs.highlightAll();
+
+        // Progress tracking based on scroll
+        function updateProgress() {
+            const steps = document.querySelectorAll('.step-card');
+            const windowHeight = window.innerHeight;
+            const scrollY = window.scrollY;
+
+            let completedSteps = 0;
+            steps.forEach(step => {
+                const rect = step.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.3) {
+                    completedSteps++;
+                    step.classList.add('completed');
+                }
+            });
+
+            // Progress bar update logic removed
+        }
+
+        // Milestone tracking
+        document.querySelectorAll('.milestone-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    this.parentElement.classList.add('completed');
+                } else {
+                    this.parentElement.classList.remove('completed');
+                }
+                updateMilestoneProgress();
+            });
+        });
+
+        function updateMilestoneProgress() {
+            const total = document.querySelectorAll('.milestone-checkbox').length;
+            const checked = document.querySelectorAll('.milestone-checkbox:checked').length;
+            console.log(`Milestones: ${checked}/${total} complete`);
+        }
+
+        function scrollToStep(stepNum) {
+            const element = document.getElementById('step' + stepNum);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress(); // Initial call
+
+        // Store progress in localStorage
+        window.addEventListener('beforeunload', function () {
+            const checkedBoxes = [];
+            document.querySelectorAll('.milestone-checkbox:checked').forEach(box => {
+                checkedBoxes.push(box.id);
+            });
+            localStorage.setItem('buildProgress', JSON.stringify(checkedBoxes));
+        });
+
+        // Restore progress
+        window.addEventListener('load', function () {
+            const saved = localStorage.getItem('buildProgress');
+            if (saved) {
+                const checkedBoxes = JSON.parse(saved);
+                checkedBoxes.forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                        checkbox.parentElement.classList.add('completed');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

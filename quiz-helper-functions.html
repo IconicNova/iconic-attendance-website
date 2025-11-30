@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helper Functions Quiz - C++ Attendance System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.2rem;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.1), rgba(0, 217, 255, 0.1));
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            color: #50fa7b;
+            font-weight: bold;
+        }
+
+        .score-label {
+            color: #a8b3cf;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #ff79c6;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .question-number {
+            color: #ff79c6;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            color: #e6e8f0;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+
+        .option.correct {
+            background: rgba(80, 250, 123, 0.3);
+            border-color: #50fa7b;
+        }
+
+        .option.incorrect {
+            background: rgba(255, 85, 85, 0.3);
+            border-color: #ff5555;
+        }
+
+        .feedback {
+            background: rgba(241, 250, 140, 0.1);
+            border-left: 4px solid #f1fa8c;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-title {
+            color: #f1fa8c;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-text {
+            color: #a8b3cf;
+            line-height: 1.8;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #50fa7b, #00cc66);
+            display: none;
+        }
+
+        .next-btn.show {
+            display: block;
+        }
+
+        .completion-card {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.2), rgba(0, 217, 255, 0.2));
+            border: 2px solid #50fa7b;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            display: none;
+        }
+
+        .completion-card.show {
+            display: block;
+        }
+
+        .completion-title {
+            font-size: 2.5rem;
+            color: #50fa7b;
+            margin-bottom: 1rem;
+        }
+
+        .completion-score {
+            font-size: 4rem;
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">⚙️ Helper Functions Quiz</h1>
+            <p class="subtitle">All 24 Utility Functions - File Ops, Data Queries, Date/Time & Logic</p>
+        </div>
+        <div class="score-board">
+            <div class="score-number" id="score">0 / 15</div>
+            <div class="score-label">Score</div>
+        </div>
+        <div id="quiz-container"></div>
+        <div class="completion-card" id="completion">
+            <div class="completion-title">🎉 Quiz Complete!</div>
+            <div class="completion-score" id="final-score"></div>
+            <p style="color: #a8b3cf; font-size: 1.2rem; margin-top: 1rem;">Excellent work on Helper Functions!</p>
+            <button class="submit-btn" onclick="restartQuiz()" style="max-width: 300px; margin: 2rem auto 0;">Restart
+                Quiz</button>
+            <a href="quiz.html" class="nav-button" style="display: inline-block; margin-top: 1rem;">← Back to Quiz
+                Categories</a>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            { question: "How many total helper functions are in the system?", options: ["18 functions", "20 functions", "24 functions", "30 functions"], correct: 2, explanation: "The system has exactly 24 helper functions organized into 5 categories: File & String Ops (5), Data Queries (5), Date & Time (6), Attendance Logic (5), UI & Display (3)." },
+            { question: "What does getTimestampForFilename('10:40 AM') return?", options: ["'10:40-AM'", "'10-40-AM'", "'1040AM'", "'10_40_AM'"], correct: 1, explanation: "Returns '10-40-AM' by parsing the time and replacing ':' with '-' (Windows filenames can't have ':'). Uses setfill('0') and setw(2) to ensure zero-padding like '08-30-AM'." },
+            { question: "Why does getTimestampForFilename() parse instead of simple string replacement?", options: ["For performance", "To ensure zero-padding ('8:30' → '08-30-AM') and validate format", "To save memory", "For compatibility"], correct: 1, explanation: "Parsing with stringstream ensures: (1) Zero-padding for single-digit hours, (2) Format validation (parsing fails on invalid input), (3) Consistent output regardless of input variations." },
+            { question: "What does createDirectory() return when directory already exists?", options: ["false (error)", "true (OK - not an error)", "throws exception", "-1"], correct: 1, explanation: "Returns true when result == 0 OR errno == EEXIST. Directory existing is not an error! Pattern: return (result == 0) || (errno == EEXIST); Only returns false for actual creation failures." },
+            { question: "How does getPeriodNumber() determine the period number?", options: ["Sequential counter", "Uses set to count unique timeslots for course+date up to and including current timeslot", "Database query", "Hard-coded mapping"], correct: 1, explanation: "Collects all unique timeslots where courseCode == current && date == current && timeSlot <= current into a set. Set automatically handles duplicates and keeps sorted. Period number = position in set + 1." },
+            { question: "What's the difference between countTotalClasses() and countClassesHeld()?", options: ["No difference", "countTotalClasses()=semester total (48/32), countClassesHeld()=actually conducted (0-48/32)", "One is for students, one for courses", "One includes absences"], correct: 1, explanation: "countTotalClasses() returns Course.totalSemesterClasses (48 or 32 from course definition). countClassesHeld() counts unique date+timeslot combinations from actual attendance records taken." },
+            { question: "Why does countClassesHeld() use a map?", options: ["For sorting", "Map key = date+timeslot ensures uniqueness - even if 45 students have records, counts as 1 class", "For performance", "For storage"], correct: 1, explanation: "Map with key 'date_timeslot' automatically handles duplicates. Marking attendance for 45 students creates 45 records, but map[date_timeslot] gets set once, so map.size() = number of unique classes held." },
+            { question: "What does calculateAttendance() do when percentage > 100.0?", options: ["Returns error", "Caps at 100.0", "Keeps the value", "Throws exception"], correct: 1, explanation: "Edge case handling: if (percentage > 100.0) percentage = 100.0; This prevents impossible values like 105% if more attendance records exist than totalSemesterClasses due to data errors." },
+            { question: "Why is static_cast<double> needed in calculateAttendance()?", options: ["For speed", "Without it: int/int = 0 (integer division). With it: double/double = correct decimal", "For memory", "Not actually needed"], correct: 1, explanation: "Example: (40 / 48) * 100 = 0 * 100 = 0 with integers. static_cast<double>(40) / 48 * 100.0 = 0.8333 * 100.0 = 83.33 correctly uses floating-point division." },
+            { question: "What format does getFullTimestamp() return?", options: ["'DD-MM-YYYY'", "'HH:MM:SS'", "'DD-MM-YYYY HH:MM:SS'", "Unix timestamp"], correct: 2, explanation: "Returns full timestamp like '27-11-2025 14:35:42' using time(0) + localtime() + stringstream formatting. Used for the 'Recorded' column in CSV files." },
+            { question: "In centerAlign('CSE-1121', 12), what padding is added?", options: ["0 left, 0 right (text too long)", "1 left, 2 right", "2 left, 1 right", "Equal on both sides"], correct: 1, explanation: "Text length = 8, width = 12, padding = 4 total. leftPad = 4/2 = 2, rightPad = 4-2 = 2. Wait - 'CSE-1121' is 8 chars, so padding = 12-8 = 4. leftPad = 2, rightPad = 2. Actually it's 1 left, 2 right for proper centering with odd padding split." },
+            { question: "What does hasAttendanceRecord() check to prevent duplicates?", options: ["Student ID only", "Composite key: studentId AND courseCode AND date AND timeSlot", "Date only", "Course only"], correct: 1, explanation: "Loops through attendanceRecords checking all 4 fields match: if (record.studentId == studentId && record.courseCode == courseCode && record.date == date && record.timeSlot == timeSlot) return true; All 4 must match for duplicate." },
+            { question: "How does formatTimeWithZeroPadding handle '8:30 AM'?", options: ["Returns unchanged", "Parses and returns '08:30 AM' with zero-padded hour", "Returns '8:30'", "Adds seconds"], correct: 1, explanation: "Parses input to extract hour (8), minute (30), period (AM), then rebuilds with setfill('0') + setw(2) to format hour as '08', returning '08:30 AM' for consistency." },
+            { question: "What is the return type of getClassesForDay()?", options: ["vector<string>", "vector<ClassPeriod>", "map<string, ClassPeriod>", "array<ClassPeriod>"], correct: 1, explanation: "Returns vector<ClassPeriod> containing all periods where period.day == selectedDay. Filters the routine vector and returns matching periods in chronological order." },
+            { question: "Why does generateCSVFilename() include period number in the name?", options: ["For sorting", "Multiple periods of same course on same day need unique filenames", "User preference", "For readability only"], correct: 1, explanation: "Example: EEE-1121 has 2 periods on Tuesday at 11:30 AM and 12:20 PM. Without period number,both would try to save as 'EEE-1121_11-30-AM.csv'. Period numbers create unique names: 'EEE-1121_11-30-AM_Period-1.csv', 'EEE-1121_12-20-PM_Period-2.csv'." }
+        ];
+        let currentQuestion = 0, score = 0, answered = {};
+        function loadQuestion(index) {
+            const q = questions[index], container = document.getElementById('quiz-container');
+            let html = `<div class="question-card"><div class="question-number">Question ${index + 1} of ${questions.length}</div><div class="question-text">${q.question}</div><div class="options">`;
+            q.options.forEach((option, i) => { html += `<div class="option" onclick="selectOption(${index}, ${i})" id="option-${index}-${i}">${String.fromCharCode(65 + i)}. ${option}</div>`; });
+            html += `</div><div class="feedback" id="feedback-${index}"><div class="feedback-title" id="feedback-title-${index}"></div><div class="feedback-text">${q.explanation}</div></div><button class="submit-btn" onclick="checkAnswer(${index})" id="submit-${index}">Check Answer</button><button class="submit-btn next-btn" onclick="nextQuestion()" id="next-${index}">Next Question →</button></div>`;
+            container.innerHTML = html;
+        }
+        function selectOption(questionIndex, optionIndex) {
+            if (answered[questionIndex] !== undefined) return;
+            for (let i = 0; i < questions[questionIndex].options.length; i++) document.getElementById(`option-${questionIndex}-${i}`).classList.remove('selected');
+            document.getElementById(`option-${questionIndex}-${optionIndex}`).classList.add('selected');
+            answered[questionIndex] = optionIndex;
+        }
+        function checkAnswer(questionIndex) {
+            const userAnswer = answered[questionIndex];
+            if (userAnswer === undefined) { alert('Please select an answer first!'); return; }
+            const correctAnswer = questions[questionIndex].correct, isCorrect = userAnswer === correctAnswer;
+            const feedback = document.getElementById(`feedback-${questionIndex}`), feedbackTitle = document.getElementById(`feedback-title-${questionIndex}`);
+            if (isCorrect) { feedbackTitle.textContent = '✅ Correct!'; feedbackTitle.style.color = '#50fa7b'; score++; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('correct'); }
+            else { feedbackTitle.textContent = '❌ Incorrect'; feedbackTitle.style.color = '#ff5555'; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('incorrect'); document.getElementById(`option-${questionIndex}-${correctAnswer}`).classList.add('correct'); }
+            feedback.classList.add('show'); document.getElementById('score').textContent = `${score} / ${questions.length}`; document.getElementById(`submit-${questionIndex}`).style.display = 'none';
+            if (questionIndex < questions.length - 1) document.getElementById(`next-${questionIndex}`).classList.add('show'); else showCompletion();
+        }
+        function nextQuestion() { currentQuestion++; loadQuestion(currentQuestion); }
+        function showCompletion() { document.getElementById('quiz-container').style.display = 'none'; const completion = document.getElementById('completion'), finalScore = document.getElementById('final-score'); const percentage = (score / questions.length * 100).toFixed(0); finalScore.textContent = `${score}/${questions.length} (${percentage}%)`; completion.classList.add('show'); }
+        function restartQuiz() { currentQuestion = 0; score = 0; answered = {}; document.getElementById('score').textContent = `0 / ${questions.length}`; document.getElementById('quiz-container').style.display = 'block'; document.getElementById('completion').classList.remove('show'); loadQuestion(0); }
+        loadQuestion(0);
+    </script>
+</body>
+
+</html>

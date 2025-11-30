@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete System Reference Quiz - C++ Attendance System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.2rem;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.1), rgba(0, 217, 255, 0.1));
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            color: #50fa7b;
+            font-weight: bold;
+        }
+
+        .score-label {
+            color: #a8b3cf;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #ff79c6;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .question-number {
+            color: #ff79c6;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            color: #e6e8f0;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+
+        .option.correct {
+            background: rgba(80, 250, 123, 0.3);
+            border-color: #50fa7b;
+        }
+
+        .option.incorrect {
+            background: rgba(255, 85, 85, 0.3);
+            border-color: #ff5555;
+        }
+
+        .feedback {
+            background: rgba(241, 250, 140, 0.1);
+            border-left: 4px solid #f1fa8c;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-title {
+            color: #f1fa8c;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-text {
+            color: #a8b3cf;
+            line-height: 1.8;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #50fa7b, #00cc66);
+            display: none;
+        }
+
+        .next-btn.show {
+            display: block;
+        }
+
+        .completion-card {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.2), rgba(0, 217, 255, 0.2));
+            border: 2px solid #50fa7b;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            display: none;
+        }
+
+        .completion-card.show {
+            display: block;
+        }
+
+        .completion-title {
+            font-size: 2.5rem;
+            color: #50fa7b;
+            margin-bottom: 1rem;
+        }
+
+        .completion-score {
+            font-size: 4rem;
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">📚 Complete System Reference Quiz</h1>
+            <p class="subtitle">Constants, Design Decisions & Complete Data Reference</p>
+        </div>
+        <div class="score-board">
+            <div class="score-number" id="score">0 / 18</div>
+            <div class="score-label">Score</div>
+        </div>
+        <div id="quiz-container"></div>
+        <div class="completion-card" id="completion">
+            <div class="completion-title">🎉 Quiz Complete!</div>
+            <div class="completion-score" id="final-score"></div>
+            <p style="color: #a8b3cf; font-size: 1.2rem; margin-top: 1rem;">Excellent work on Complete System Reference!
+            </p>
+            <button class="submit-btn" onclick="restartQuiz()" style="max-width: 300px; margin: 2rem auto 0;">Restart
+                Quiz</button>
+            <a href="quiz.html" class="nav-button" style="display: inline-block; margin-top: 1rem;">← Back to Quiz
+                Categories</a>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            { question: "How many total students are in the class roster?", options: ["40 students", "42 students", "45 students", "50 students"], correct: 2, explanation: "Exactly 45 students from C251027 (SL 1) to C253169 (SL 45). The system accommodates the full roster with serial numbers 1-45." },
+            { question: "How many courses are in the system?", options: ["6 courses", "7 courses", "8 courses", "10 courses"], correct: 2, explanation: "8 courses total: EEE-1121, EEE-1122, CSE-1121, CSE-1122, MATH-1107, PHY-1101, GEEL-1106, GEEM-1101." },
+            { question: "How many total class periods are in the weekly routine?", options: ["20 periods", "21 periods", "23 periods", "25 periods"], correct: 2, explanation: "Exactly 23 class periods across 5 days (Saturday through Wednesday): Saturday (3), Sunday (3), Monday (6), Tuesday (6), Wednesday (5)." },
+            { question: "What does the constant 74 represent in printHeader()?", options: ["Student count", "Total box width in characters for terminal aesthetics", "Number of lines", "Column count"], correct: 1, explanation: "74 = total width of menu/header boxes in characters. Chosen to fit 80-character terminals with margins, creating aesthetically pleasing box layouts." },
+            { question: "What does the constant 22 represent in printHeader()?", options: ["Student ID length", "Header text offset for centering calculations", "Box height", "Padding size"], correct: 1, explanation: "22 = header text offset used in spacing calculations for centering title text within the box, accounting for emoji spacing and decorative elements." },
+            { question: "Why is GEEM-1101 the only course with totalSemesterClasses = 32?", options: ["It's optional", "It's 16 weeks × 2 classes/week (shorter course)", "Data error", "Special case for ethics"], correct: 1, explanation: "GEEM-1101 has 2 weekly classes (not 3), so 16 weeks × 2 = 32 total semester classes. All other courses: 16 weeks × 3 = 48." },
+            { question: "What percentage threshold defines dis-collegiate status?", options: ["50%", "55%", "60%", "65%"], correct: 2, explanation: "DISCOLLEGIATE_THRESHOLD = 60.0%. Students below 60% attendance are marked dis-collegiate (at risk). University policy threshold." },
+            { question: "What are the three attendance status thresholds?", options: ["60%, 70%, 80%", "60%, 75%, 90%", "60%, 70%, 85%", "50%, 70%, 85%"], correct: 2, explanation: "Three thresholds: ≥85% (Excellent 🌟), 70-84% (Good ✅), 60-69% (Warning ⚠️), <60% (At Risk ❌)." },
+            { question: "Why is map<string, Course> used instead of vector<Course>?", options: ["Saves memory", "O(log n) lookup by course code vs O(n) linear search", "Easier to code", "Required by C++"], correct: 1, explanation: "Map provides O(log n) lookup by course code (the key), much faster than vector's O(n) linear search. Courses are frequently accessed by code like 'EEE-1121'." },
+            { question: "Why is vector<Student> used instead of map<string, Student>?", options: ["Faster iteration", "To preserve roster order (SL 1-45 sequence)", "Uses less memory", "Easier to sort"], correct: 1, explanation: "Vector preserves roster order (SL 1-45). Sequential iteration is common (display all students), and linear search is acceptable for only 45 students. Map would be overkill." },
+            { question: "What is the first student in the roster?", options: ["C253002 - Sultan Mahmud", "C251027 - Mohammad Sifat Ullah", "C253003 - Md. Zunaed Rahman Afif", "C253005 - Mohammad Fahim Hasan"], correct: 1, explanation: "Student #1 (SL 1) is C251027 - Mohammad Sifat Ullah. Note the C251xxx ID (different batch from most C253xxx students)." },
+            { question: "What is the last student in the roster (SL 45)?", options: ["C253118 - Akil Alam Ansary", "C251114 - Mustofa Mahamud Rafi", "C253169 - Mohammad Ariful Islam", "C253135 - Md Ifthikhar Uddin Chowdhury Rahat"], correct: 2, explanation: "Student #45 (SL 45) is C253169 - Mohammad Ariful Islam, the last in the 45-student roster." },
+            { question: "How is the 'Recorded' timestamp formatted in CSV files?", options: ["DD-MM-YYYY", "HH:MM:SS", "DD-MM-YYYY HH:MM:SS", "Unix timestamp"], correct: 2, explanation: "Recorded column format: 'DD-MM-YYYY HH:MM:SS' like '27-11-2025 14:35:42'. Generated by getFullTimestamp() using time() + localtime()." },
+            { question: "What is the folder structure for saving attendance CSVs?", options: ["Attendance/[filename]", "Attendance Sheet/[date]/[filename]", "data/[date]/[course]", "[course]/[date]"], correct: 1, explanation: "Structure: 'Attendance Sheet/[date]/[filename].csv'. Example: 'Attendance Sheet/27-11-2025/EEE-1121_11-30-AM_Period-1.csv'. Date folders organize chronologically." },
+            { question: "What do the status icons represent for attendance percentages?", options: ["Color codes only", "🌟=≥85%, ✅=70-84%, ⚠️=60-69%, ❌=<60%", "Pass/Fail only", "Numeric grades"], correct: 1, explanation: "Four status levels with icons: 🌟 Excellent (≥85%), ✅ Good (70-84%), ⚠️ Warning (60-69%), ❌ At Risk (<60% dis-collegiate)." },
+            { question: "Why does the constructor call initializeStudents(), initializeCourses(), then initializeRoutine()?", options: ["Alphabetical order", "Routine references course codes, so courses must exist first", "Performance optimization", "Required by C++"], correct: 1, explanation: "Initialization order matters: routine references courseCode fields, so courses map must be populated before routine is created. Students are independent so can be first." },
+            { question: "What is the estimated memory size of one AttendanceRecord?", options: ["~50 bytes", "~100 bytes", "~150 bytes", "~200 bytes"], correct: 2, explanation: "~150 bytes per record: 5 strings @ ~30 bytes each = 150 bytes + 1 bool = ~151 bytes total. 1000 records ≈ 150 KB of memory." },
+            { question: "How many students have IDs starting with C251 (different batch)?", options: ["2 students", "3 students", "4 students", "5 students"], correct: 1, explanation: "3 students from C251 batch: C251027 (SL 1), C251106 (SL 43), C251114 (SL 44). The rest are C253xxx batch." }
+        ];
+        let currentQuestion = 0, score = 0, answered = {};
+        function loadQuestion(index) {
+            const q = questions[index], container = document.getElementById('quiz-container');
+            let html = `<div class="question-card"><div class="question-number">Question ${index + 1} of ${questions.length}</div><div class="question-text">${q.question}</div><div class="options">`;
+            q.options.forEach((option, i) => { html += `<div class="option" onclick="selectOption(${index}, ${i})" id="option-${index}-${i}">${String.fromCharCode(65 + i)}. ${option}</div>`; });
+            html += `</div><div class="feedback" id="feedback-${index}"><div class="feedback-title" id="feedback-title-${index}"></div><div class="feedback-text">${q.explanation}</div></div><button class="submit-btn" onclick="checkAnswer(${index})" id="submit-${index}">Check Answer</button><button class="submit-btn next-btn" onclick="nextQuestion()" id="next-${index}">Next Question →</button></div>`;
+            container.innerHTML = html;
+        }
+        function selectOption(questionIndex, optionIndex) {
+            if (answered[questionIndex] !== undefined) return;
+            for (let i = 0; i < questions[questionIndex].options.length; i++) document.getElementById(`option-${questionIndex}-${i}`).classList.remove('selected');
+            document.getElementById(`option-${questionIndex}-${optionIndex}`).classList.add('selected');
+            answered[questionIndex] = optionIndex;
+        }
+        function checkAnswer(questionIndex) {
+            const userAnswer = answered[questionIndex];
+            if (userAnswer === undefined) { alert('Please select an answer first!'); return; }
+            const correctAnswer = questions[questionIndex].correct, isCorrect = userAnswer === correctAnswer;
+            const feedback = document.getElementById(`feedback-${questionIndex}`), feedbackTitle = document.getElementById(`feedback-title-${questionIndex}`);
+            if (isCorrect) { feedbackTitle.textContent = '✅ Correct!'; feedbackTitle.style.color = '#50fa7b'; score++; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('correct'); }
+            else { feedbackTitle.textContent = '❌ Incorrect'; feedbackTitle.style.color = '#ff5555'; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('incorrect'); document.getElementById(`option-${questionIndex}-${correctAnswer}`).classList.add('correct'); }
+            feedback.classList.add('show'); document.getElementById('score').textContent = `${score} / ${questions.length}`; document.getElementById(`submit-${questionIndex}`).style.display = 'none';
+            if (questionIndex < questions.length - 1) document.getElementById(`next-${questionIndex}`).classList.add('show'); else showCompletion();
+        }
+        function nextQuestion() { currentQuestion++; loadQuestion(currentQuestion); }
+        function showCompletion() { document.getElementById('quiz-container').style.display = 'none'; const completion = document.getElementById('completion'), finalScore = document.getElementById('final-score'); const percentage = (score / questions.length * 100).toFixed(0); finalScore.textContent = `${score}/${questions.length} (${percentage}%)`; completion.classList.add('show'); }
+        function restartQuiz() { currentQuestion = 0; score = 0; answered = {}; document.getElementById('score').textContent = `0 / ${questions.length}`; document.getElementById('quiz-container').style.display = 'block'; document.getElementById('completion').classList.remove('show'); loadQuestion(0); }
+        loadQuestion(0);
+    </script>
+</body>
+
+</html>

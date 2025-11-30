@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Code Playground - C++ Attendance System</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.2rem;
+        }
+
+        .playground-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+            gap: 2rem;
+        }
+
+        .code-example {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #00d9ff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .example-title {
+            color: #00d9ff;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-desc {
+            color: #a8b3cf;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .code-container {
+            position: relative;
+        }
+
+        pre {
+            margin: 0;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .output-box {
+            background: #1e1e1e;
+            border: 2px solid #50fa7b;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            font-family: 'Consolas', monospace;
+            color: #50fa7b;
+        }
+
+        .output-title {
+            color: #f1fa8c;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .interactive-btn {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .note {
+            background: rgba(241, 250, 140, 0.1);
+            border-left: 4px solid #f1fa8c;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        .note-title {
+            color: #f1fa8c;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .hljs {
+            padding: 1.5rem !important;
+        }
+
+        /* --- NEW NAVIGATION & REFERENCE STYLES --- */
+
+        /* Solid Cyan Buttons */
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Resource Links */
+        .resource-link {
+            display: block;
+            color: #00d9ff;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .resource-link:hover {
+            color: #ff79c6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">💻 Interactive Code Playground</h1>
+            <p class="subtitle">Explore code snippets with syntax highlighting and explanations</p>
+        </div>
+
+        <div class="playground-grid">
+            <!-- Example 1: Zeller's Algorithm -->
+            <div class="code-example">
+                <h2 class="example-title">1. Zeller's Algorithm - Date to Day</h2>
+                <p class="example-desc">Calculate day of week from any date. Click to see step-by-step execution.</p>
+                <div class="code-container">
+                    <pre><code class="language-cpp">int getDayOfWeek(int day, int month, int year) {
+    // Zeller's congruence formula
+    // Adjusts month: Jan/Feb become 13/14 of previous year
+    if (month < 3) {
+        month += 12;
+        year--;
+    }
+    
+    int k = year % 100;        // Year of century
+    int j = year / 100;        // Zero-based century
+    
+    // The magic formula!
+    int h = (day + (13 * (month + 1)) / 5 + k + 
+             k / 4 + j / 4 - 2 * j) % 7;
+    
+    // Returns: 0=Sat, 1=Sun, 2=Mon, ..., 6=Fri
+    return h;
+}
+
+// Example usage:
+int result = getDayOfWeek(27, 11, 2025);  
+// Returns: 3 (Wednesday)</code></pre>
+                </div>
+                <button class="interactive-btn" onclick="runZeller()">▶ Run Example</button>
+                <div id="zeller-output" style="display:none;" class="output-box">
+                    <div class="output-title">Output:</div>
+                    <div id="zeller-result"></div>
+                </div>
+            </div>
+
+            <!-- Example 2: Multi-Period Parsing -->
+            <div class="code-example">
+                <h2 class="example-title">2. Multi-Period Range Parsing (2-6)</h2>
+                <p class="example-desc">Parse range input "2-6" into individual period numbers.</p>
+                <div class="code-container">
+                    <pre><code class="language-cpp">// Input: "2-6"
+string multiPeriodInput = "2-6";
+vector<int> selectedPeriods;
+
+// Find the dash position
+size_t dashPos = multiPeriodInput.find('-');
+
+if (dashPos != string::npos) {
+    // Extract start and end
+    int start = stoi(multiPeriodInput.substr(0, dashPos));
+    int end = stoi(multiPeriodInput.substr(dashPos + 1));
+    
+    // Validate range
+    if (start >= 1 && end <= 6 && start <= end) {
+        // Build the list: 2, 3, 4, 5, 6
+        for (int i = start; i <= end; i++) {
+            selectedPeriods.push_back(i);
+        }
+    }
+}
+
+// Result: selectedPeriods = {2, 3, 4, 5, 6}</code></pre>
+                </div>
+                <button class="interactive-btn" onclick="runMultiPeriod()">▶ Run Example</button>
+                <div id="multi-output" style="display:none;" class="output-box">
+                    <div class="output-title">Output:</div>
+                    <div id="multi-result"></div>
+                </div>
+            </div>
+
+            <!-- Example 3: centerAlign Algorithm -->
+            <div class="code-example">
+                <h2 class="example-title">3. Text Center Alignment</h2>
+                <p class="example-desc">Center-align text within a fixed width.</p>
+                <div class="code-container">
+                    <pre><code class="language-cpp">string centerAlign(const string &text, int width) {
+    int padding = width - text.length();
+    
+    // If text is longer than width, return as-is
+    if (padding <= 0) return text;
+    
+    // Calculate left and right padding
+    int leftPad = padding / 2;
+    int rightPad = padding - leftPad;
+    
+    // Build centered string
+    return string(leftPad, ' ') + text + 
+           string(rightPad, ' ');
+}
+
+// Example:
+string result = centerAlign("Hello", 15);
+// Result: "     Hello     " (5 left, 5 right)</code></pre>
+                </div>
+                <button class="interactive-btn" onclick="runCenterAlign()">▶ Run Example</button>
+                <div id="center-output" style="display:none;" class="output-box">
+                    <div class="output-title">Output:</div>
+                    <div id="center-result"></div>
+                </div>
+            </div>
+
+            <!-- Example 4: getPeriodNumber with Set -->
+            <div class="code-example">
+                <h2 class="example-title">4. Period Number Calculation</h2>
+                <p class="example-desc">Use set to find unique timeslots and calculate period number.</p>
+                <div class="code-container">
+                    <pre><code class="language-cpp">int getPeriodNumber(const string &courseCode, 
+                    const string &date, 
+                    const string &timeSlot) {
+    set<string> uniqueTimeslots;
+    
+    // Collect all unique timeslots for this course
+    // on this date that are <= current timeslot
+    for (const auto &record : attendanceRecords) {
+        if (record.courseCode == courseCode && 
+            record.date == date &&
+            record.timeSlot <= timeSlot) {
+            uniqueTimeslots.insert(record.timeSlot);
+        }
+    }
+    
+    // Count position in sorted set
+    int position = 0;
+    for (const auto &ts : uniqueTimeslots) {
+        position++;
+        if (ts == timeSlot) return position;
+    }
+    
+    // If not found, it's the next period
+    return uniqueTimeslots.size() + 1;
+}</code></pre>
+                </div>
+                <div class="note">
+                    <div class="note-title">💡 Why use set?</div>
+                    Set automatically:
+                    <ul>
+                        <li>Keeps elements sorted (string comparison)</li>
+                        <li>Removes duplicates</li>
+                        <li>Provides O(log n) insertion</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Example 5: Buffer Management -->
+            <div class="code-example">
+                <h2 class="example-title">5. Buffer Management Pattern</h2>
+                <p class="example-desc">Critical pattern to prevent input skipping.</p>
+                <div class="code-container">
+                    <pre><code class="language-cpp">// BAD - Will skip dateInput!
+int periodChoice;
+cin >> periodChoice;        // Leaves '\n' in buffer
+string dateInput;
+getline(cin, dateInput);    // Reads '\n' immediately!
+
+// GOOD - Clears buffer first
+int periodChoice;
+cin >> periodChoice;        // Leaves '\n' in buffer
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+string dateInput;
+getline(cin, dateInput);    // Works correctly!
+
+// GOOD - Consecutive getlines don't need ignore
+string multiPeriod;
+getline(cin, multiPeriod);  // Consumes entire line
+string dateInput;
+getline(cin, dateInput);    // Works correctly!</code></pre>
+                </div>
+                <div class="note">
+                    <div class="note-title">⚠ Critical Rule</div>
+                    Always use <code>cin.ignore()</code> after <code>cin &gt;&gt;</code> when followed by
+                    <code>getline()</code>!
+                </div>
+            </div>
+
+            <!-- Example 6: Date Validation -->
+            <div class="code-example">
+                <h2 class="example-title">6. Date Format Validation</h2>
+                <p class="example-desc">Validate DD-MM-YYYY format step-by-step.</p>
+                <div class="code-container">
+                    <pre><code class="language-cpp">bool validateDateFormat(const string &dateStr) {
+    // Step 1: Check total length
+    if (dateStr.length() != 10) {
+        return false;  // Must be exactly 10 chars
+    }
+    
+    // Step 2: Check separator positions
+    if (dateStr[2] != '-' || dateStr[5] != '-') {
+        return false;  // Format must be DD-MM-YYYY
+    }
+    
+    // Step 3: Parse components
+    int day, month, year;
+    char sep1, sep2;
+    stringstream ss(dateStr);
+    ss >> day >> sep1 >> month >> sep2 >> year;
+    
+    // Step 4: Additional validation
+    if (day < 1 || day > 31) return false;
+    if (month < 1 || month > 12) return false;
+    if (year < 2000 || year > 2100) return false;
+    
+    return true;  // All checks passed!
+}</code></pre>
+                </div>
+                <button class="interactive-btn" onclick="runDateValidation()">▶ Test Dates</button>
+                <div id="date-output" style="display:none;" class="output-box">
+                    <div class="output-title">Output:</div>
+                    <div id="date-result"></div>
+                </div>
+            </div>
+
+            <!-- Example 7: Lambda for Reset -->
+            <div class="code-example">
+                <h2 class="example-title">7. Lambda Function for Reset</h2>
+                <p class="example-desc">Modern C++ lambda to filter attendance records.</p>
+                <div class="code-container">
+                    <pre><code class="language-cpp">// Remove records matching specific period
+attendanceRecords.erase(
+    remove_if(
+        attendanceRecords.begin(), 
+        attendanceRecords.end(),
+        [&](const AttendanceRecord &r) {
+            // Capture external variables by reference [&]
+            for (const auto &period : selectedPeriods) {
+                if (r.courseCode == period.courseCode &&
+                    r.date == dateInput &&
+                    r.timeSlot == period.time) {
+                    return true;  // Mark for removal
+                }
+            }
+            return false;  // Keep this record
+        }
+    ),
+    attendanceRecords.end()
+);</code></pre>
+                </div>
+                <div class="note">
+                    <div class="note-title">💡 Erase-Remove Idiom</div>
+                    <code>remove_if</code> moves unwanted elements to end, <code>erase</code> actually deletes them.
+                </div>
+            </div>
+
+            <!-- Example 8: Transform to Uppercase -->
+            <div class="code-example">
+                <h2 class="example-title">8. String Transform (Uppercase)</h2>
+                <p class="example-desc">Convert user input to uppercase for comparison.</p>
+                <div class="code-container">
+                    <pre><code class="language-cpp">string input;
+cin >> input;  // User types: "all"
+
+// Transform to uppercase
+transform(input.begin(), input.end(), 
+          input.begin(), ::toupper);
+
+// Now input = "ALL"
+
+if (input == "ALL") {
+    // Case-insensitive match works!
+}
+
+// Alternative: check individual character
+char attendance;
+cin >> attendance;
+attendance = toupper(attendance);  // 'p' → 'P'</code></pre>
+                </div>
+                <button class="interactive-btn" onclick="runTransform()">▶ Run Example</button>
+                <div id="transform-output" style="display:none;" class="output-box">
+                    <div class="output-title">Output:</div>
+                    <div id="transform-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1.5rem;">📚 Continue Learning</h3>
+            <a href="complete-guide.html" class="nav-button">← Back to Documentation Hub</a>
+            <a href="quiz.html" class="nav-button">Take Knowledge Quiz 🎯</a>
+            <a href="code-playground.html" class="nav-button">Try Code Playground 💻</a>
+            <a href="interactive-flowcharts.html" class="nav-button">View Flowcharts 📊</a>
+        </div>
+
+        <!-- Quick Reference Box -->
+        <div style="background: rgba(26, 31, 58, 0.6); border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h3 style="color: #00d9ff; margin-bottom: 1rem;">🔗 Quick Reference Links</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Foundations</h4>
+                    <a href="guide-foundations.html" class="resource-link">Data Structures & ANSI Codes</a>
+                    <a href="COMPLETE-GUIDE-FINAL.html" class="resource-link">Complete System Reference</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Implementation</h4>
+                    <a href="complete-guide-FULL.html" class="resource-link">24 Helper Functions</a>
+                    <a href="guide-major-features.html" class="resource-link">6 Major Functions</a>
+                </div>
+                <div>
+                    <h4 style="color: #8be9fd; margin-bottom: 0.5rem;">Advanced</h4>
+                    <a href="guide-file-io.html" class="resource-link">File I/O & Windows APIs</a>
+                    <a href="error-validation-reference.html" class="resource-link">Error & Validation Reference</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        hljs.highlightAll();
+
+        function runZeller() {
+            const day = 27, month = 11, year = 2025;
+            let workMonth = month, workYear = year;
+
+            if (workMonth < 3) {
+                workMonth += 12;
+                workYear--;
+            }
+
+            const k = workYear % 100;
+            const j = Math.floor(workYear / 100);
+            const h = (day + Math.floor((13 * (workMonth + 1)) / 5) + k +
+                Math.floor(k / 4) + Math.floor(j / 4) - 2 * j) % 7;
+
+            const days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+            document.getElementById('zeller-output').style.display = 'block';
+            document.getElementById('zeller-result').innerHTML = `
+                <strong>Input:</strong> getDayOfWeek(27, 11, 2025)<br>
+                <strong>Calculation Steps:</strong><br>
+                &nbsp;&nbsp;k = ${k} (year of century)<br>
+                &nbsp;&nbsp;j = ${j} (century)<br>
+                &nbsp;&nbsp;h = ${h} (day index)<br>
+                <strong>Result:</strong> ${days[h]} ✓
+            `;
+        }
+
+        function runMultiPeriod() {
+            const input = "2-6";
+            const dashPos = input.indexOf('-');
+            const start = parseInt(input.substring(0, dashPos));
+            const end = parseInt(input.substring(dashPos + 1));
+            const periods = [];
+
+            for (let i = start; i <= end; i++) {
+                periods.push(i);
+            }
+
+            document.getElementById('multi-output').style.display = 'block';
+            document.getElementById('multi-result').innerHTML = `
+                <strong>Input:</strong> "${input}"<br>
+                <strong>Parsed:</strong> start=${start}, end=${end}<br>
+                <strong>Generated periods:</strong> [${periods.join(', ')}]<br>
+                <strong>Total periods selected:</strong> ${periods.length}
+            `;
+        }
+
+        function runCenterAlign() {
+            const text = "Hello";
+            const width = 15;
+            const padding = width - text.length;
+            const leftPad = Math.floor(padding / 2);
+            const rightPad = padding - leftPad;
+
+            const result = ' '.repeat(leftPad) + text + ' '.repeat(rightPad);
+
+            document.getElementById('center-output').style.display = 'block';
+            document.getElementById('center-result').innerHTML = `
+                <strong>Input:</strong> text="${text}", width=${width}<br>
+                <strong>Calculation:</strong><br>
+                &nbsp;&nbsp;padding = ${width} - ${text.length} = ${padding}<br>
+                &nbsp;&nbsp;leftPad = ${leftPad}, rightPad = ${rightPad}<br>
+                <strong>Result:</strong> "|${result}|" (${width} chars total)
+            `;
+        }
+
+        function runDateValidation() {
+            const tests = [
+                { date: "27-11-2025", expected: true },
+                { date: "27/11/2025", expected: false },
+                { date: "2025-11-27", expected: false },
+                { date: "32-13-2025", expected: false }
+            ];
+
+            let html = '';
+            tests.forEach(test => {
+                const valid = test.date.length === 10 &&
+                    test.date[2] === '-' &&
+                    test.date[5] === '-';
+                const icon = valid === test.expected ? '✓' : '✗';
+                const color = valid === test.expected ? '#50fa7b' : '#ff5555';
+                html += `<span style="color:${color}">${icon} "${test.date}" → ${valid ? 'VALID' : 'INVALID'}</span><br>`;
+            });
+
+            document.getElementById('date-output').style.display = 'block';
+            document.getElementById('date-result').innerHTML = html;
+        }
+
+        function runTransform() {
+            const inputs = ['all', 'All', 'ALL', 'p', 'P'];
+            let html = '<strong>Transform to uppercase:</strong><br>';
+
+            inputs.forEach(input => {
+                const result = input.toUpperCase();
+                html += `&nbsp;&nbsp;"${input}" → "${result}"<br>`;
+            });
+
+            document.getElementById('transform-output').style.display = 'block';
+            document.getElementById('transform-result').innerHTML = html;
+        }
+    </script>
+</body>
+
+</html>

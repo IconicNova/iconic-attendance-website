@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructor & main() Quiz - C++ Attendance System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.2rem;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.1), rgba(0, 217, 255, 0.1));
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            color: #50fa7b;
+            font-weight: bold;
+        }
+
+        .score-label {
+            color: #a8b3cf;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #ff79c6;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .question-number {
+            color: #ff79c6;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            color: #e6e8f0;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+
+        .option.correct {
+            background: rgba(80, 250, 123, 0.3);
+            border-color: #50fa7b;
+        }
+
+        .option.incorrect {
+            background: rgba(255, 85, 85, 0.3);
+            border-color: #ff5555;
+        }
+
+        .feedback {
+            background: rgba(241, 250, 140, 0.1);
+            border-left: 4px solid #f1fa8c;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-title {
+            color: #f1fa8c;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-text {
+            color: #a8b3cf;
+            line-height: 1.8;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #50fa7b, #00cc66);
+            display: none;
+        }
+
+        .next-btn.show {
+            display: block;
+        }
+
+        .completion-card {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.2), rgba(0, 217, 255, 0.2));
+            border: 2px solid #50fa7b;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            display: none;
+        }
+
+        .completion-card.show {
+            display: block;
+        }
+
+        .completion-title {
+            font-size: 2.5rem;
+            color: #50fa7b;
+            margin-bottom: 1rem;
+        }
+
+        .completion-score {
+            font-size: 4rem;
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🎯 Constructor & main() Quiz</h1>
+            <p class="subtitle">Windows Console Setup, UTF-8 Encoding & Initialization</p>
+        </div>
+        <div class="score-board">
+            <div class="score-number" id="score">0 / 12</div>
+            <div class="score-label">Score</div>
+        </div>
+        <div id="quiz-container"></div>
+        <div class="completion-card" id="completion">
+            <div class="completion-title">🎉 Quiz Complete!</div>
+            <div class="completion-score" id="final-score"></div>
+            <p style="color: #a8b3cf; font-size: 1.2rem; margin-top: 1rem;">Excellent work on Constructor & main()!</p>
+            <button class="submit-btn" onclick="restartQuiz()" style="max-width: 300px; margin: 2rem auto 0;">Restart
+                Quiz</button>
+            <a href="quiz.html" class="nav-button" style="display: inline-block; margin-top: 1rem;">← Back to Quiz
+                Categories</a>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            { question: "What does SetConsoleOutputCP(CP_UTF8) do?", options: ["Sets console title", "Sets output encoding to UTF-8 for emoji support", "Sets console size", "Sets font color"], correct: 1, explanation: "SetConsoleOutputCP(CP_UTF8) sets the Windows console's output code page to UTF-8 (65001), enabling emoji characters (📚, ✅, ❌) to display correctly. Without this, emojis show as '?' or boxes." },
+            { question: "Why is SetConsoleCP(CP_UTF8) needed in addition to SetConsoleOutputCP()?", options: ["For output only", "Sets input encoding to UTF-8 (allows UTF-8 input from user)", "For copy-paste operations", "Not actually needed"], correct: 1, explanation: "SetConsoleCP(CP_UTF8) sets the input code page to UTF-8, allowing the console to correctly interpret UTF-8 characters typed by the user. SetConsoleOutputCP() is for output, SetConsoleCP() is for input." },
+            { question: "What is the type of the variable returned by GetStdHandle(STD_OUTPUT_HANDLE)?", options: ["int", "HANDLE (void pointer)", "FILE*", "DWORD"], correct: 1, explanation: "GetStdHandle() returns HANDLE, which is a Windows-specific type defined as void* (generic pointer to a resource). Used to refer to console handles like standard output." },
+            { question: "What does ENABLE_VIRTUAL_TERMINAL_PROCESSING flag enable?", options: ["Multi-threading", "ANSI escape code processing (colors, formatting)", "Unicode support", "Virtual memory"], correct: 1, explanation: "ENABLE_VIRTUAL_TERMINAL_PROCESSING tells Windows console to interpret ANSI escape codes like \\033[91m (RED), \\033[1m (BOLD). Without this flag, ANSI codes print as literal text." },
+            { question: "Why use bitwise OR (|=) when setting console mode?", options: ["To multiply flags", "To add the new flag while preserving existing flags", "To remove flags", "For performance"], correct: 1, explanation: "dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING uses bitwise OR to add the VT processing flag while keeping all existing console mode flags intact. Using = would overwrite and lose other settings." },
+            { question: "What is DWORD in Windows API?", options: ["Data Word", "Double Word (unsigned 32-bit integer)", "Dynamic Word", "Device Word"], correct: 1, explanation: "DWORD = 'Double Word' = unsigned 32-bit integer (0 to 4,294,967,295). Commonly used in Windows APIs for flags, sizes, and return values. 'Word' = 16 bits, 'Double Word' = 32 bits." },
+            { question: "Why must Windows console setup be BEFORE any colored output in main()?", options: ["For performance", "ANSI codes won't work until ENABLE_VIRTUAL_TERMINAL_PROCESSING is set", "For memory allocation", "Not required, just convention"], correct: 1, explanation: "If you print ANSI codes before enabling VT processing, they'll appear as literal text like '←[91mRED←[0m'. The setup must be at the very top of main() before any cout statements." },
+            { question: "What does GetConsoleMode(hOut, &dwMode) do?", options: ["Sets console mode", "Retrieves current console mode into dwMode variable", "Creates console", "Closes console"], correct: 1, explanation: "GetConsoleMode() reads the current console mode flags into dwMode. We retrieve existing flags, add our VT processing flag with |=, then set it back with SetConsoleMode()." },
+            { question: "Why is #ifdef _WIN32 used around Windows API calls?", options: ["For debugging", "Because these APIs only exist on Windows, not Linux/Mac", "To save memory", "For optimization"], correct: 1, explanation: "#ifdef _WIN32 compiles the Windows-specific code only on Windows. Linux/Mac don't have SetConsoleOutputCP(), GetStdHandle(), etc. This enables cross-platform compilation." },
+            { question: "What happens if SetConsoleMode() fails?", options: ["Program crashes", "ANSI codes won't work, but program continues", "Colors appear incorrectly", "Nothing"], correct: 1, explanation: "If SetConsoleMode() fails, the system continues but ANSI escape codes won't be processed. Colors/formatting will appear as literal text. The program doesn't crash, just loses visual formatting." },
+            { question: "In what order should the three initialization functions be called in the constructor?", options: ["Any order works", "initializeStudents(), initializeCourses(), initializeRoutine()", "initializeCourses(), initializeRoutine(), initializeStudents()", "Order doesn't matter"], correct: 1, explanation: "The order is: initializeStudents(), initializeCourses(), initializeRoutine(). Courses must exist before routine (which references course codes), but students are independent. Conventional order: data, metadata, schedule." },
+            { question: "Why is the AttendanceSystem constructor called before run() in main()?", options: ["For performance", "Constructor initializes all data (students, courses, routine) before run() needs them", "Required by C++ syntax", "To allocate memory"], correct: 1, explanation: "The constructor must complete before run() because run() depends on students, courses, and routine being populated. Constructor pattern: AttendanceSystem system; loads all data, then system.run(); starts the menu loop." }
+        ];
+        let currentQuestion = 0, score = 0, answered = {};
+        function loadQuestion(index) {
+            const q = questions[index], container = document.getElementById('quiz-container');
+            let html = `<div class="question-card"><div class="question-number">Question ${index + 1} of ${questions.length}</div><div class="question-text">${q.question}</div><div class="options">`;
+            q.options.forEach((option, i) => { html += `<div class="option" onclick="selectOption(${index}, ${i})" id="option-${index}-${i}">${String.fromCharCode(65 + i)}. ${option}</div>`; });
+            html += `</div><div class="feedback" id="feedback-${index}"><div class="feedback-title" id="feedback-title-${index}"></div><div class="feedback-text">${q.explanation}</div></div><button class="submit-btn" onclick="checkAnswer(${index})" id="submit-${index}">Check Answer</button><button class="submit-btn next-btn" onclick="nextQuestion()" id="next-${index}">Next Question →</button></div>`;
+            container.innerHTML = html;
+        }
+        function selectOption(questionIndex, optionIndex) {
+            if (answered[questionIndex] !== undefined) return;
+            for (let i = 0; i < questions[questionIndex].options.length; i++) document.getElementById(`option-${questionIndex}-${i}`).classList.remove('selected');
+            document.getElementById(`option-${questionIndex}-${optionIndex}`).classList.add('selected');
+            answered[questionIndex] = optionIndex;
+        }
+        function checkAnswer(questionIndex) {
+            const userAnswer = answered[questionIndex];
+            if (userAnswer === undefined) { alert('Please select an answer first!'); return; }
+            const correctAnswer = questions[questionIndex].correct, isCorrect = userAnswer === correctAnswer;
+            const feedback = document.getElementById(`feedback-${questionIndex}`), feedbackTitle = document.getElementById(`feedback-title-${questionIndex}`);
+            if (isCorrect) { feedbackTitle.textContent = '✅ Correct!'; feedbackTitle.style.color = '#50fa7b'; score++; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('correct'); }
+            else { feedbackTitle.textContent = '❌ Incorrect'; feedbackTitle.style.color = '#ff5555'; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('incorrect'); document.getElementById(`option-${questionIndex}-${correctAnswer}`).classList.add('correct'); }
+            feedback.classList.add('show'); document.getElementById('score').textContent = `${score} / ${questions.length}`; document.getElementById(`submit-${questionIndex}`).style.display = 'none';
+            if (questionIndex < questions.length - 1) document.getElementById(`next-${questionIndex}`).classList.add('show'); else showCompletion();
+        }
+        function nextQuestion() { currentQuestion++; loadQuestion(currentQuestion); }
+        function showCompletion() { document.getElementById('quiz-container').style.display = 'none'; const completion = document.getElementById('completion'), finalScore = document.getElementById('final-score'); const percentage = (score / questions.length * 100).toFixed(0); finalScore.textContent = `${score}/${questions.length} (${percentage}%)`; completion.classList.add('show'); }
+        function restartQuiz() { currentQuestion = 0; score = 0; answered = {}; document.getElementById('score').textContent = `0 / ${questions.length}`; document.getElementById('quiz-container').style.display = 'block'; document.getElementById('completion').classList.remove('show'); loadQuestion(0); }
+        loadQuestion(0);
+    </script>
+</body>
+
+</html>

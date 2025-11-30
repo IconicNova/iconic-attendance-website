@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Roadmap Quiz - C++ Attendance System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.2rem;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.1), rgba(0, 217, 255, 0.1));
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            color: #50fa7b;
+            font-weight: bold;
+        }
+
+        .score-label {
+            color: #a8b3cf;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #ff79c6;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .question-number {
+            color: #ff79c6;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            color: #e6e8f0;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+
+        .option.correct {
+            background: rgba(80, 250, 123, 0.3);
+            border-color: #50fa7b;
+        }
+
+        .option.incorrect {
+            background: rgba(255, 85, 85, 0.3);
+            border-color: #ff5555;
+        }
+
+        .feedback {
+            background: rgba(241, 250, 140, 0.1);
+            border-left: 4px solid #f1fa8c;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-title {
+            color: #f1fa8c;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-text {
+            color: #a8b3cf;
+            line-height: 1.8;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #50fa7b, #00cc66);
+            display: none;
+        }
+
+        .next-btn.show {
+            display: block;
+        }
+
+        .completion-card {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.2), rgba(0, 217, 255, 0.2));
+            border: 2px solid #50fa7b;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            display: none;
+        }
+
+        .completion-card.show {
+            display: block;
+        }
+
+        .completion-title {
+            font-size: 2.5rem;
+            color: #50fa7b;
+            margin-bottom: 1rem;
+        }
+
+        .completion-score {
+            font-size: 4rem;
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🛠️ Build From Scratch Roadmap Quiz</h1>
+            <p class="subtitle">20 Progressive Steps, Design Insights & Implementation Strategy</p>
+        </div>
+        <div class="score-board">
+            <div class="score-number" id="score">0 / 16</div>
+            <div class="score-label">Score</div>
+        </div>
+        <div id="quiz-container"></div>
+        <div class="completion-card" id="completion">
+            <div class="completion-title">🎉 Quiz Complete!</div>
+            <div class="completion-score" id="final-score"></div>
+            <p style="color: #a8b3cf; font-size: 1.2rem; margin-top: 1rem;">Excellent work on Build Roadmap!</p>
+            <button class="submit-btn" onclick="restartQuiz()" style="max-width: 300px; margin: 2rem auto 0;">Restart
+                Quiz</button>
+            <a href="quiz.html" class="nav-button" style="display: inline-block; margin-top: 1rem;">← Back to Quiz
+                Categories</a>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            { question: "How many progressive steps are in the build-from-scratch roadmap?", options: ["15 steps", "18 steps", "20 steps", "25 steps"], correct: 2, explanation: "Exactly 20 progressive steps from empty C++ shell to complete system, organized into 8 major milestones: Basic Setup, ANSI Colors, Data Structures, Class Shell, Helper Functions, UI Functions, File I/O, and Attendance Logic." },
+            { question: "What is Step 1 in the roadmap?", options: ["Add headers", "Create empty C++ shell and verify compiler works", "Define ANSI codes", "Create main menu"], correct: 1, explanation: "Step 1: Create minimal working C++ program (empty shell) and verify compiler works correctly. This ensures your development environment is set up before adding complexity." },
+            { question: "What estimated time is given for the entire roadmap?", options: ["~3 hours", "~4-5 hours", "~6 hours", "~8-10 hours"], correct: 2, explanation: "Total estimated time: ~6 hours. Ranges from 5-minute simple steps (ANSI codes) to 60-minute complex steps (AttendanceSystem class and data initialization)." },
+            { question: "Which step adds ALL 10 ANSI color codes?", options: ["Step 2", "Step 3", "Step 4", "Step 5"], correct: 1, explanation: "Step 3 adds all 10 ANSI color codes (RESET, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, BOLD, DIM). Time: ~10 minutes, Difficulty: Easy." },
+            { question: "Which step sets up Windows console for ANSI codes?", options: ["Step 3", "Step 4", "Step 5", "Step 6"], correct: 1, explanation: "Step 4: Windows Console Setup for ANSI - enables ANSI escape codes + UTF-8 encoding for emoji support. Time: ~15 minutes, Difficulty: Medium. Must be BEFORE any colored output in main()." },
+            { question: "Steps 5-7 are combined to add what?", options: ["Helper functions", "All 4 data structures (Student, Course, ClassPeriod, AttendanceRecord)", "File I/O", "Menu system"], correct: 1, explanation: "Steps 5-7 (combined): Add all 4 data structures with constructors. Time: ~30 minutes total, Difficulty: Medium. Foundation of your system!" },
+            { question: "Steps 8-10 cover building what?", options: ["UI functions", "AttendanceSystem class & initialize data (45 students, 8 courses, 23 periods)", "File operations", "Navigation"], correct: 1, explanation: "Steps 8-10: Build AttendanceSystem class, add private members, and initialize with complete data. Time: ~60 minutes total, Difficulty: Hard. Most time-consuming but critical step." },
+            { question: "Why use structs instead of classes for data containers?", options: ["Faster performance", "Structs have public members by default - perfect for simple data containers", "Required by C++", "Easier to debug"], correct: 1, explanation: "Design insight: Structs have public members by default, making them perfect for simple data containers. Classes would require 'public:' keywords for all fields with no benefit." },
+            { question: "What is the recommended initialization order in the constructor?", options: ["Any order", "Students → Courses → Routine (routine references course codes)", "Courses → Students → Routine", "Routine → Courses → Students"], correct: 1, explanation: "Initialization order matters: Students first (independent), then Courses (referenced by routine), finally Routine (depends on courses existing). See guide-constructor-main.html." },
+            { question: "Which steps (11-14) cover helper functions?", options: ["All 24 helper functions across 4 categories", "Date/Time functions only", "File operations only", "UI functions"], correct: 0, explanation: "Steps 11-14 progressively add helper functions: File & String Ops, Data Queries, Date & Time operations, and Attendance Logic. Split across multiple steps for manageability." },
+            { question: "Which steps cover UI & Display functions?", options: ["Steps 11-14", "Steps 15-17", "Steps 18-20", "Step 22-24"], correct: 1, explanation: "Steps 15-17: UI & Display functions (printHeader, printLine, clearScreen). Time: ~20 minutes, Difficulty: Easy. Creates the visual interface." },
+            { question: "Which steps implement File I/O?", options: ["Steps 15-17", "Steps 18-19", "Step 20", "Steps 21-23"], correct: 1, explanation: "Steps 18-19: File I/O implementation (loadAttendanceData, saveAttendanceData with Windows APIs). Time: ~45 minutes, Difficulty: Expert." },
+            { question: "What is Step 20 in the roadmap?", options: ["Test everything", "Implement main attendance logic (takeAttendance function)", "Add menu", "Deploy"], correct: 1, explanation: "Step 20 (final): Implement main attendance logic - the core takeAttendance() function with day selection, period selection, and marking. Time: ~60 minutes, Difficulty: Expert." },
+            { question: "How many major milestones are tracked in the roadmap?", options: ["6 milestones", "7 milestones", "8 milestones", "10 milestones"], correct: 2, explanation: "8 major milestones: (1) Basic Setup, (2) ANSI Colors, (3) Data Structures, (4) Class Shell, (5) Helper Functions, (6) UI Functions, (7) File I/O, (8) Attendance Logic." },
+            { question: "What is a critical pitfall mentioned for Step 4 (Windows console setup)?", options: ["Memory leak", "Console setup MUST be at top of main() BEFORE any colored output", "Slow performance", "Compilation error"], correct: 1, explanation: "Critical pitfall: If you print ANSI codes before enabling ENABLE_VIRTUAL_TERMINAL_PROCESSING, they'll appear as literal text. Setup MUST be first in main()." },
+            { question: "Which header is needed specifically for Windows directory creation?", options: ["<windows.h>", "<direct.h> for _mkdir() on Windows", "<filesystem>", "<sys/stat.h>"], correct: 1, explanation: "<direct.h> provides _mkdir() on Windows. On Linux/Mac, use <sys/stat.h> with mkdir(). Cross-platform code uses #ifdef _WIN32 to compile the correct version." }
+        ];
+        let currentQuestion = 0, score = 0, answered = {};
+        function loadQuestion(index) {
+            const q = questions[index], container = document.getElementById('quiz-container');
+            let html = `<div class="question-card"><div class="question-number">Question ${index + 1} of ${questions.length}</div><div class="question-text">${q.question}</div><div class="options">`;
+            q.options.forEach((option, i) => { html += `<div class="option" onclick="selectOption(${index}, ${i})" id="option-${index}-${i}">${String.fromCharCode(65 + i)}. ${option}</div>`; });
+            html += `</div><div class="feedback" id="feedback-${index}"><div class="feedback-title" id="feedback-title-${index}"></div><div class="feedback-text">${q.explanation}</div></div><button class="submit-btn" onclick="checkAnswer(${index})" id="submit-${index}">Check Answer</button><button class="submit-btn next-btn" onclick="nextQuestion()" id="next-${index}">Next Question →</button></div>`;
+            container.innerHTML = html;
+        }
+        function selectOption(questionIndex, optionIndex) {
+            if (answered[questionIndex] !== undefined) return;
+            for (let i = 0; i < questions[questionIndex].options.length; i++) document.getElementById(`option-${questionIndex}-${i}`).classList.remove('selected');
+            document.getElementById(`option-${questionIndex}-${optionIndex}`).classList.add('selected');
+            answered[questionIndex] = optionIndex;
+        }
+        function checkAnswer(questionIndex) {
+            const userAnswer = answered[questionIndex];
+            if (userAnswer === undefined) { alert('Please select an answer first!'); return; }
+            const correctAnswer = questions[questionIndex].correct, isCorrect = userAnswer === correctAnswer;
+            const feedback = document.getElementById(`feedback-${questionIndex}`), feedbackTitle = document.getElementById(`feedback-title-${questionIndex}`);
+            if (isCorrect) { feedbackTitle.textContent = '✅ Correct!'; feedbackTitle.style.color = '#50fa7b'; score++; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('correct'); }
+            else { feedbackTitle.textContent = '❌ Incorrect'; feedbackTitle.style.color = '#ff5555'; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('incorrect'); document.getElementById(`option-${questionIndex}-${correctAnswer}`).classList.add('correct'); }
+            feedback.classList.add('show'); document.getElementById('score').textContent = `${score} / ${questions.length}`; document.getElementById(`submit-${questionIndex}`).style.display = 'none';
+            if (questionIndex < questions.length - 1) document.getElementById(`next-${questionIndex}`).classList.add('show'); else showCompletion();
+        }
+        function nextQuestion() { currentQuestion++; loadQuestion(currentQuestion); }
+        function showCompletion() { document.getElementById('quiz-container').style.display = 'none'; const completion = document.getElementById('completion'), finalScore = document.getElementById('final-score'); const percentage = (score / questions.length * 100).toFixed(0); finalScore.textContent = `${score}/${questions.length} (${percentage}%)`; completion.classList.add('show'); }
+        function restartQuiz() { currentQuestion = 0; score = 0; answered = {}; document.getElementById('score').textContent = `0 / ${questions.length}`; document.getElementById('quiz-container').style.display = 'block'; document.getElementById('completion').classList.remove('show'); loadQuestion(0); }
+        loadQuestion(0);
+    </script>
+</body>
+
+</html>

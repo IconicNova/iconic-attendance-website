@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File I/O Quiz - C++ Attendance System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.2rem;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.1), rgba(0, 217, 255, 0.1));
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            color: #50fa7b;
+            font-weight: bold;
+        }
+
+        .score-label {
+            color: #a8b3cf;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #ff79c6;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .question-number {
+            color: #ff79c6;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            color: #e6e8f0;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .code-snippet {
+            background: #1e1e1e;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+
+        .option.correct {
+            background: rgba(80, 250, 123, 0.3);
+            border-color: #50fa7b;
+        }
+
+        .option.incorrect {
+            background: rgba(255, 85, 85, 0.3);
+            border-color: #ff5555;
+        }
+
+        .feedback {
+            background: rgba(241, 250, 140, 0.1);
+            border-left: 4px solid #f1fa8c;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-title {
+            color: #f1fa8c;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-text {
+            color: #a8b3cf;
+            line-height: 1.8;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #50fa7b, #00cc66);
+            display: none;
+        }
+
+        .next-btn.show {
+            display: block;
+        }
+
+        .completion-card {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.2), rgba(0, 217, 255, 0.2));
+            border: 2px solid #50fa7b;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            display: none;
+        }
+
+        .completion-card.show {
+            display: block;
+        }
+
+        .completion-title {
+            font-size: 2.5rem;
+            color: #50fa7b;
+            margin-bottom: 1rem;
+        }
+
+        .completion-score {
+            font-size: 4rem;
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">💾 File I/O & Windows APIs Quiz</h1>
+            <p class="subtitle">Windows File System, CSV Operations & Data Persistence</p>
+        </div>
+        <div class="score-board">
+            <div class="score-number" id="score">0 / 15</div>
+            <div class="score-label">Score</div>
+        </div>
+        <div id="quiz-container"></div>
+        <div class="completion-card" id="completion">
+            <div class="completion-title">🎉 Quiz Complete!</div>
+            <div class="completion-score" id="final-score"></div>
+            <p style="color: #a8b3cf; font-size: 1.2rem; margin-top: 1rem;">Excellent work on File I/O & Windows APIs!
+            </p>
+            <button class="submit-btn" onclick="restartQuiz()" style="max-width: 300px; margin: 2rem auto 0;">Restart
+                Quiz</button>
+            <a href="quiz.html" class="nav-button" style="display: inline-block; margin-top: 1rem;">← Back to Quiz
+                Categories</a>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            { question: "Which Windows API function is used to find the first file in a directory?", options: ["FindFile()", "GetFirstFile()", "FindFirstFileA()", "OpenDirectory()"], correct: 2, explanation: "FindFirstFileA() is the Windows API function that begins a directory search. The 'A' suffix indicates it uses ANSI strings. It returns a HANDLE and fills a WIN32_FIND_DATAA structure with file information." },
+            { question: "What does FindNextFile() return when there are no more files?", options: ["NULL", "0 (zero)", "INVALID_HANDLE_VALUE", "Empty string"], correct: 1, explanation: "FindNextFile() returns 0 (zero/FALSE) when there are no more files to enumerate. You then call FindClose() to release the handle. Non-zero means success." },
+            { question: "What does INVALID_HANDLE_VALUE indicate in FindFirstFileA()?", options: ["Directory is empty", "Directory search error/failure", "Permission denied", "File not found"], correct: 1, explanation: "INVALID_HANDLE_VALUE indicates that the directory search failed to start - either the directory doesn't exist, no files match the pattern, or there's a permission error. Always check: if (hFind == INVALID_HANDLE_VALUE) before using the handle." },
+            { question: "How many columns does the CSV attendance file have?", options: ["10 columns", "11 columns", "12 columns", "13 columns"], correct: 2, explanation: "The CSV file has exactly 12 columns: SL, StudentID, Name, Course, Title, Date, Day, Start, End, Period, Status, and Recorded. Each column serves a specific purpose in the attendance record." },
+            { question: "Which struct field is checked to identify if a found item is a directory?", options: ["dwFileType", "dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY", "isDirectory", "fileType"], correct: 1, explanation: "Check: if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) using bitwise AND (&) to test if the FILE_ATTRIBUTE_DIRECTORY flag is set in dwFileAttributes." },
+            { question: "What is the purpose of the _stat() function in loadAttendanceData()?", options: ["To get file size", "To check if the attendance folder exists", "To read file contents", "To create a directory"], correct: 1, explanation: "_stat() is used to check if the 'Attendance Sheet' folder exists before attempting to load data. Returns 0 if exists, non-zero if doesn't exist. Prevents errors on first run." },
+            { question: "Why must FindClose() be called after enumerating files?", options: ["To save memory", "To release the handle and prevent resource leaks", "To delete temporary files", "To close the directory"], correct: 1, explanation: "FindClose() must be called to release the search handle and prevent resource leaks. Windows has limited handles, and failing to close them can cause handle exhaustion in long-running programs." },
+            { question: "What is the folder structure for saving attendance CSVs?", options: ["Attendance Sheet/[filename].csv", "Attendance Sheet/[date]/[filename].csv", "data/attendance/[filename].csv", "[course]/[date]/[filename].csv"], correct: 1, explanation: "Structure: 'Attendance Sheet/[date]/[filename].csv'. Example: 'Attendance Sheet/27-11-2025/EEE-1121_11-30-AM_Period-1.csv'. Date folders organize records chronologically." },
+            { question: "What does strcmp(findData.cFileName, '.') check for?", options: ["Hidden files", "Current directory entry", "File extension", "Empty filenames"], correct: 1, explanation: "strcmp(findData.cFileName, '.') == 0 checks if the found item is the current directory entry '.' which must be skipped. Similarly '..' (parent directory) must also be skipped during enumeration." },
+            { question: "Which function creates directories in a cross-platform way?", options: ["createDir()", "makeDirectory()", "_mkdir() on Windows, mkdir() on Linux", "newFolder()"], correct: 2, explanation: "Windows uses _mkdir(path) with no permissions parameter. Linux/Mac use mkdir(path, 0755) with permissions. Use #ifdef _WIN32 to compile the correct version." },
+            { question: "What does errno == EEXIST indicate when _mkdir() fails?", options: ["Permission denied", "Directory already exists (OK)", "Invalid path", "Disk full"], correct: 1, explanation: "errno == EEXIST means the directory already exists, which is acceptable! Return true in this case: return (result == 0) || (errno == EEXIST); Only return false for actual errors." },
+            { question: "How is the CSV filename generated for attendance records?", options: ["[date].csv", "[course]_[time]_Period-[N].csv", "[studentID]_[date].csv", "attendance_[N].csv"], correct: 1, explanation: "Format: '[CourseCode]_[Time]_Period-[N].csv'. Example: 'EEE-1121_11-30-AM_Period-1.csv' where time uses dashes (not colons) because Windows filenames cannot contain ':'." },
+            { question: "Why are colons replaced with dashes in time for filenames?", options: ["For readability", "Windows filenames cannot contain ':' character", "To save space", "For sorting"], correct: 1, explanation: "Windows considers ':' a reserved character in filenames (used for drive letters like C:). getTimestampForFilename() converts '10:40 AM' to '10-40-AM' to create valid Windows filenames." },
+            { question: "What is the purpose of the WIN32_FIND_DATAA struct?", options: ["To store directory paths", "To hold file/folder information found during search", "To configure search options", "To store file contents"], correct: 1, explanation: "WIN32_FIND_DATAA is filled by FindFirstFileA() and FindNextFile() with information about each found file/folder: name (cFileName), attributes (dwFileAttributes), size, timestamps, etc." },
+            { question: "In the CSV format, what does the 'Recorded' column store?", options: ["Recording device", "Timestamp when attendance was recorded", "Person who recorded", "Recording method"], correct: 1, explanation: "The 'Recorded' column stores the full timestamp (DD-MM-YYYY HH:MM:SS) of when the attendance was marked. Generated by getFullTimestamp() function: time() + localtime() + formatting." }
+        ];
+        let currentQuestion = 0, score = 0, answered = {};
+        function loadQuestion(index) {
+            const q = questions[index], container = document.getElementById('quiz-container');
+            let html = `<div class="question-card"><div class="question-number">Question ${index + 1} of ${questions.length}</div><div class="question-text">${q.question}</div>`;
+            if (q.code) html += `<div class="code-snippet">${q.code}</div>`;
+            html += '<div class="options">';
+            q.options.forEach((option, i) => { html += `<div class="option" onclick="selectOption(${index}, ${i})" id="option-${index}-${i}">${String.fromCharCode(65 + i)}. ${option}</div>`; });
+            html += `</div><div class="feedback" id="feedback-${index}"><div class="feedback-title" id="feedback-title-${index}"></div><div class="feedback-text">${q.explanation}</div></div><button class="submit-btn" onclick="checkAnswer(${index})" id="submit-${index}">Check Answer</button><button class="submit-btn next-btn" onclick="nextQuestion()" id="next-${index}">Next Question →</button></div>`;
+            container.innerHTML = html;
+        }
+        function selectOption(questionIndex, optionIndex) {
+            if (answered[questionIndex] !== undefined) return;
+            for (let i = 0; i < questions[questionIndex].options.length; i++) document.getElementById(`option-${questionIndex}-${i}`).classList.remove('selected');
+            document.getElementById(`option-${questionIndex}-${optionIndex}`).classList.add('selected');
+            answered[questionIndex] = optionIndex;
+        }
+        function checkAnswer(questionIndex) {
+            const userAnswer = answered[questionIndex];
+            if (userAnswer === undefined) { alert('Please select an answer first!'); return; }
+            const correctAnswer = questions[questionIndex].correct, isCorrect = userAnswer === correctAnswer;
+            const feedback = document.getElementById(`feedback-${questionIndex}`), feedbackTitle = document.getElementById(`feedback-title-${questionIndex}`);
+            if (isCorrect) { feedbackTitle.textContent = '✅ Correct!'; feedbackTitle.style.color = '#50fa7b'; score++; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('correct'); }
+            else { feedbackTitle.textContent = '❌ Incorrect'; feedbackTitle.style.color = '#ff5555'; document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('incorrect'); document.getElementById(`option-${questionIndex}-${correctAnswer}`).classList.add('correct'); }
+            feedback.classList.add('show'); document.getElementById('score').textContent = `${score} / ${questions.length}`; document.getElementById(`submit-${questionIndex}`).style.display = 'none';
+            if (questionIndex < questions.length - 1) document.getElementById(`next-${questionIndex}`).classList.add('show'); else showCompletion();
+        }
+        function nextQuestion() { currentQuestion++; loadQuestion(currentQuestion); }
+        function showCompletion() { document.getElementById('quiz-container').style.display = 'none'; const completion = document.getElementById('completion'), finalScore = document.getElementById('final-score'); const percentage = (score / questions.length * 100).toFixed(0); finalScore.textContent = `${score}/${questions.length} (${percentage}%)`; completion.classList.add('show'); }
+        function restartQuiz() { currentQuestion = 0; score = 0; answered = {}; document.getElementById('score').textContent = `0 / ${questions.length}`; document.getElementById('quiz-container').style.display = 'block'; document.getElementById('completion').classList.remove('show'); loadQuestion(0); }
+        loadQuestion(0);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundations Quiz - C++ Attendance System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #ff79c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.2rem;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.1), rgba(0, 217, 255, 0.1));
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            color: #50fa7b;
+            font-weight: bold;
+        }
+
+        .score-label {
+            color: #a8b3cf;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 4px solid #ff79c6;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .question-number {
+            color: #ff79c6;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            color: #e6e8f0;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .code-snippet {
+            background: #1e1e1e;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+
+        .option.correct {
+            background: rgba(80, 250, 123, 0.3);
+            border-color: #50fa7b;
+        }
+
+        .option.incorrect {
+            background: rgba(255, 85, 85, 0.3);
+            border-color: #ff5555;
+        }
+
+        .feedback {
+            background: rgba(241, 250, 140, 0.1);
+            border-left: 4px solid #f1fa8c;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-title {
+            color: #f1fa8c;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-text {
+            color: #a8b3cf;
+            line-height: 1.8;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #50fa7b, #00cc66);
+            display: none;
+        }
+
+        .next-btn.show {
+            display: block;
+        }
+
+        .completion-card {
+            background: linear-gradient(135deg, rgba(80, 250, 123, 0.2), rgba(0, 217, 255, 0.2));
+            border: 2px solid #50fa7b;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            display: none;
+        }
+
+        .completion-card.show {
+            display: block;
+        }
+
+        .completion-title {
+            font-size: 2.5rem;
+            color: #50fa7b;
+            margin-bottom: 1rem;
+        }
+
+        .completion-score {
+            font-size: 4rem;
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: #00d9ff;
+            color: #0a0e27;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 217, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🏗️ System Foundations Quiz</h1>
+            <p class="subtitle">Headers, ANSI Codes, Data Structures & Algorithms</p>
+        </div>
+
+        <div class="score-board">
+            <div class="score-number" id="score">0 / 20</div>
+            <div class="score-label">Score</div>
+        </div>
+
+        <div id="quiz-container"></div>
+
+        <div class="completion-card" id="completion">
+            <div class="completion-title">🎉 Quiz Complete!</div>
+            <div class="completion-score" id="final-score"></div>
+            <p style="color: #a8b3cf; font-size: 1.2rem; margin-top: 1rem;">Great job on System Foundations!</p>
+            <button class="submit-btn" onclick="restartQuiz()" style="max-width: 300px; margin: 2rem auto 0;">Restart
+                Quiz</button>
+            <a href="quiz.html" class="nav-button" style="display: inline-block; margin-top: 1rem;">← Back to Quiz
+                Categories</a>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "How many header files are included in the C++ Attendance System?",
+                options: [
+                    "10 headers",
+                    "12 headers",
+                    "14 headers",
+                    "16 headers"
+                ],
+                correct: 2,
+                explanation: "The system includes exactly 14 header files: <algorithm>, <ctime>, <direct.h>, <errno.h>, <fstream>, <iomanip>, <iostream>, <limits>, <map>, <set>, <sstream>, <string>, <sys/stat.h>, <vector>, plus <windows.h> on Windows."
+            },
+            {
+                question: "What is the ANSI escape code for CYAN color?",
+                options: [
+                    "\\033[94m",
+                    "\\033[95m",
+                    "\\033[96m",
+                    "\\033[97m"
+                ],
+                correct: 2,
+                explanation: "CYAN is defined as \"\\033[96m\". The code 96 represents bright cyan in ANSI color codes. Code 94 is blue, 95 is magenta, and 97 is white."
+            },
+            {
+                question: "Why is <windows.h> conditionally included with #ifdef _WIN32?",
+                options: [
+                    "To save compilation time",
+                    "Because Windows APIs (console, file system) are Windows-only",
+                    "To reduce file size",
+                    "For better performance"
+                ],
+                correct: 1,
+                explanation: "<windows.h> contains Windows-specific APIs like SetConsoleOutputCP(), GetStdHandle(), and FindFirstFileA() that don't exist on Linux/Mac. The #ifdef _WIN32 ensures the code compiles on all platforms."
+            },
+            {
+                question: "What does the BOLD ANSI code (\\033[1m) do?",
+                options: [
+                    "Makes text italic",
+                    "Makes text bold/bright",
+                    "Makes text underlined",
+                    "Makes text dimmed"
+                ],
+                correct: 1,
+                explanation: "\\033[1m enables bold/bright text formatting. It increases the intensity of the text. Code \\033[2m is for DIM (dimmed text)."
+            },
+            {
+                question: "Which data structure stores students and why is vector used instead of map?",
+                options: [
+                    "map - for O(1) lookup by ID",
+                    "vector - to preserve roster order (SL 1-45)",
+                    "set - to prevent duplicates",
+                    "list - for fast insertion"
+                ],
+                correct: 1,
+                explanation: "vector<Student> is used to preserve roster order (SL 1-45 sequence). Sequential iteration is common (display all students), and linear search is acceptable for only 45 students. Map would be overkill."
+            },
+            {
+                question: "Which data structure stores courses and why?",
+                options: [
+                    "vector - for sequential access",
+                    "map - for O(log n) lookup by course code",
+                    "set - for sorted storage",
+                    "list - for dynamic sizing"
+                ],
+                correct: 1,
+                explanation: "map<string, Course> provides O(log n) lookup by course code (the key), which is much faster than searching through a vector (O(n)). Courses are frequently accessed by their code (e.g., 'EEE-1121')."
+            },
+            {
+                question: "How many fields does the AttendanceRecord struct have?",
+                options: [
+                    "4 fields",
+                    "5 fields",
+                    "6 fields",
+                    "7 fields"
+                ],
+                correct: 2,
+                explanation: "AttendanceRecord has 6 fields: studentId, courseCode, date, day, timeSlot, and present (bool). Together, these create a composite key: studentId + courseCode + date + timeSlot = unique record."
+            },
+            {
+                question: "What is Zeller's Congruence used for?",
+                options: [
+                    "Calculating attendance percentage",
+                    "Calculating day of the week from a date",
+                    "Calculating period numbers",
+                    "Calculating time differences"
+                ],
+                correct: 1,
+                explanation: "Zeller's Congruence is a mathematical algorithm used to calculate the day of the week for any date. Formula: h = (day + ⌊(13×(month+1))/5⌋ + k + ⌊k/4⌋ + ⌊j/4⌋ - 2×j) mod 7"
+            },
+            {
+                question: "In Zeller's Congruence, why are January and February treated specially?",
+                options: [
+                    "They have fewer days",
+                    "They are treated as months 13 and 14 of the previous year",
+                    "They start the new year",
+                    "They have different leap year rules"
+                ],
+                correct: 1,
+                explanation: "January and February are treated as months 13 and 14 of the previous year because the Gregorian calendar has leap days at the end of February. This makes leap year math easier in Zeller's formula."
+            },
+            {
+                question: "What does cin.ignore(numeric_limits<streamsize>::max(), '\\n') do?",
+                options: [
+                    "Ignores all input",
+                    "Clears input buffer up to and including the newline character",
+                    "Ignores the next character only",
+                    "Resets the input stream"
+                ],
+                correct: 1,
+                explanation: "This clears the input buffer up to and including the newline character. The max() ensures we ignore everything up to '\\n'. This is REQUIRED after cin >> and before getline() because cin >> leaves '\\n' in the buffer."
+            },
+            {
+                question: "Why is cin.ignore() needed between 'cin >> choice' and 'getline(cin, input)'?",
+                options: [
+                    "To improve performance",
+                    "Because cin >> leaves '\\n' in buffer which getline() would immediately consume",
+                    "To validate input",
+                    "It's optional, not required"
+                ],
+                correct: 1,
+                explanation: "cin >> leaves the newline character ('\\n') in the input buffer. Without cin.ignore(), getline() immediately reads that '\\n' and returns an empty string, appearing to skip user input."
+            },
+            {
+                question: "In the date parsing pattern 'ss >> day >> sep1 >> month >> sep2 >> year', what is the purpose of sep1 and sep2?",
+                options: [
+                    "To store the day and month values",
+                    "To capture and validate the '-' separator characters",
+                    "To count the number of separators",
+                    "To format the output"
+                ],
+                correct: 1,
+                explanation: "sep1 and sep2 (char variables) capture the '-' separator characters from DD-MM-YYYY format. After parsing, we validate: if (sep1 != '-' || sep2 != '-') to ensure correct format."
+            },
+            {
+                question: "What is the purpose of the centerAlign(text, width) function?",
+                options: [
+                    "To left-align text",
+                    "To center text within specified width with left and right padding",
+                    "To right-align text",
+                    "To justify text"
+                ],
+                correct: 1,
+                explanation: "centerAlign() adds spaces to the left and right of text to center it within the specified width. For odd padding, left and right pads differ: leftPad = padding/2, rightPad = padding - leftPad."
+            },
+            {
+                question: "In centerAlign('Hello', 15), how many total padding spaces are added?",
+                options: [
+                    "5 spaces",
+                    "8 spaces",
+                    "10 spaces",
+                    "15 spaces"
+                ],
+                correct: 2,
+                explanation: "For 'Hello' (5 chars) in width 15: padding = 15 - 5 = 10 total spaces. leftPad = 10/2 = 5, rightPad = 10 - 5 = 5. Result: '     Hello     ' with 5 spaces on each side."
+            },
+            {
+                question: "Which header provides the transform() function used for uppercase conversion?",
+                options: [
+                    "<string>",
+                    "<algorithm>",
+                    "<iostream>",
+                    "<cctype>"
+                ],
+                correct: 1,
+                explanation: "<algorithm> provides transform(), remove_if(), sort(), and find(). transform() is used with ::toupper to convert user input to uppercase: transform(choice.begin(), choice.end(), choice.begin(), ::toupper);"
+            },
+            {
+                question: "What is the purpose of the RESET ANSI code (\\033[0m)?",
+                options: [
+                    "To clear the screen",
+                    "To reset all formatting (colors, bold, etc.) to default",
+                    "To restart the program",
+                    "To reset input buffer"
+                ],
+                correct: 1,
+                explanation: "\\033[0m resets all text formatting (colors, bold, dim, etc.) back to terminal defaults. It should be used after colored/formatted text to prevent formatting from affecting subsequent output."
+            },
+            {
+                question: "How many Unicode box-drawing characters are used in the system?",
+                options: [
+                    "6 characters (single line)",
+                    "6 characters (double line)",
+                    "12 characters (both single and double lines)",
+                    "4 characters"
+                ],
+                correct: 2,
+                explanation: "The system uses 12 box-drawing characters: 6 double-line (╔═╗║╚╝ for headers) and 6 single-line (┌─┐│└┘ for boxes), totaling 12 Unicode characters."
+            },
+            {
+                question: "What does the 'sl' field in the Student struct represent?",
+                options: [
+                    "Student level",
+                    "Serial number (roster position 1-45)",
+                    "Student length",
+                    "Selection number"
+                ],
+                correct: 1,
+                explanation: "The 'sl' field stores the serial number (1-45), which maintains the roster order for display purposes. It ensures students are always shown in their official class list sequence."
+            },
+            {
+                question: "For the multi-period range input '2-6', which method is used to detect the dash?",
+                options: [
+                    "string::find('-')",
+                    "string::contains('-')",
+                    "string::search('-')",
+                    "string::locate('-')"
+                ],
+                correct: 0,
+                explanation: "string::find('-') is used to detect the dash. It returns the position of '-' if found, or string::npos if not found. Code: size_t dashPos = multiPeriodInput.find('-'); if (dashPos != string::npos) { /* range format */ }"
+            },
+            {
+                question: "What does the printHeader() function's TOTAL_WIDTH constant represent?",
+                options: [
+                    "60 characters",
+                    "70 characters",
+                    "74 characters",
+                    "80 characters"
+                ],
+                correct: 2,
+                explanation: "TOTAL_WIDTH = 74 characters. This fits comfortably in 80-character terminals with margins. The 74-width box with decorative elements creates an aesthetically pleasing terminal UI."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = {};
+
+        function loadQuestion(index) {
+            const q = questions[index];
+            const container = document.getElementById('quiz-container');
+
+            let html = `
+                <div class="question-card">
+                    <div class="question-number">Question ${index + 1} of ${questions.length}</div>
+                    <div class="question-text">${q.question}</div>
+            `;
+
+            if (q.code) {
+                html += `<div class="code-snippet">${q.code}</div>`;
+            }
+
+            html += '<div class="options">';
+            q.options.forEach((option, i) => {
+                html += `
+                    <div class="option" onclick="selectOption(${index}, ${i})" id="option-${index}-${i}">
+                        ${String.fromCharCode(65 + i)}. ${option}
+                    </div>
+                `;
+            });
+            html += '</div>';
+
+            html += `
+                <div class="feedback" id="feedback-${index}">
+                    <div class="feedback-title" id="feedback-title-${index}"></div>
+                    <div class="feedback-text">${q.explanation}</div>
+                </div>
+                <button class="submit-btn" onclick="checkAnswer(${index})" id="submit-${index}">Check Answer</button>
+                <button class="submit-btn next-btn" onclick="nextQuestion()" id="next-${index}">Next Question →</button>
+            </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (answered[questionIndex] !== undefined) return;
+
+            for (let i = 0; i < questions[questionIndex].options.length; i++) {
+                document.getElementById(`option-${questionIndex}-${i}`).classList.remove('selected');
+            }
+
+            document.getElementById(`option-${questionIndex}-${optionIndex}`).classList.add('selected');
+            answered[questionIndex] = optionIndex;
+        }
+
+        function checkAnswer(questionIndex) {
+            const userAnswer = answered[questionIndex];
+            if (userAnswer === undefined) {
+                alert('Please select an answer first!');
+                return;
+            }
+
+            const correctAnswer = questions[questionIndex].correct;
+            const isCorrect = userAnswer === correctAnswer;
+
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            const feedbackTitle = document.getElementById(`feedback-title-${questionIndex}`);
+
+            if (isCorrect) {
+                feedbackTitle.textContent = '✅ Correct!';
+                feedbackTitle.style.color = '#50fa7b';
+                score++;
+                document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('correct');
+            } else {
+                feedbackTitle.textContent = '❌ Incorrect';
+                feedbackTitle.style.color = '#ff5555';
+                document.getElementById(`option-${questionIndex}-${userAnswer}`).classList.add('incorrect');
+                document.getElementById(`option-${questionIndex}-${correctAnswer}`).classList.add('correct');
+            }
+
+            feedback.classList.add('show');
+            document.getElementById('score').textContent = `${score} / ${questions.length}`;
+            document.getElementById(`submit-${questionIndex}`).style.display = 'none';
+
+            if (questionIndex < questions.length - 1) {
+                document.getElementById(`next-${questionIndex}`).classList.add('show');
+            } else {
+                showCompletion();
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            loadQuestion(currentQuestion);
+        }
+
+        function showCompletion() {
+            document.getElementById('quiz-container').style.display = 'none';
+            const completion = document.getElementById('completion');
+            const finalScore = document.getElementById('final-score');
+
+            const percentage = (score / questions.length * 100).toFixed(0);
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+
+            completion.classList.add('show');
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answered = {};
+            document.getElementById('score').textContent = `0 / ${questions.length}`;
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('completion').classList.remove('show');
+            loadQuestion(0);
+        }
+
+        loadQuestion(0);
+    </script>
+</body>
+
+</html>

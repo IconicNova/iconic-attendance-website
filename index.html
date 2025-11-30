@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Attendance System - Documentation Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #e6e8f0;
+            line-height: 1.6;
+            padding: 3rem 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .title {
+            font-size: 3rem;
+            color: #00d9ff;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #8be9fd;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .guide-card {
+            background: #1a1f3a;
+            border-radius: 12px;
+            padding: 2rem;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 217, 255, 0.1);
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
+            border-color: rgba(0, 217, 255, 0.3);
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .guide-title {
+            font-size: 1.5rem;
+            color: #00d9ff;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .guide-desc {
+            color: #b8c1d9;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(80, 250, 123, 0.15);
+            color: #50fa7b;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(80, 250, 123, 0.3);
+        }
+
+        .key-topics {
+            background: rgba(255, 85, 85, 0.05);
+            border-left: 3px solid #ff5555;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .key-topics-title {
+            color: #ff5555;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .key-topics-title::before {
+            content: '🔥';
+        }
+
+        .key-topics-text {
+            color: #a8b3cf;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .section-divider {
+            text-align: center;
+            margin: 4rem 0 3rem 0;
+            color: #00d9ff;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">📚 C++ Attendance System</h1>
+            <h1 class="title">By IconicNova</h1>
+        </div>
+
+        <div class="guides-grid">
+            <!-- Build From Scratch -->
+            <a href="build-from-scratch-roadmap.html" target="_blank" class="guide-card">
+                <span class="icon">🛠️</span>
+                <h2 class="guide-title">Build From Scratch Roadmap</h2>
+                <p class="guide-desc">Progressive 20-step roadmap to recreate the entire attendance system. Each step
+                    includes time estimates, test strategies, common pitfalls, and complete code snippets.</p>
+                <div class="tags">
+                    <span class="tag">20 Steps</span>
+                    <span class="tag">~6 Hours</span>
+                    <span class="tag">Test Strategies</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">Empty shell → ANSI codes → Data structs → Helper functions → File I/O →
+                        Attendance logic • Progressive difficulty • Common pitfalls</div>
+                </div>
+            </a>
+
+            <!-- System Foundations -->
+            <a href="guide-foundations.html" target="_blank" class="guide-card">
+                <span class="icon">🏗️</span>
+                <h2 class="guide-title">System Foundations</h2>
+                <p class="guide-desc">Master the foundational building blocks: headers, ANSI codes, data structures,
+                    buffer management, string parsing patterns, and the complete Zeller's algorithm for date
+                    calculations.</p>
+                <div class="tags">
+                    <span class="tag">14 Headers</span>
+                    <span class="tag">10 ANSI Codes</span>
+                    <span class="tag">4 Structs</span>
+                    <span class="tag">Buffer Mgmt</span>
+                    <span class="tag">Zeller's Algorithm</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">cin.ignore() deep dive • String parsing patterns • Box-drawing
+                        characters • UI formatting internals • Date/time parsing • Whitespace trimming</div>
+                </div>
+            </a>
+
+            <!-- System Reference -->
+            <a href="COMPLETE-GUIDE-FINAL.html" target="_blank" class="guide-card">
+                <span class="icon">📊</span>
+                <h2 class="guide-title">Complete System Reference</h2>
+                <p class="guide-desc">Your go-to reference for data structures, design decisions, constants, navigation
+                    patterns, status systems, and complete message catalogs with lambda functions and STL algorithms.
+                </p>
+                <div class="tags">
+                    <span class="tag">Data Structures</span>
+                    <span class="tag">Map vs Vector</span>
+                    <span class="tag">9 Constants</span>
+                    <span class="tag">23 Messages</span>
+                    <span class="tag">Lambdas</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">Memory estimates • Design rationale (O(log n) vs O(n)) • Navigation
+                        patterns • Status icon system (🌟✅⚠️❌) • Complete error/success catalogs • Advanced C++ features
+                    </div>
+                </div>
+            </a>
+
+            <!-- Helper Functions -->
+            <a href="complete-guide-FULL.html" target="_blank" class="guide-card">
+                <span class="icon">⚙️</span>
+                <h2 class="guide-title">Helper Functions</h2>
+                <p class="guide-desc">Explore all 24 helper functions with complete implementations, step-by-step
+                    algorithms, and detailed explanations of file operations, string processing, and data queries.</p>
+                <div class="tags">
+                    <span class="tag">24 Functions</span>
+                    <span class="tag">File Operations</span>
+                    <span class="tag">String Processing</span>
+                    <span class="tag">Data Queries</span>
+                    <span class="tag">Date & Time</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">getPeriodNumber() with set logic • formatTimeWithZeroPadding() parsing
+                        • centerAlign() padding algorithm • All correct function signatures</div>
+                </div>
+            </a>
+
+            <!-- Major Features -->
+            <a href="guide-major-features.html" target="_blank" class="guide-card">
+                <span class="icon">🎯</span>
+                <h2 class="guide-title">Major Features</h2>
+                <p class="guide-desc">Comprehensive breakdown of all 6 major feature functions including the complex
+                    320-line selectPeriodAndMark() with multi-period parsing, three marking modes, and validation.</p>
+                <div class="tags">
+                    <span class="tag">6 Core Functions</span>
+                    <span class="tag">~900 Lines</span>
+                    <span class="tag">Multi-Period</span>
+                    <span class="tag">3 Marking Modes</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">selectPeriodAndMark() complete • Multi-period parsing (2-6, 2 3 4) •
+                        Date validation (future check, day mismatch) • Individual marking with uppercase</div>
+                </div>
+            </a>
+
+            <!-- File I/O -->
+            <a href="guide-file-io.html" target="_blank" class="guide-card">
+                <span class="icon">💾</span>
+                <h2 class="guide-title">File I/O & Windows APIs</h2>
+                <p class="guide-desc">Master data persistence with Windows File System APIs including FindFirstFileA,
+                    FindNextFile, nested directory traversal, and complete 12-column CSV operations.</p>
+                <div class="tags">
+                    <span class="tag">Windows APIs</span>
+                    <span class="tag">CSV Operations</span>
+                    <span class="tag">~230 Lines</span>
+                    <span class="tag">12 Columns</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">FindFirstFileA/FindNextFile • strcmp() directory filtering • Filename
+                        parsing • Nested map grouping • CSV structure • Folder checks</div>
+                </div>
+            </a>
+
+            <!-- Constructor & main -->
+            <a href="guide-constructor-main.html" target="_blank" class="guide-card">
+                <span class="icon">🎬</span>
+                <h2 class="guide-title">Constructor & main()</h2>
+                <p class="guide-desc">Program startup sequence with Windows console setup for UTF-8 encoding
+                    (input/output), ANSI escape code enablement, initialization order dependencies, and memory layout.
+                </p>
+                <div class="tags">
+                    <span class="tag">Constructor Logic</span>
+                    <span class="tag">main() Function</span>
+                    <span class="tag">Console Setup</span>
+                    <span class="tag">Init Order</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">SetConsoleCP() for INPUT • SetConsoleOutputCP() for OUTPUT • Bitwise OR
+                        (dwMode |= flag) • ANSI table • Memory layout (stack vs heap)</div>
+                </div>
+            </a>
+
+            <!-- Error & Validation -->
+            <a href="error-validation-reference.html" target="_blank" class="guide-card">
+                <span class="icon">📋</span>
+                <h2 class="guide-title">Error & Validation Reference</h2>
+                <p class="guide-desc">Complete reference tables documenting all 23 error messages with triggers, 8
+                    validation checks, navigation matrix for [0]/[9]/[R], buffer scenarios, and isMultiPeriodMode flag.
+                </p>
+                <div class="tags">
+                    <span class="tag">23 Messages</span>
+                    <span class="tag">8 Validations</span>
+                    <span class="tag">Navigation Matrix</span>
+                    <span class="tag">Buffer Scenarios</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">Complete error catalog • Validation logic matrix • [0]/[9]/[R] behavior
+                        • 4 buffer scenarios • Multi-period parsing algorithm</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="section-divider">🎮 Interactive Learning Tools</div>
+
+        <div class="guides-grid">
+            <!-- Interactive Flowcharts -->
+            <a href="interactive-flowcharts.html" target="_blank" class="guide-card">
+                <span class="icon">📊</span>
+                <h2 class="guide-title">Interactive Flowcharts</h2>
+                <p class="guide-desc">Visual flowchart diagrams showing system workflows, algorithms, and decision
+                    trees. Visualize the complete flow of major functions with color-coded Mermaid diagrams.</p>
+                <div class="tags">
+                    <span class="tag">6 Flowcharts</span>
+                    <span class="tag">Interactive</span>
+                    <span class="tag">Color Coded</span>
+                    <span class="tag">Mermaid.js</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">Main system flow • Take attendance workflow • Multi-period parsing •
+                        Date validation • Buffer management decision tree • File I/O process</div>
+                </div>
+            </a>
+
+            <!-- Code Playground -->
+            <a href="code-playground.html" target="_blank" class="guide-card">
+                <span class="icon">💻</span>
+                <h2 class="guide-title">Code Playground</h2>
+                <p class="guide-desc">Interactive code examples with syntax highlighting and runnable demonstrations.
+                    Experiment with key algorithms like Zeller's, multi-period parsing, and see instant output results.
+                </p>
+                <div class="tags">
+                    <span class="tag">8 Examples</span>
+                    <span class="tag">Runnable</span>
+                    <span class="tag">Syntax Highlighting</span>
+                    <span class="tag">Instant Output</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">Zeller's algorithm demo • Multi-period parsing • centerAlign •
+                        getPeriodNumber • Buffer management patterns • Date validation tests</div>
+                </div>
+            </a>
+
+            <!-- Knowledge Quiz -->
+            <a href="quiz.html" target="_blank" class="guide-card">
+                <span class="icon">🎯</span>
+                <h2 class="guide-title">Knowledge Quiz</h2>
+                <p class="guide-desc">Test your understanding with 10 interactive quiz questions covering all major
+                    concepts. Get instant feedback with detailed explanations for each answer and track your score.</p>
+                <div class="tags">
+                    <span class="tag">10 Questions</span>
+                    <span class="tag">Instant Feedback</span>
+                    <span class="tag">Score Tracking</span>
+                    <span class="tag">Explanations</span>
+                </div>
+                <div class="key-topics">
+                    <div class="key-topics-title">Key Topics:</div>
+                    <div class="key-topics-text">Algorithms quiz • Data structures • Buffer management • Windows APIs •
+                        Validation logic • CSV format • Set usage • Thresholds</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
